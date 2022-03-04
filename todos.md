@@ -1,5 +1,7 @@
 # todos
 
+Идеи можно брать [Здесь](https://yandexmusic.userecho.com)
+
 ## Плеер
 1) Вывод знака [E] в плеере iOS
 2) Добавить режим караоке (прокрутка текста песни) [Обсуждение](https://yandexmusic.userecho.com/ru/communities/45/topics/427-rezhim-karaoke-prokrutka-teksta-pesni)
@@ -8,7 +10,7 @@
 4) Сохранять позицию последнего воспроизведённого трека
 5) Добавить в настройки пункт сохранения позиции последнего воспроизведённого трека
 6) Добавить таймер сна
-7) Добавить свайпы (свайп вправо - следующий трек, влево - предыдущий, свайп вниз - сворачивание плеера, свайп вверх со строки воспроизведения - открытие плеера)
+7) Добавить свайпы (свайп вправо - следующий трек, влево - предыдущий, свайп вниз - сворачивание плеера, свайп вверх со строки воспроизведения - открытие плеера, свайп для удаления трека)
 8) Добавить кнопку лайка в строку воспроизведения
 9) Плавный переход между треками (кроссфейд) [Обсуждение #1](https://yandexmusic.userecho.com/ru/communities/45/topics/212-plavnyij-perehod-mezhdu-trekami-krossfejd) [Обсуждение #2](https://yandexmusic.userecho.com/ru/communities/45/topics/273-besshovnyij-perehod-mezhdu-pesnyami-gapless)
 10) Добавить информацию, что трек - HQ (320 кб/сек) [Обсуждение](https://yandexmusic.userecho.com/ru/communities/45/topics/6878-otobrazhat-tehnicheskuyu-informatsiyu-o-treke)
@@ -53,6 +55,7 @@
 4) Добавить разделение на диски в альбоме
 5) Уведомление, что трек добавлен в плейлист [Обсуждение](https://yandexmusic.userecho.com/ru/communities/45/topics/6719-uvedomlenie-chto-trek-dobavlen-v-plejlist)
 6) Добавить итоги года [Обсуждение](https://yandexmusic.userecho.com/ru/communities/45/topics/6761-itogi-za-god-proslushivaniya-kak-v-spotify-wrapped-stories)
+7) Добавить анимированные обложки
 
 ## Поток
 1) Воспроизведение сначала песни, поток которого мы выбрали, а затем похожие
@@ -70,6 +73,7 @@
 ## Способы поделиться треком
 1) Отправлять песню в формате MP3/M4A
 2) Отправлять песню ссылкой на сторонний музыкальный сервис
+3) Возможность создать историю со строчками текста (Apple Music) [Обсуждение](https://yandexmusic.userecho.com/ru/communities/4/topics/6490-vozmozhnost-delitsya-v-instagram-strochkami-iz-trekov)
 
 ## Аналог Shazam
 1) Добавить аналог Shazam
@@ -83,4 +87,8 @@
 ## Кэширование
 1) Реализовать временную загрузку 5-10 треков
 
-## Страницы с исполнителями и 
+## Виджеты
+Реализовать различные виджеты
+
+## Apple Watch
+Добавить приложение для Apple Watch [Обсуждение](https://yandexmusic.userecho.com/ru/communities/4/topics/4714-otdelnoe-prilozhenie-dlya-apple-watch)
