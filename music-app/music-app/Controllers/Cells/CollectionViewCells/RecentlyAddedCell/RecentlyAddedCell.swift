@@ -18,10 +18,16 @@ class RecentlyAddedCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
     }
+    
+    func set(_ item: DeezerAlbum) {
+        self.titleLabel.text = item.title
+        self.coverView.sd_setImage(with: URL(string: item.coverBig))
+        self.creatorLabel.text = item.artist?.name
+    }
 
     func set(_ item: LibraryTrack) {
         DeezerProvider().getAlbum(item.albumID) { album in
-            self.titleLabel.text = album.title
+            self.titleLabel.text = item.title
             self.coverView.sd_setImage(with: URL(string: album.coverBig))
         } failure: { error in
             print(error)

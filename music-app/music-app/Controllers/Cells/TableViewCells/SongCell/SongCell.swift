@@ -94,7 +94,8 @@ class SongCell: UITableViewCell {
             else { return }
             
             let tempDirectoryURL = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)[0]
-            let trackDirectoryURL = tempDirectoryURL.appendingPathComponent("\(artist) - \(track.title) - \(album).mp3")
+            let trackName = "\(artist) - \(track.title) - \(album).mp3"
+            let trackDirectoryURL = tempDirectoryURL.appendingPathComponent(trackName.toUnixFilename)
             if let trackURL = URL(string: track.downloadLink) {
                 URLSession.shared.downloadTask(with: trackURL) { (tempFileUrl, response, error) in
                     if let trackTempFileUrl = tempFileUrl {

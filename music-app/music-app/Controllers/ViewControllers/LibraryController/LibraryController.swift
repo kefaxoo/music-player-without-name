@@ -22,13 +22,13 @@ class LibraryController: UIViewController {
         navigationTableView.delegate = self
         recentlyAddedCollectionView.dataSource = self
         registerCells()
-        tracks = RealmManager<LibraryTrack>().read().reversed().suffix(10)
+        tracks = RealmManager<LibraryTrack>().read().reversed().suffix(5)
         print(tracks.count)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        tracks = RealmManager<LibraryTrack>().read().reversed().suffix(10)
+        tracks = RealmManager<LibraryTrack>().read().reversed().suffix(5)
         print(tracks.count)
         recentlyAddedCollectionView.reloadData()
     }
