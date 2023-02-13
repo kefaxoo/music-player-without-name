@@ -72,7 +72,8 @@ class LibraryTrackCell: UITableViewCell {
             guard let track = self.track else { return }
             
             let tempDirectoryURL = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)[0]
-            let trackDirectoryURL = tempDirectoryURL.appendingPathComponent("\(self.artist) - \(track.title) - \(self.album).mp3")
+            let trackName = "\(self.artist) - \(track.title) - \(self.album).mp3"
+            let trackDirectoryURL = tempDirectoryURL.appendingPathComponent(trackName.toUnixFilename)
             let downloadLink = "https://dz.loaderapp.info/deezer/128/https://deezer.com/track/\(track.id)"
             if let trackURL = URL(string: downloadLink) {
                 URLSession.shared.downloadTask(with: trackURL) { (tempFileUrl, response, error) in

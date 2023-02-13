@@ -11,3 +11,9 @@ protocol MenuActionsDelegate: AnyObject {
     func reloadData()
     func presentActivityController(_ vc: UIActivityViewController)
 }
+
+extension MenuActionsDelegate {
+    func reloadData() {
+        
+    }
+}

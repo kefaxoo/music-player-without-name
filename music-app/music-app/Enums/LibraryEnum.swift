@@ -49,9 +49,9 @@ enum LibraryEnum: CaseIterable {
             case .playlists:
                 return LibrarySongsController()
             case .artists:
-                return LibrarySongsController()
+                return LibraryArtistsController()
             case .albums:
-                return LibrarySongsController()
+                return LibraryAlbumsController()
             case .songs:
                 return LibrarySongsController()
             case .downloaded:
