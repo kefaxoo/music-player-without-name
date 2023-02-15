@@ -33,6 +33,9 @@
                                 <segment title="Artists"/>
                                 <segment title="Albums"/>
                             </segments>
+                            <connections>
+                                <action selector="typeDidChange:" destination="-1" eventType="valueChanged" id="7Sd-MA-H8v"/>
+                            </connections>
                         </segmentedControl>
                         <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="NZP-rr-bPq">
                             <rect key="frame" x="0.0" y="0.0" width="361" height="759"/>

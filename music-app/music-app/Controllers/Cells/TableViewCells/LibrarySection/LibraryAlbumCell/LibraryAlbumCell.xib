@@ -101,6 +101,7 @@
                 <outlet property="artistLabel" destination="fc5-rS-sxf" id="Tvm-oZ-9yd"/>
                 <outlet property="coverView" destination="rPa-De-DFh" id="CGu-BA-tV6"/>
                 <outlet property="explicitView" destination="odG-az-8T7" id="pac-w9-Fe6"/>
+                <outlet property="lowerStackView" destination="ibx-JA-Rk1" id="l5v-LM-NDm"/>
                 <outlet property="menuButton" destination="2cX-7b-Z20" id="ct2-X1-i2D"/>
                 <outlet property="releaseYearLabel" destination="HmD-4u-LLK" id="s9N-Vs-yxK"/>
                 <outlet property="titleLabel" destination="cbJ-gH-OUZ" id="HjF-Aj-IpO"/>

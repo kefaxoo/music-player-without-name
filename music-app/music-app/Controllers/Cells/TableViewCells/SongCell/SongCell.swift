@@ -64,7 +64,7 @@ class SongCell: UITableViewCell {
                 alertView.dismissByTap = false
                 alertView.present()
                 DeezerProvider().getTrack(track.id, success: { track in
-                    let newTrack = LibraryTrack(id: track.id, title: track.title, duration: track.duration, trackPosition: track.trackPosition!, diskNumber: track.diskNumber!, isExplicit: track.isExplicit, artistID: track.artist!.id, albumID: track.album!.id)
+                    let newTrack = LibraryTrack(id: track.id, title: track.title, duration: track.duration, trackPosition: track.trackPosition!, diskNumber: track.diskNumber!, isExplicit: track.isExplicit, artistID: track.artist!.id, albumID: track.album!.id, pathLink: "")
                     
                     RealmManager<LibraryTrack>().write(object: newTrack)
                     alertView.dismiss()

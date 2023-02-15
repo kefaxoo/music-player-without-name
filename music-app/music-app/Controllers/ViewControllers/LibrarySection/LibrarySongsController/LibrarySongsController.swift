@@ -10,6 +10,8 @@ import UIKit
 class LibrarySongsController: UIViewController {
 
     @IBOutlet weak var tracksTableView: UITableView!
+    
+    private let searchController = UISearchController()
     private var tracks = [LibraryTrack]()
     
     override func viewDidLoad() {
@@ -18,12 +20,20 @@ class LibrarySongsController: UIViewController {
         registerCell()
         tracks = RealmManager<LibraryTrack>().read().reversed()
         tracksTableView.reloadData()
+        setupNavBar()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        navigationController?.navigationBar.tintColor = .purple
         tracks = RealmManager<LibraryTrack>().read().reversed()
         tracksTableView.reloadData()
+    }
+    
+    private func setupNavBar() {
+        searchController.searchBar.placeholder = "Type track name..."
+        navigationItem.searchController = searchController
+        searchController.searchBar.delegate = self
     }
     
     private func registerCell() {
@@ -56,5 +66,16 @@ extension LibrarySongsController: MenuActionsDelegate {
     
     func presentActivityController(_ vc: UIActivityViewController) {
         present(vc, animated: true)
+    }
+}
+
+extension LibrarySongsController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        tracks = RealmManager<LibraryTrack>().read()
+        if !searchText.isEmpty {
+            tracks = tracks.filter({ $0.title.lowercased().contains(searchText.lowercased()) })
+        }
+        
+        tracksTableView.reloadData()
     }
 }

@@ -19,10 +19,11 @@ class SearchController: UIViewController {
     
     private var result = [Any]()
     
+    private var query = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setSearchController()
-        searchController.searchBar.delegate = self
         resultTableView.dataSource = self
         registerCell()
     }
@@ -33,16 +34,33 @@ class SearchController: UIViewController {
     }
     
     private func registerCell() {
-        let nib = UINib(nibName: SongCell.id, bundle: nil)
+        var nib = UINib(nibName: SongCell.id, bundle: nil)
         resultTableView.register(nib, forCellReuseIdentifier: SongCell.id)
+        nib = UINib(nibName: LibraryArtistCell.id, bundle: nil)
+        resultTableView.register(nib, forCellReuseIdentifier: LibraryArtistCell.id)
+        nib = UINib(nibName: LibraryAlbumCell.id, bundle: nil)
+        resultTableView.register(nib, forCellReuseIdentifier: LibraryAlbumCell.id)
     }
     
     private func setSearchController() {
         searchController.searchBar.placeholder = "Type songs, artists, albums..."
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
+        searchController.searchBar.delegate = self
     }
-
+    
+    @IBAction func typeDidChange(_ sender: Any) {
+        switch typeSegmentedControl.selectedSegmentIndex {
+            case 0:
+                showTracks(query)
+            case 1:
+                showArtists(query)
+            case 2:
+                showAlbums(query)
+            default:
+                return
+        }
+    }
 }
 
 extension SearchController: UITableViewDataSource {
@@ -51,22 +69,54 @@ extension SearchController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = resultTableView.dequeueReusableCell(withIdentifier: SongCell.id, for: indexPath)
+        let id: String = {
+            switch typeSegmentedControl.selectedSegmentIndex {
+                case 0:
+                    return SongCell.id
+                case 1:
+                    return LibraryArtistCell.id
+                case 2:
+                    return LibraryAlbumCell.id
+                default:
+                    return ""
+            }
+        }()
         
-        guard let resultCell = cell as? SongCell,
-              let result = result[indexPath.row] as? DeezerTrack
-        else { return cell }
+        let cell = resultTableView.dequeueReusableCell(withIdentifier: id, for: indexPath)
         
-        resultCell.set(result)
-        resultCell.delegate = self
-        return resultCell
+        switch typeSegmentedControl.selectedSegmentIndex {
+            case 0:
+                guard let trackCell = cell as? SongCell,
+                      let result = result[indexPath.row] as? DeezerTrack else { return cell }
+                
+                trackCell.set(result)
+                trackCell.delegate = self
+                return trackCell
+            case 1:
+                guard let artistCell = cell as? LibraryArtistCell,
+                      let result = result[indexPath.row] as? DeezerArtist else { return cell }
+                
+                artistCell.set(result)
+                return artistCell
+            case 2:
+                guard let albumCell = cell as? LibraryAlbumCell,
+                      let result = result[indexPath.row] as? DeezerAlbum else { return cell }
+                
+                albumCell.set(result)
+                albumCell.delegate = self
+                return albumCell
+            default:
+                return cell
+        }
     }
 }
 
-extension SearchController: UISearchBarDelegate {
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        typeSegmentedControl.isHidden = searchText.isEmpty
-        DeezerProvider().findTracks(queryParameter: searchText) { tracks in
+// MARK: -
+// MARK: Requests extension
+
+extension SearchController {
+    private func showTop() {
+        DeezerProvider().getTopTracks { tracks in
             self.result = tracks
             self.resultTableView.reloadData()
         } failure: { error in
@@ -75,7 +125,70 @@ extension SearchController: UISearchBarDelegate {
                 self.searchController.searchBar.text = ""
             }
         }
+    }
+    
+    private func showTracks(_ query: String) {
+        DeezerProvider().findTracks(queryParameter: query) { tracks in
+            self.result = tracks
+            self.resultTableView.reloadData()
+        } failure: { error in
+            let alertView = SPAlertView(title: "Error", message: error, preset: .error)
+            alertView.present(haptic: .error) {
+                self.searchController.searchBar.text = ""
+            }
+        }
+    }
+    
+    private func showArtists(_ query: String) {
+        DeezerProvider().findArtists(queryParameter: query) { artists in
+            self.result = artists
+            self.resultTableView.reloadData()
+        } failure: { error in
+            let alertView = SPAlertView(title: "Error", message: error, preset: .error)
+            alertView.present(haptic: .error) {
+                self.searchController.searchBar.text = ""
+            }
+        }
+    }
+    
+    private func showAlbums(_ query: String) {
+        DeezerProvider().findAlbums(queryParameter: query) { albums in
+            self.result = albums
+            self.resultTableView.reloadData()
+        } failure: { error in
+            let alertView = SPAlertView(title: "Error", message: error, preset: .error)
+            alertView.present(haptic: .error) {
+                self.searchController.searchBar.text = ""
+            }
+        }
+    }
+}
 
+extension SearchController: UISearchBarDelegate {
+    
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        typeSegmentedControl.isHidden = searchText.isEmpty
+        query = searchText
+        if searchText.isEmpty {
+            showTop()
+        } else {
+            switch typeSegmentedControl.selectedSegmentIndex {
+                case 0:
+                    showTracks(searchText)
+                case 1:
+                    showArtists(searchText)
+                case 2:
+                    showAlbums(searchText)
+                default:
+                    return
+            }
+        }
+    }
+    
+    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+        showTop()
+        return true
     }
 }
 

@@ -47,7 +47,7 @@ enum LibraryEnum: CaseIterable {
     var vc: UIViewController {
         switch self {
             case .playlists:
-                return LibrarySongsController()
+                return LibraryPlaylistsController()
             case .artists:
                 return LibraryArtistsController()
             case .albums:

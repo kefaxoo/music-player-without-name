@@ -12,6 +12,7 @@ enum MenuActionsEnum: String {
     case removeFromLibrary = "Remove from library"
     case shareSong = "Share song"
     case shareLink = "Share link"
+    case removePlaylistFromLibrary = "Remove playlist from library"
     
     var image: UIImage? {
         switch self {
@@ -23,6 +24,8 @@ enum MenuActionsEnum: String {
                 return UIImage(systemName: "music.note")
             case .shareLink:
                 return UIImage(systemName: "square.and.arrow.up")
+            case .removePlaylistFromLibrary:
+                return UIImage(systemName: "trash.fill")
         }
     }
 }

@@ -17,6 +17,7 @@ class LibraryAlbumCell: UITableViewCell {
     @IBOutlet weak var releaseYearLabel: UILabel!
     @IBOutlet weak var explicitView: UIImageView!
     @IBOutlet weak var menuButton: UIButton!
+    @IBOutlet weak var lowerStackView: UIStackView!
     
     static let id = String(describing: LibraryAlbumCell.self)
     
@@ -30,15 +31,23 @@ class LibraryAlbumCell: UITableViewCell {
 
     func set(_ album: DeezerAlbum) {
         guard let url = URL(string: album.coverBig),
-              let artist = album.artist?.name,
-              let year = album.releaseDate?.year
+              let artist = album.artist?.name
         else { return }
         
         self.album = album
         coverView.sd_setImage(with: url)
         titleLabel.text = album.title
         artistLabel.text = artist
-        releaseYearLabel.text = "\(year)"
+        if let year = album.releaseDate?.year {
+            releaseYearLabel.text = "\(year)"
+        } else {
+            if !album.isExplicit {
+                lowerStackView.isHidden = true
+            } else {
+                releaseYearLabel.isHidden = true
+            }
+        }
+        
         explicitView.isHidden = !album.isExplicit
     }
     

@@ -13,7 +13,7 @@ protocol MenuActionsDelegate: AnyObject {
 }
 
 extension MenuActionsDelegate {
-    func reloadData() {
-        
-    }
+    func reloadData() {}
+    
+    func presentActivityController(_ vc: UIActivityViewController) {}
 }

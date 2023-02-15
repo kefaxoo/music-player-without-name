@@ -12,13 +12,27 @@ class LibraryAlbumsController: UIViewController {
     
     @IBOutlet weak var albumsTableView: UITableView!
     
+    private let searchController = UISearchController()
     private var albums = [DeezerAlbum]()
+    private var showedAlbums = [DeezerAlbum]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         albumsTableView.dataSource = self
         registerCell()
         getAlbums()
+        setupNavBar()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.tintColor = .purple
+    }
+    
+    private func setupNavBar() {
+        searchController.searchBar.placeholder = "Type album name..."
+        navigationItem.searchController = searchController
+        searchController.searchBar.delegate = self
     }
     
     private func getAlbums() {
@@ -39,6 +53,7 @@ class LibraryAlbumsController: UIViewController {
                     return albumI.title < albumJ.title
                 }
                 
+                self.showedAlbums = self.albums
                 self.albumsTableView.reloadData()
             } failure: { error in
                 print(error)
@@ -57,14 +72,14 @@ class LibraryAlbumsController: UIViewController {
 
 extension LibraryAlbumsController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return albums.count
+        return showedAlbums.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = albumsTableView.dequeueReusableCell(withIdentifier: LibraryAlbumCell.id, for: indexPath)
         guard let albumCell = cell as? LibraryAlbumCell else { return cell }
         
-        albumCell.set(albums[indexPath.row])
+        albumCell.set(showedAlbums[indexPath.row])
         albumCell.delegate = self
         return albumCell
     }
@@ -76,4 +91,14 @@ extension LibraryAlbumsController: MenuActionsDelegate {
     }
 }
 
-
+extension LibraryAlbumsController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if !searchText.isEmpty {
+            showedAlbums = albums.filter({ $0.title.lowercased().contains(searchText.lowercased()) })
+        } else {
+            showedAlbums = albums
+        }
+        
+        albumsTableView.reloadData()
+    }
+}
