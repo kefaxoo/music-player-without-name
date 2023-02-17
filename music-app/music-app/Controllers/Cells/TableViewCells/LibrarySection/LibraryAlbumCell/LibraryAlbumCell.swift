@@ -56,17 +56,17 @@ class LibraryAlbumCell: UITableViewCell {
               let delegate
         else { return }
         
-        let shareAction = UIAction(title: MenuActionsEnum.shareLink.rawValue, image: MenuActionsEnum.shareLink.image) {  _ in
+        let shareAction = UIAction(title: MenuActionsEnum.shareLink.title, image: MenuActionsEnum.shareLink.image) {  _ in
             guard let artist = album.artist?.name else { return }
             
             let shareLink = "https://deezer.com/album/\(album.id)"
             SongLinkProvider().getShareLink(shareLink) { link in
-                let text = "Listen \(album.title) by \(artist)\n\(link)"
+                let text = Localization.MenuActions.ShareLink.shareMessage.rawValue.localizedWithParameters(title: album.title, artist: artist, link: link)
                 let activityViewController = UIActivityViewController(activityItems: [text], applicationActivities: nil)
                 activityViewController.excludedActivityTypes = [.airDrop, .mail, .message]
                 delegate.presentActivityController(activityViewController)
             } failure: { error in
-                let alertView = SPAlertView(title: "Error", preset: .error)
+                let alertView = SPAlertView(title: Localization.Alert.Title.error.rawValue.localized, preset: .error)
                 alertView.duration = 5
                 alertView.present(haptic: .error)
             }

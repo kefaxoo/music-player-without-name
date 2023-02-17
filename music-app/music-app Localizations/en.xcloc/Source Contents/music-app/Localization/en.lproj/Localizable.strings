@@ -1,0 +1,77 @@
+/*
+  Localizable.strings
+  music-app
+
+  Created by Bahdan Piatrouski on 17.02.23.
+  
+ */
+
+// Library Section
+"library.playlists" = "Playlists";
+"library.artists" = "Artists";
+"library.albums" = "Albums";
+"library.songs" = "Songs";
+"library.downloaded" = "Downloaded";
+
+// Menu Actions Section
+"menuActions.addToLibrary" = "Add to library";
+"menuActions.removeFromLibrary" = "Remove from library";
+"menuActions.shareSong" = "Share song";
+"menuActions.shareLink" = "Share link";
+"menuActions.removePlaylistFromLibrary" = "Remove playlist from library";
+
+// Menu Actions Share Link Section
+"menuActions.shareLink.shareSong" = "Listen %@ by %@\n%@";
+
+// TabBar Section
+"tabBar.search" = "Search";
+"tabBar.library" = "Library";
+
+// Alert Section
+// Alert Title Section
+"alert.title.error" = "Error";
+"alert.title.success" = "Success";
+"alert.title.loadingArtists" = "Loading artists";
+"alert.title.loadingAlbums" = "Loading albums";
+
+// Alert Message Section
+"alert.message.errorPlaylist" = "Unavailable to create playlist";
+
+// Controller Section
+// Controller Add Playlist Section
+"controller.addPlaylist.cancel" = "Cancel";
+"controller.addPlaylist.done" = "Done";
+"controller.addPlaylist.textFieldPlaceholder" = "Enter playlist name";
+"controller.addPlaylist.addTracks" = "Add tracks";
+"controller.addPlaylist.title" = "New playlist";
+
+// Controller Search Section
+"controller.search.searchBarPlaceholder" = "Type song, artist, album...";
+
+// Controller Search SegmentedControl Section
+"controller.search.segmentedControl.tracks" = "Tracks";
+"controller.search.segmentedControl.artists" = "Artists";
+"controller.search.segmentedControl.albums" = "Albums";
+
+// Controller Library Section
+"controller.library.recentlyAddedLabel" = "Recently added";
+
+// Controller Library Playlists Section
+"controller.library.playlists.addPlaylist" = "Add playlist";
+"controller.library.playlists.searchBarPlaceholder" = "Type playlist name...";
+
+// Controller Library Artists Section
+"controller.library.artists.searchBarPlaceholder" = "Type artist name...";
+
+// Controller Library Albums Section
+"controller.library.albums.searchBarPlaceholder" = "Type album name...";
+
+// Controller Library Songs Section
+"controller.library.songs.searchBarPlaceholder" = "Type song name...";
+
+// SearchBarPlaceholder Section
+"searchBarPlaceholder.tracks" = "Type track name...";
+"searchBarPlaceholder.albums" = "Type album name...";
+"searchBarPlaceholder.artists" = "Type artist name...";
+"searchBarPlaceholder.playlists" = "Type playlist name...";
+"searchBarPlaceholder.main" = "Type track, album, artist name...";

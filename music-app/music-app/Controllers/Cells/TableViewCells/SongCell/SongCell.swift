@@ -48,32 +48,32 @@ class SongCell: UITableViewCell {
         var libraryActions = [UIAction]()
         
         if LibraryManager.isTrackInLibrary(track.id) {
-            let removeFromLibraryAction = UIAction(title: MenuActionsEnum.removeFromLibrary.rawValue, image: MenuActionsEnum.removeFromLibrary.image) { _ in
+            let removeFromLibraryAction = UIAction(title: MenuActionsEnum.removeFromLibrary.title, image: MenuActionsEnum.removeFromLibrary.image) { _ in
                 guard let removingTrack = RealmManager<LibraryTrack>().read().first(where: { $0.id == track.id }) else { return }
                 
                 RealmManager<LibraryTrack>().delete(object: removingTrack)
-                let alertView = SPAlertView(title: "Success", preset: .done)
+                let alertView = SPAlertView(title: Localization.Alert.Title.success.rawValue.localized, preset: .done)
                 alertView.present(haptic: .success)
                 delegate.reloadData()
             }
             
             libraryActions.append(removeFromLibraryAction)
         } else {
-            let addToLibraryAction = UIAction(title: MenuActionsEnum.addToLibrary.rawValue, image: MenuActionsEnum.addToLibrary.image) { _ in
+            let addToLibraryAction = UIAction(title: MenuActionsEnum.addToLibrary.title, image: MenuActionsEnum.addToLibrary.image) { _ in
                 let alertView = SPAlertView(title: "", preset: .spinner)
                 alertView.dismissByTap = false
                 alertView.present()
-                DeezerProvider().getTrack(track.id, success: { track in
+                DeezerProvider.getTrack(track.id, success: { track in
                     let newTrack = LibraryTrack(id: track.id, title: track.title, duration: track.duration, trackPosition: track.trackPosition!, diskNumber: track.diskNumber!, isExplicit: track.isExplicit, artistID: track.artist!.id, albumID: track.album!.id, pathLink: "")
                     
                     RealmManager<LibraryTrack>().write(object: newTrack)
                     alertView.dismiss()
-                    let alertView = SPAlertView(title: "Success", preset: .done)
+                    let alertView = SPAlertView(title: Localization.Alert.Title.success.rawValue.localized, preset: .done)
                     alertView.present(haptic: .success)
                     delegate.reloadData()
                 }, failure: { error in
                     alertView.dismiss()
-                    let alertView = SPAlertView(title: "Error", message: error, preset: .error)
+                    let alertView = SPAlertView(title: Localization.Alert.Title.error.rawValue.localized, message: error, preset: .error)
                     alertView.present(haptic: .error)
                 })
             }
@@ -84,7 +84,7 @@ class SongCell: UITableViewCell {
         let libraryActionsMenu = UIMenu(options: .displayInline, children: libraryActions)
         
         var shareActions = [UIAction]()
-        let shareSongAction = UIAction(title: MenuActionsEnum.shareSong.rawValue, image: MenuActionsEnum.shareSong.image) { _ in
+        let shareSongAction = UIAction(title: MenuActionsEnum.shareSong.title, image: MenuActionsEnum.shareSong.image) { _ in
             let alertView = SPAlertView(title: "", preset: .spinner)
             alertView.dismissByTap = false
             alertView.present()
@@ -119,7 +119,7 @@ class SongCell: UITableViewCell {
                             }
                         } catch {
                             alertView.dismiss()
-                            let alertView = SPAlertView(title: "Error", preset: .error)
+                            let alertView = SPAlertView(title: Localization.Alert.Title.error.rawValue.localized, preset: .error)
                             alertView.duration = 5
                             alertView.present(haptic: .error)
                         }
@@ -130,19 +130,19 @@ class SongCell: UITableViewCell {
         
         shareActions.append(shareSongAction)
         
-        let shareLinkAction = UIAction(title: MenuActionsEnum.shareLink.rawValue, image: MenuActionsEnum.shareLink.image) { _ in
+        let shareLinkAction = UIAction(title: MenuActionsEnum.shareLink.title, image: MenuActionsEnum.shareLink.image) { _ in
             guard let track = self.track,
                   let artist = track.artist
             else { return }
             
             SongLinkProvider().getShareLink(track.shareLink) { link in
-                let text = "Listen \(track.title) by \(artist.name)\n\(link)"
+                let text = Localization.MenuActions.ShareLink.shareMessage.rawValue.localizedWithParameters(title: track.title, artist: artist.name, link: link)
                 let activityViewController = UIActivityViewController(activityItems: [text], applicationActivities: nil)
                 
                 activityViewController.excludedActivityTypes = [.airDrop, .mail, .message]
                 delegate.presentActivityController(activityViewController)
             } failure: { error in
-                let alertView = SPAlertView(title: "Error", preset: .error)
+                let alertView = SPAlertView(title: Localization.Alert.Title.error.rawValue.localized, preset: .error)
                 alertView.duration = 5
                 alertView.present(haptic: .error)
             }

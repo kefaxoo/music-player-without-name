@@ -11,6 +11,7 @@ import SPAlert
 class SearchController: UIViewController {
 
     @IBOutlet weak var typeSegmentedControl: UISegmentedControl!
+    
     @IBOutlet weak var resultTableView: UITableView!
     
     private let searchController = UISearchController(searchResultsController: nil)
@@ -18,14 +19,22 @@ class SearchController: UIViewController {
     static let id = String(describing: SearchController.self)
     
     private var result = [Any]()
-    
     private var query = ""
+    private var request: Any?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setSearchController()
         resultTableView.dataSource = self
         registerCell()
+        setLocale()
+    }
+    
+    private func setLocale() {
+        typeSegmentedControl.setTitle(Localization.Controller.Search.segmentedControl.tracks.rawValue.localized, forSegmentAt: 0)
+        typeSegmentedControl.setTitle(Localization.Controller.Search.segmentedControl.artists.rawValue.localized, forSegmentAt: 1)
+        typeSegmentedControl.setTitle(Localization.Controller.Search.segmentedControl.albums.rawValue.localized, forSegmentAt: 2)
+        searchController.searchBar.placeholder = Localization.SearchBarPlaceholder.main.rawValue.localized
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -43,7 +52,7 @@ class SearchController: UIViewController {
     }
     
     private func setSearchController() {
-        searchController.searchBar.placeholder = "Type songs, artists, albums..."
+        searchController.searchBar.placeholder = Localization.SearchBarPlaceholder.main.rawValue.localized
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
         searchController.searchBar.delegate = self
@@ -116,11 +125,11 @@ extension SearchController: UITableViewDataSource {
 
 extension SearchController {
     private func showTop() {
-        DeezerProvider().getTopTracks { tracks in
+        DeezerProvider.getTopTracks { tracks in
             self.result = tracks
             self.resultTableView.reloadData()
         } failure: { error in
-            let alertView = SPAlertView(title: "Error", message: error, preset: .error)
+            let alertView = SPAlertView(title: Localization.Alert.Title.error.rawValue.localized, message: error, preset: .error)
             alertView.present(haptic: .error) {
                 self.searchController.searchBar.text = ""
             }
@@ -128,11 +137,11 @@ extension SearchController {
     }
     
     private func showTracks(_ query: String) {
-        DeezerProvider().findTracks(queryParameter: query) { tracks in
+        DeezerProvider.findTracks(queryParameter: query) { tracks in
             self.result = tracks
             self.resultTableView.reloadData()
         } failure: { error in
-            let alertView = SPAlertView(title: "Error", message: error, preset: .error)
+            let alertView = SPAlertView(title: Localization.Alert.Title.error.rawValue.localized, message: error, preset: .error)
             alertView.present(haptic: .error) {
                 self.searchController.searchBar.text = ""
             }
@@ -140,11 +149,11 @@ extension SearchController {
     }
     
     private func showArtists(_ query: String) {
-        DeezerProvider().findArtists(queryParameter: query) { artists in
+        DeezerProvider.findArtists(queryParameter: query) { artists in
             self.result = artists
             self.resultTableView.reloadData()
         } failure: { error in
-            let alertView = SPAlertView(title: "Error", message: error, preset: .error)
+            let alertView = SPAlertView(title: Localization.Alert.Title.error.rawValue.localized, message: error, preset: .error)
             alertView.present(haptic: .error) {
                 self.searchController.searchBar.text = ""
             }
@@ -152,11 +161,11 @@ extension SearchController {
     }
     
     private func showAlbums(_ query: String) {
-        DeezerProvider().findAlbums(queryParameter: query) { albums in
+        DeezerProvider.findAlbums(queryParameter: query) { albums in
             self.result = albums
             self.resultTableView.reloadData()
         } failure: { error in
-            let alertView = SPAlertView(title: "Error", message: error, preset: .error)
+            let alertView = SPAlertView(title: Localization.Alert.Title.error.rawValue.localized, message: error, preset: .error)
             alertView.present(haptic: .error) {
                 self.searchController.searchBar.text = ""
             }
@@ -168,7 +177,10 @@ extension SearchController: UISearchBarDelegate {
     
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        typeSegmentedControl.isHidden = searchText.isEmpty
+        UIView.animate(withDuration: 0.5) {
+            self.typeSegmentedControl.isHidden = searchText.isEmpty
+        }
+
         query = searchText
         if searchText.isEmpty {
             showTop()

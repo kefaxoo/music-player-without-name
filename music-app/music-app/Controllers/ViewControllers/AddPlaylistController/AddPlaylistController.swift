@@ -13,6 +13,10 @@ class AddPlaylistController: UIViewController {
     @IBOutlet weak var playlistNameTextField: UITextField!
     @IBOutlet weak var playlistImageView: UIImageView!
     @IBOutlet weak var addImageView: UIImageView!
+    @IBOutlet weak var cancelButton: UIButton!
+    @IBOutlet weak var doneButton: UIButton!
+    @IBOutlet weak var addTracksButton: UIButton!
+    @IBOutlet weak var titleLabel: UILabel!
     
     private var tracks = [LibraryTrackInPlaylist]()
     
@@ -21,6 +25,15 @@ class AddPlaylistController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setGestures()
+        setLocale()
+    }
+    
+    private func setLocale() {
+        cancelButton.setTitle(Localization.Controller.AddPlaylist.cancel.rawValue.localized, for: .normal)
+        doneButton.setTitle(Localization.Controller.AddPlaylist.done.rawValue.localized, for: .normal)
+        addTracksButton.setTitle(Localization.Controller.AddPlaylist.addTracks.rawValue.localized, for: .normal)
+        playlistNameTextField.placeholder = Localization.Controller.AddPlaylist.textFieldPlaceholder.rawValue.localized
+        titleLabel.text = Localization.Controller.AddPlaylist.title.rawValue.localized
     }
     
     private func setGestures() {
@@ -45,7 +58,7 @@ class AddPlaylistController: UIViewController {
         guard let playlistName = playlistNameTextField.text else { return }
         
         if playlistName.isEmpty {
-            let alertView = SPAlertView(title: "Error", message: "Unavailable to create playlist", preset: .error)
+            let alertView = SPAlertView(title: Localization.Alert.Title.error.rawValue.localized, message: Localization.Alert.Message.errorPlaylist.rawValue.localized, preset: .error)
             alertView.present(haptic: .error)
             return
         }
@@ -59,7 +72,7 @@ class AddPlaylistController: UIViewController {
         
         let playlist = LibraryPlaylist(id: UUID().uuidString, image: saveImage(playlistName), name: playlistName, isExplicit: isExplicit)
         RealmManager<LibraryPlaylist>().write(object: playlist)
-        let alertView = SPAlertView(title: "Success", preset: .done)
+        let alertView = SPAlertView(title: Localization.Alert.Title.success.rawValue.localized, preset: .done)
         alertView.present(haptic: .success)
         reloadClosure?()
         self.dismiss(animated: true)

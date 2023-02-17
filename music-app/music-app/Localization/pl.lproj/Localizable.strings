@@ -1,0 +1,19 @@
+/* 
+  Localizable.strings
+  music-app
+
+  Created by Bahdan Piatrouski on 17.02.23.
+  
+*/
+
+"library.playlists"  = "Playlists";
+"library.artists"    = "Artists";
+"library.albums"     = "Albums";
+"library.songs"      = "Songs";
+"library.downloaded" = "Downloaded";
+
+"menuActions.addToLibrary"                   = "Add to library";
+"menuActions.removeFromLibrary"              = "Remove from library";
+"menuActions.shareSong"                      = "Share song";
+"menuActions.shareLink"                      = "Share link";
+"menuActions.removePlaylistFromLibrary"      = "Remove playlist from library";

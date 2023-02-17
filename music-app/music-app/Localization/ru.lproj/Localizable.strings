@@ -1,0 +1,123 @@
+
+/*  */
+"alert.message.errorPlaylist" = "Невозможно создать плейлист";
+
+/*  */
+"alert.title.error" = "Ошибка";
+
+/*  */
+"alert.title.loadingAlbums" = "Загрузка альбомов";
+
+/*  */
+"alert.title.loadingArtists" = "Загрузка артистов";
+
+/*  */
+"alert.title.success" = "Успешно";
+
+/*  */
+"controller.addPlaylist.addTracks" = "Добавить треки";
+
+/*  */
+"controller.addPlaylist.cancel" = "Отмена";
+
+/*  */
+"controller.addPlaylist.done" = "Продолжить";
+
+/*  */
+"controller.addPlaylist.textFieldPlaceholder" = "Введите название плейлиста";
+
+/*  */
+"controller.addPlaylist.title" = "Новый плейлист";
+
+/*  */
+"controller.library.albums.searchBarPlaceholder" = "Введите название альбома...";
+
+/*  */
+"controller.library.artists.searchBarPlaceholder" = "Введите название артиста...";
+
+/*  */
+"controller.library.playlists.addPlaylist" = "Создать плейлист";
+
+/*  */
+"controller.library.playlists.search" = "Введите название плейлиста";
+
+/*  */
+"controller.library.playlists.searchBarPlaceholder" = "Введите название плейлиста...";
+
+/*  */
+"controller.library.recentlyAddedLabel" = "Недавно добавленные";
+
+/*  */
+"controller.library.songs.searchBarPlaceholder" = "Введите название песни...";
+
+/*  */
+"controller.search.searchBarPlaceholder" = "Введите песню, артиста, альбом...";
+
+/*  */
+"controller.search.segmentedControl.albums" = "Альбомы";
+
+/*  */
+"controller.search.segmentedControl.artists" = "Артисты";
+
+/*  */
+"controller.search.segmentedControl.tracks" = "Треки";
+
+
+"library.albums" = "Альбомы";
+
+
+"library.artists" = "Исполнители";
+
+
+"library.downloaded" = "Загрузки";
+
+/* 
+  Localizable.strings
+  music-app
+
+  Created by Bahdan Piatrouski on 17.02.23.
+  
+ */
+"library.playlists" = "Плейлисты";
+
+
+"library.songs" = "Треки";
+
+
+"menuActions.addToLibrary" = "Добавить в библиотеку";
+
+
+"menuActions.removeFromLibrary" = "Удалить из библиотеки";
+
+
+"menuActions.removePlaylistFromLibrary" = "Удалить плейлист из библиотеки";
+
+
+"menuActions.shareLink" = "Поделиться ссылкой";
+
+/*  */
+"menuActions.shareLink.shareSong" = "Слушайте %@ от %@\n%@";
+
+
+"menuActions.shareSong" = "Поделиться песней";
+
+/*  */
+"searchBarPlaceholder.albums" = "Введите название альбома...";
+
+/*  */
+"searchBarPlaceholder.artists" = "Введите название артиста...";
+
+/*  */
+"searchBarPlaceholder.main" = "Введите песню, альбом или артиста...";
+
+/*  */
+"searchBarPlaceholder.playlists" = "Введите название плейлиста...";
+
+/*  */
+"searchBarPlaceholder.tracks" = "Введите название трека...";
+
+/*  */
+"tabBar.library" = "Библиотека";
+
+/*  */
+"tabBar.search" = "Поиск";

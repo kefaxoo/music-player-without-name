@@ -26,14 +26,14 @@ class RecentlyAddedCell: UICollectionViewCell {
     }
 
     func set(_ item: LibraryTrack) {
-        DeezerProvider().getAlbum(item.albumID) { album in
+        DeezerProvider.getAlbum(item.albumID) { album in
             self.titleLabel.text = item.title
             self.coverView.sd_setImage(with: URL(string: album.coverBig))
         } failure: { error in
             print(error)
         }
         
-        DeezerProvider().getArtist(item.artistID) { artist in
+        DeezerProvider.getArtist(item.artistID) { artist in
             self.creatorLabel.text = artist.name
         } failure: { error in
             print(error)

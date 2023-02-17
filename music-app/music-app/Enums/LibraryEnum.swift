@@ -32,15 +32,15 @@ enum LibraryEnum: CaseIterable {
     var name: String {
         switch self {
             case .playlists:
-                return "Playlists"
+                return Localization.Library.playslists.rawValue.localized
             case .artists:
-                return "Artists"
+                return Localization.Library.artists.rawValue.localized
             case .albums:
-                return "Albums"
+                return Localization.Library.albums.rawValue.localized
             case .songs:
-                return "Songs"
+                return Localization.Library.songs.rawValue.localized
             case .downloaded:
-                return "Downloaded"
+                return Localization.Library.downloaded.rawValue.localized
         }
     }
     

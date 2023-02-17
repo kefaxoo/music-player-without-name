@@ -29,15 +29,15 @@ class TabBarController: UITabBarController {
     
     private func configureTabBar() {
         let searchVC = SearchController(nibName: SearchController.id, bundle: nil)
-        searchVC.tabBarItem = UITabBarItem(title: "Search", image: UIImage(systemName: "magnifyingglass"), tag: 1001)
+        searchVC.tabBarItem = UITabBarItem(title: Localization.TabBar.search.rawValue.localized, image: UIImage(systemName: "magnifyingglass"), tag: 1001)
         
         let libraryVC = LibraryController(nibName: LibraryController.id, bundle: nil)
-        libraryVC.tabBarItem = UITabBarItem(title: "Library", image: UIImage(systemName: "heart"), selectedImage: UIImage(systemName: "heart.fill"))
+        libraryVC.tabBarItem = UITabBarItem(title: Localization.TabBar.library.rawValue.localized, image: UIImage(systemName: "heart"), selectedImage: UIImage(systemName: "heart.fill"))
         
 //        let recognizeLinkVC = RecognizeLinkController(nibName: RecognizeLinkController.id, bundle: nil)
 //        recognizeLinkVC.tabBarItem = UITabBarItem(title: "Recognize", image: UIImage(systemName: "text.viewfinder"), tag: 1003)
         
-        self.viewControllers = [configureNavigationController(vc: libraryVC, title: "Library"), configureNavigationController(vc: searchVC, title: "Search")]
+        self.viewControllers = [configureNavigationController(vc: libraryVC, title: Localization.TabBar.library.rawValue.localized), configureNavigationController(vc: searchVC, title: Localization.TabBar.search.rawValue.localized)]
         self.tabBar.tintColor = .purple
     }
     

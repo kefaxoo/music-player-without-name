@@ -29,14 +29,14 @@ class LibraryTrackCell: UITableViewCell {
     
     func set(_ track: LibraryTrack) {
         self.track = track
-        DeezerProvider().getAlbum(track.albumID) { album in
+        DeezerProvider.getAlbum(track.albumID) { album in
             self.album = album.title
             self.coverView.sd_setImage(with: URL(string: album.coverSmall)!)
         } failure: { error in
             print(error)
         }
         
-        DeezerProvider().getArtist(track.artistID) { artist in
+        DeezerProvider.getArtist(track.artistID) { artist in
             self.artist = artist.name
             self.artistLabel.text = artist.name
         } failure: { error in
@@ -52,11 +52,11 @@ class LibraryTrackCell: UITableViewCell {
               let delegate
         else { return }
         
-        let removeFromLibraryAction = UIAction(title: MenuActionsEnum.removeFromLibrary.rawValue, image: MenuActionsEnum.removeFromLibrary.image) { _ in
+        let removeFromLibraryAction = UIAction(title: MenuActionsEnum.removeFromLibrary.title, image: MenuActionsEnum.removeFromLibrary.image) { _ in
             guard let removingTrack = RealmManager<LibraryTrack>().read().first(where: { $0.id == track.id }) else { return }
             
             RealmManager<LibraryTrack>().delete(object: removingTrack)
-            let alertView = SPAlertView(title: "Success", preset: .done)
+            let alertView = SPAlertView(title: Localization.Alert.Title.success.rawValue.localized, preset: .done)
             alertView.present(haptic: .success)
             delegate.reloadData()
         }
@@ -64,7 +64,7 @@ class LibraryTrackCell: UITableViewCell {
         let libraryActionsMenu = UIMenu(options: .displayInline, children: [removeFromLibraryAction])
         
         var shareActions = [UIAction]()
-        let shareSongAction = UIAction(title: MenuActionsEnum.shareSong.rawValue, image: MenuActionsEnum.shareSong.image) { _ in
+        let shareSongAction = UIAction(title: MenuActionsEnum.shareSong.title, image: MenuActionsEnum.shareSong.image) { _ in
             let alertView = SPAlertView(title: "", preset: .spinner)
             alertView.dismissByTap = false
             alertView.present()
@@ -98,7 +98,7 @@ class LibraryTrackCell: UITableViewCell {
                             }
                         } catch {
                             alertView.dismiss()
-                            let alertView = SPAlertView(title: "Error", preset: .error)
+                            let alertView = SPAlertView(title: Localization.Alert.Title.error.rawValue.localized, preset: .error)
                             alertView.duration = 5
                             alertView.present(haptic: .error)
                         }
@@ -109,17 +109,17 @@ class LibraryTrackCell: UITableViewCell {
         
         shareActions.append(shareSongAction)
         
-        let shareLinkAction = UIAction(title: MenuActionsEnum.shareLink.rawValue, image: MenuActionsEnum.shareLink.image) { _ in
+        let shareLinkAction = UIAction(title: MenuActionsEnum.shareLink.title, image: MenuActionsEnum.shareLink.image) { _ in
             guard let track = self.track else { return }
             
             let shareLink = "https://deezer.com/track/\(track.id)"
             SongLinkProvider().getShareLink(shareLink) { link in
-                let text = "Listen \(track.title) by \(self.artist)\n\(link)"
+                let text = Localization.MenuActions.ShareLink.shareMessage.rawValue.localizedWithParameters(title: track.title, artist: self.artist, link: link)
                 let activityViewController = UIActivityViewController(activityItems: [text], applicationActivities: nil)
                 activityViewController.excludedActivityTypes = [.airDrop, .mail, .message]
                 delegate.presentActivityController(activityViewController)
             } failure: { error in
-                let alertView = SPAlertView(title: "Error", preset: .error)
+                let alertView = SPAlertView(title: Localization.Alert.Title.error.rawValue.localized, preset: .error)
                 alertView.duration = 5
                 alertView.present(haptic: .error)
             }

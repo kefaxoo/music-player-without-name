@@ -29,8 +29,8 @@ class LibraryPlaylistsController: UIViewController {
     }
     
     private func setupNavBar() {
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add playlist", style: .plain, target: self, action: #selector(addPlaylistAction))
-        searchController.searchBar.placeholder = "Type playlist name..."
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: Localization.Controller.Library.Playlists.navBarButton.rawValue.localized, style: .plain, target: self, action: #selector(addPlaylistAction))
+        searchController.searchBar.placeholder = Localization.SearchBarPlaceholder.playlists.rawValue.localized
         navigationItem.searchController = searchController
         searchController.searchBar.delegate = self
     }

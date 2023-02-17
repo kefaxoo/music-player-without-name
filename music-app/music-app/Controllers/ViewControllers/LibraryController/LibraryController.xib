@@ -12,6 +12,7 @@
             <connections>
                 <outlet property="navigationTableView" destination="6CE-rl-ffs" id="P76-L3-ycT"/>
                 <outlet property="recentlyAddedCollectionView" destination="Gye-MD-417" id="1YQ-Bh-fs5"/>
+                <outlet property="recentlyAddedLabel" destination="Ezx-Yp-WoC" id="9Xs-hq-nUD"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -21,7 +22,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Wxl-CU-S4X">
-                    <rect key="frame" x="16" y="59" width="361" height="759"/>
+                    <rect key="frame" x="16" y="0.0" width="361" height="852"/>
                     <subviews>
                         <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="6CE-rl-ffs">
                             <rect key="frame" x="0.0" y="0.0" width="361" height="225"/>
@@ -50,7 +51,7 @@
                             </collectionViewFlowLayout>
                         </collectionView>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RJ4-Cs-uwv">
-                            <rect key="frame" x="0.0" y="498" width="361" height="261"/>
+                            <rect key="frame" x="0.0" y="498" width="361" height="354"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         </view>
                     </subviews>

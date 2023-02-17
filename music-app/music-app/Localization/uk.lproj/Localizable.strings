@@ -1,0 +1,48 @@
+
+/*  */
+"alert.title.success" = "";
+
+/*  */
+"controller.addPlaylist.title" = "";
+
+/*  */
+"controller.search.segmentedControl.tracks" = "";
+
+
+"library.albums" = "Альбоми";
+
+
+"library.artists" = "Виконавці";
+
+
+"library.downloaded" = "Завантажене";
+
+/* 
+  Localizable.strings
+  music-app
+
+  Created by Bahdan Piatrouski on 17.02.23.
+  
+ */
+"library.playlists" = "Плейлісти";
+
+
+"library.songs" = "Пісні";
+
+
+"menuActions.addToLibrary" = "Додати до бібліотеки";
+
+
+"menuActions.removeFromLibrary" = "Прибрати з бібліотеки";
+
+
+"menuActions.removePlaylistFromLibrary" = "Прибрати плейліст з бібліотеки";
+
+
+"menuActions.shareLink" = "Поділитися посиланням";
+
+
+"menuActions.shareSong" = "Поділитися піснею";
+
+/*  */
+"tabBar.library" = "";

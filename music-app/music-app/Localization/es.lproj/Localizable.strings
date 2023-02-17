@@ -1,0 +1,39 @@
+
+/*  */
+"controller.library.recentlyAddedLabel" = "";
+
+
+"library.albums" = "Albums";
+
+
+"library.artists" = "Artists";
+
+
+"library.downloaded" = "Downloaded";
+
+/* 
+  Localizable.strings
+  music-app
+
+  Created by Bahdan Piatrouski on 17.02.23.
+  
+ */
+"library.playlists" = "Playlists";
+
+
+"library.songs" = "Songs";
+
+
+"menuActions.addToLibrary" = "Add to library";
+
+
+"menuActions.removeFromLibrary" = "Remove from library";
+
+
+"menuActions.removePlaylistFromLibrary" = "Remove playlist from library";
+
+
+"menuActions.shareLink" = "Share link";
+
+
+"menuActions.shareSong" = "Share song";

@@ -25,4 +25,12 @@ extension String {
         newSelf.removeAll(where: { removeChars.contains($0) })
         return newSelf
     }
+    
+    var localized: String {
+        return NSLocalizedString(self, tableName: "Localizable", bundle: Bundle.localizedBundle(), value: self, comment: self)
+    }
+    
+    func localizedWithParameters(title: String, artist: String, link: String) -> String {
+        return String(format: self.localized, title, artist, link)
+    }
 }

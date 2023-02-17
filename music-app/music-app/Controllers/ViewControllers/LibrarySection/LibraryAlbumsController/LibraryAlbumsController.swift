@@ -30,13 +30,13 @@ class LibraryAlbumsController: UIViewController {
     }
     
     private func setupNavBar() {
-        searchController.searchBar.placeholder = "Type album name..."
+        searchController.searchBar.placeholder = Localization.SearchBarPlaceholder.albums.rawValue.localized
         navigationItem.searchController = searchController
         searchController.searchBar.delegate = self
     }
     
     private func getAlbums() {
-        let alertView = SPAlertView(title: "Loading albums", preset: .spinner)
+        let alertView = SPAlertView(title: Localization.Alert.Title.loadingAlbums.rawValue.localized, preset: .spinner)
         alertView.dismissByTap = false
         alertView.present()
         let tracks = RealmManager<LibraryTrack>().read()
@@ -47,7 +47,7 @@ class LibraryAlbumsController: UIViewController {
         
         albumsID = Array(Set(albumsID))
         albumsID.forEach { id in
-            DeezerProvider().getAlbum(id) { album in
+            DeezerProvider.getAlbum(id) { album in
                 self.albums.append(album)
                 self.albums = self.albums.sorted { albumI, albumJ in
                     return albumI.title < albumJ.title

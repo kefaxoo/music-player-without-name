@@ -8,11 +8,12 @@
 import Foundation
 import Moya
 import Moya_ObjectMapper
+import Alamofire
 
 final class DeezerProvider {
-    private let provider = MoyaProvider<DeezerAPI>(plugins: [NetworkLoggerPlugin()])
+    private static let provider = MoyaProvider<DeezerAPI>(plugins: [NetworkLoggerPlugin()])
     
-    func getAlbum(_ id: Int, success: @escaping((DeezerAlbum) -> Void), failure: @escaping((String) -> Void)) {
+    static func getAlbum(_ id: Int, success: @escaping((DeezerAlbum) -> Void), failure: @escaping((String) -> Void)) {
         provider.request(.getAlbum(id)) { result in
             switch result {
                 case .success(let response):
@@ -27,7 +28,7 @@ final class DeezerProvider {
         }
     }
     
-    func getArtist(_ id: Int, success: @escaping((DeezerArtist) -> Void), failure: @escaping((String) -> Void)) {
+    static func getArtist(_ id: Int, success: @escaping((DeezerArtist) -> Void), failure: @escaping((String) -> Void)) {
         provider.request(.getArtist(id)) { result in
             switch result {
                 case .success(let response):
@@ -42,7 +43,7 @@ final class DeezerProvider {
         }
     }
     
-    func getTopTracks(success: @escaping(([DeezerTrack]) -> Void), failure: @escaping((String) -> Void)) {
+    static func getTopTracks(success: @escaping(([DeezerTrack]) -> Void), failure: @escaping((String) -> Void)) {
         provider.request(.getTopTracks) { result in
             switch result {
                 case .success(let response):
@@ -57,7 +58,7 @@ final class DeezerProvider {
         }
     }
     
-    func getTopAlbums(success: @escaping(([DeezerAlbum]) -> Void), failure: @escaping((String) -> Void)) {
+    static func getTopAlbums(success: @escaping(([DeezerAlbum]) -> Void), failure: @escaping((String) -> Void)) {
         provider.request(.getTopAlbums) { result in
             switch result {
                 case .success(let response):
@@ -72,7 +73,7 @@ final class DeezerProvider {
         }
     }
     
-    func getTopArtists(success: @escaping(([DeezerArtist]) -> Void), failure: @escaping((String) -> Void)) {
+    static func getTopArtists(success: @escaping(([DeezerArtist]) -> Void), failure: @escaping((String) -> Void)) {
         provider.request(.getTopArtist) { result in
             switch result {
                 case .success(let response):
@@ -87,7 +88,7 @@ final class DeezerProvider {
         }
     }
     
-    func getGenre(_ id: Int, success: @escaping((DeezerGenre) -> Void), failure: @escaping((String) -> Void)) {
+    static func getGenre(_ id: Int, success: @escaping((DeezerGenre) -> Void), failure: @escaping((String) -> Void)) {
         provider.request(.getGenre(id)) { result in
             switch result {
                 case .success(let response):
@@ -102,7 +103,7 @@ final class DeezerProvider {
         }
     }
     
-    func findTracks(queryParameter: String, success: @escaping(([DeezerTrack]) -> Void), failure: @escaping((String) -> Void)) {
+    static func findTracks(queryParameter: String, success: @escaping(([DeezerTrack]) -> Void), failure: @escaping((String) -> Void)) {
         provider.request(.find(queryParameter: queryParameter, type: .track)) { result in
             switch result {
                 case .success(let response):
@@ -117,7 +118,7 @@ final class DeezerProvider {
         }
     }
     
-    func findAlbums(queryParameter: String, success: @escaping(([DeezerAlbum]) -> Void), failure: @escaping((String) -> Void)) {
+    static func findAlbums(queryParameter: String, success: @escaping(([DeezerAlbum]) -> Void), failure: @escaping((String) -> Void)) {
         provider.request(.find(queryParameter: queryParameter, type: .album)) { result in
             switch result {
                 case .success(let response):
@@ -132,7 +133,7 @@ final class DeezerProvider {
         }
     }
     
-    func findArtists(queryParameter: String, success: @escaping(([DeezerArtist]) -> Void), failure: @escaping((String) -> Void)) {
+    static func findArtists(queryParameter: String, success: @escaping(([DeezerArtist]) -> Void), failure: @escaping((String) -> Void)) {
         provider.request(.find(queryParameter: queryParameter, type: .artist)) { result in
             switch result {
                 case .success(let response):
@@ -147,7 +148,7 @@ final class DeezerProvider {
         }
     }
     
-    func getTrack(_ id: Int, success: @escaping((DeezerTrack) -> Void), failure: @escaping((String) -> Void)) {
+    static func getTrack(_ id: Int, success: @escaping((DeezerTrack) -> Void), failure: @escaping((String) -> Void)) {
         provider.request(.getTrack(id)) { result in
             switch result {
                 case .success(let response):

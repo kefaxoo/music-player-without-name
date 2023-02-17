@@ -12,4 +12,203 @@
       </trans-unit>
     </body>
   </file>
+  <file original="music-app/Localization/en.lproj/Localizable.strings" source-language="en" target-language="en" datatype="plaintext">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.2" build-num="14C18"/>
+    </header>
+    <body>
+      <trans-unit id="alert.message.errorPlaylist" xml:space="preserve">
+        <source>Unavailable to create playlist</source>
+        <target>Unavailable to create playlist</target>
+        <note>Alert Message Section</note>
+      </trans-unit>
+      <trans-unit id="alert.title.error" xml:space="preserve">
+        <source>Error</source>
+        <target>Error</target>
+        <note>Alert Title Section</note>
+      </trans-unit>
+      <trans-unit id="alert.title.loadingAlbums" xml:space="preserve">
+        <source>Loading albums</source>
+        <target>Loading albums</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="alert.title.loadingArtists" xml:space="preserve">
+        <source>Loading artists</source>
+        <target>Loading artists</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="alert.title.success" xml:space="preserve">
+        <source>Success</source>
+        <target>Success</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="controller.addPlaylist.addTracks" xml:space="preserve">
+        <source>Add tracks</source>
+        <target>Add tracks</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="controller.addPlaylist.cancel" xml:space="preserve">
+        <source>Cancel</source>
+        <target>Cancel</target>
+        <note>Controller Add Playlist Section</note>
+      </trans-unit>
+      <trans-unit id="controller.addPlaylist.done" xml:space="preserve">
+        <source>Done</source>
+        <target>Done</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="controller.addPlaylist.textFieldPlaceholder" xml:space="preserve">
+        <source>Enter playlist name</source>
+        <target>Enter playlist name</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="controller.addPlaylist.title" xml:space="preserve">
+        <source>New playlist</source>
+        <target>New playlist</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="controller.library.albums.searchBarPlaceholder" xml:space="preserve">
+        <source>Type album name...</source>
+        <target>Type album name...</target>
+        <note>Controller Library Albums Section</note>
+      </trans-unit>
+      <trans-unit id="controller.library.artists.searchBarPlaceholder" xml:space="preserve">
+        <source>Type artist name...</source>
+        <target>Type artist name...</target>
+        <note>Controller Library Artists Section</note>
+      </trans-unit>
+      <trans-unit id="controller.library.playlists.addPlaylist" xml:space="preserve">
+        <source>Add playlist</source>
+        <target>Add playlist</target>
+        <note>Controller Library Playlists Section</note>
+      </trans-unit>
+      <trans-unit id="controller.library.playlists.searchBarPlaceholder" xml:space="preserve">
+        <source>Type playlist name...</source>
+        <target>Type playlist name...</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="controller.library.recentlyAddedLabel" xml:space="preserve">
+        <source>Recently added</source>
+        <target>Recently added</target>
+        <note>Controller Library Section</note>
+      </trans-unit>
+      <trans-unit id="controller.library.songs.searchBarPlaceholder" xml:space="preserve">
+        <source>Type song name...</source>
+        <target>Type song name...</target>
+        <note>Controller Library Songs Section</note>
+      </trans-unit>
+      <trans-unit id="controller.search.searchBarPlaceholder" xml:space="preserve">
+        <source>Type song, artist, album...</source>
+        <target>Type song, artist, album...</target>
+        <note>Controller Search Section</note>
+      </trans-unit>
+      <trans-unit id="controller.search.segmentedControl.albums" xml:space="preserve">
+        <source>Albums</source>
+        <target>Albums</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="controller.search.segmentedControl.artists" xml:space="preserve">
+        <source>Artists</source>
+        <target>Artists</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="controller.search.segmentedControl.tracks" xml:space="preserve">
+        <source>Tracks</source>
+        <target>Tracks</target>
+        <note>Controller Search SegmentedControl Section</note>
+      </trans-unit>
+      <trans-unit id="library.albums" xml:space="preserve">
+        <source>Albums</source>
+        <target>Albums</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="library.artists" xml:space="preserve">
+        <source>Artists</source>
+        <target>Artists</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="library.downloaded" xml:space="preserve">
+        <source>Downloaded</source>
+        <target>Downloaded</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="library.playlists" xml:space="preserve">
+        <source>Playlists</source>
+        <target>Playlists</target>
+        <note>Library Section</note>
+      </trans-unit>
+      <trans-unit id="library.songs" xml:space="preserve">
+        <source>Songs</source>
+        <target>Songs</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="menuActions.addToLibrary" xml:space="preserve">
+        <source>Add to library</source>
+        <target>Add to library</target>
+        <note>Menu Actions Section</note>
+      </trans-unit>
+      <trans-unit id="menuActions.removeFromLibrary" xml:space="preserve">
+        <source>Remove from library</source>
+        <target>Remove from library</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="menuActions.removePlaylistFromLibrary" xml:space="preserve">
+        <source>Remove playlist from library</source>
+        <target>Remove playlist from library</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="menuActions.shareLink" xml:space="preserve">
+        <source>Share link</source>
+        <target>Share link</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="menuActions.shareLink.shareSong" xml:space="preserve">
+        <source>Listen %@ by %@
+%@</source>
+        <target>Listen %@ by %@
+%@</target>
+        <note>Menu Actions Share Link Section</note>
+      </trans-unit>
+      <trans-unit id="menuActions.shareSong" xml:space="preserve">
+        <source>Share song</source>
+        <target>Share song</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="searchBarPlaceholder.albums" xml:space="preserve">
+        <source>Type album name...</source>
+        <target>Type album name...</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="searchBarPlaceholder.artists" xml:space="preserve">
+        <source>Type artist name...</source>
+        <target>Type artist name...</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="searchBarPlaceholder.main" xml:space="preserve">
+        <source>Type track, album, artist name...</source>
+        <target>Type track, album, artist name...</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="searchBarPlaceholder.playlists" xml:space="preserve">
+        <source>Type playlist name...</source>
+        <target>Type playlist name...</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="searchBarPlaceholder.tracks" xml:space="preserve">
+        <source>Type track name...</source>
+        <target>Type track name...</target>
+        <note>SearchBarPlaceholder Section</note>
+      </trans-unit>
+      <trans-unit id="tabBar.library" xml:space="preserve">
+        <source>Library</source>
+        <target>Library</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="tabBar.search" xml:space="preserve">
+        <source>Search</source>
+        <target>Search</target>
+        <note>TabBar Section</note>
+      </trans-unit>
+    </body>
+  </file>
 </xliff>

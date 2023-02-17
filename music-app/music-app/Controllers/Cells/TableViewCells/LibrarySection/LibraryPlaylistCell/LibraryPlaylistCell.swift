@@ -40,7 +40,7 @@ class LibraryPlaylistCell: UITableViewCell {
               let delegate
         else { return }
         
-        let deleteAction = UIAction(title: MenuActionsEnum.removePlaylistFromLibrary.rawValue, image: MenuActionsEnum.removePlaylistFromLibrary.image, attributes: .destructive) { _ in
+        let deleteAction = UIAction(title: MenuActionsEnum.removePlaylistFromLibrary.title, image: MenuActionsEnum.removePlaylistFromLibrary.image, attributes: .destructive) { _ in
             let tracksInPlaylist = RealmManager<LibraryTrackInPlaylist>().read().filter({ $0.playlistID == playlist.id })
             if !tracksInPlaylist.isEmpty {
                 tracksInPlaylist.forEach { track in
@@ -50,7 +50,7 @@ class LibraryPlaylistCell: UITableViewCell {
             
             try? FileManager.default.removeItem(atPath: playlist.image)
             RealmManager<LibraryPlaylist>().delete(object: playlist)
-            let alertView = SPAlertView(title: "Success", preset: .done)
+            let alertView = SPAlertView(title: Localization.Alert.Title.success.rawValue.localized, preset: .done)
             alertView.present(haptic: .success)
             delegate.reloadData()
         }

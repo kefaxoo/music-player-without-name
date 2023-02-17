@@ -1,0 +1,120 @@
+
+/*  */
+"alert.message.errorPlaylist" = "Немагчыма стварыць плэйліст";
+
+/*  */
+"alert.title.error" = "Памылка";
+
+/*  */
+"alert.title.loadingAlbums" = "Загрузка альбомаў";
+
+/*  */
+"alert.title.loadingArtists" = "Загрузка спевакоў";
+
+/*  */
+"alert.title.success" = "Паспяхова";
+
+/*  */
+"controller.addPlaylist.addTracks" = "Дадаць трекі";
+
+/*  */
+"controller.addPlaylist.cancel" = "Адмена";
+
+/*  */
+"controller.addPlaylist.done" = "Працягнуць";
+
+/*  */
+"controller.addPlaylist.textFieldPlaceholder" = "Увядзіце назву плэйліста";
+
+/*  */
+"controller.addPlaylist.title" = "Новы плэйліст";
+
+/*  */
+"controller.library.albums.searchBarPlaceholder" = "Увядзіце назву альбома...";
+
+/*  */
+"controller.library.artists.searchBarPlaceholder" = "Увядзіце назву спевака...";
+
+/*  */
+"controller.library.playlists.addPlaylist" = "Стварыць плэйліст";
+
+/*  */
+"controller.library.playlists.searchBarPlaceholder" = "Увядзіце назву плэйліста...";
+
+/*  */
+"controller.library.recentlyAddedLabel" = "Нядаўна дададзеныя";
+
+/*  */
+"controller.library.songs.searchBarPlaceholder" = "Увядзіце назву трэка...";
+
+/*  */
+"controller.search.searchBarPlaceholder" = "Увядзіце трэк, спевака, альбома...";
+
+/*  */
+"controller.search.segmentedControl.albums" = "Альбомы";
+
+/*  */
+"controller.search.segmentedControl.artists" = "Спевакі";
+
+/*  */
+"controller.search.segmentedControl.tracks" = "Трэкі";
+
+
+"library.albums" = "Альбомы";
+
+
+"library.artists" = "Спевакі";
+
+
+"library.downloaded" = "Загрузкі";
+
+/* 
+  Localizable.strings
+  music-app
+
+  Created by Bahdan Piatrouski on 17.02.23.
+  
+ */
+"library.playlists" = "Плэйлісты";
+
+
+"library.songs" = "Трэкі";
+
+
+"menuActions.addToLibrary" = "Дадаць у бібліятэку";
+
+
+"menuActions.removeFromLibrary" = "Выдаліць з бібліятэкі";
+
+
+"menuActions.removePlaylistFromLibrary" = "Выдаліць плэйліст з бібліятэкі";
+
+
+"menuActions.shareLink" = "Падзяліцца спасылкай";
+
+/*  */
+"menuActions.shareLink.shareSong" = "Слухайце %@ ад %@\n%@";
+
+
+"menuActions.shareSong" = "Падзяліцца песняй";
+
+/*  */
+"searchBarPlaceholder.albums" = "Увядзіце назву альбома...";
+
+/*  */
+"searchBarPlaceholder.artists" = "Увядзіце назву спевака...";
+
+/*  */
+"searchBarPlaceholder.main" = "Увядзіце трека, альбома ці спевака...";
+
+/*  */
+"searchBarPlaceholder.playlists" = "Увядзіце назву плэйліста...";
+
+/*  */
+"searchBarPlaceholder.tracks" = "Увядзіце назву трэка...";
+
+/*  */
+"tabBar.library" = "Бібліятэка";
+
+/*  */
+"tabBar.search" = "Пошук";

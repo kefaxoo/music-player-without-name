@@ -11,7 +11,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SearchController" customModule="music_app" customModuleProvider="target">
             <connections>
                 <outlet property="resultTableView" destination="NZP-rr-bPq" id="PS1-LT-SDh"/>
-                <outlet property="typeSegmentedControl" destination="YQN-SO-yiI" id="ydk-Lk-bJC"/>
+                <outlet property="typeSegmentedControl" destination="buf-Oq-Nd2" id="t8v-oW-tPD"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -23,18 +23,15 @@
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="TeV-bB-9NS">
                     <rect key="frame" x="16" y="59" width="361" height="759"/>
                     <subviews>
-                        <segmentedControl hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="YQN-SO-yiI">
-                            <rect key="frame" x="0.0" y="0.0" width="361" height="29"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="28" id="I8c-70-Ete"/>
-                            </constraints>
+                        <segmentedControl hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="buf-Oq-Nd2">
+                            <rect key="frame" x="0.0" y="0.0" width="361" height="1"/>
                             <segments>
                                 <segment title="Songs"/>
                                 <segment title="Artists"/>
                                 <segment title="Albums"/>
                             </segments>
                             <connections>
-                                <action selector="typeDidChange:" destination="-1" eventType="valueChanged" id="7Sd-MA-H8v"/>
+                                <action selector="typeDidChange:" destination="-1" eventType="valueChanged" id="dwm-YF-Nph"/>
                             </connections>
                         </segmentedControl>
                         <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="NZP-rr-bPq">

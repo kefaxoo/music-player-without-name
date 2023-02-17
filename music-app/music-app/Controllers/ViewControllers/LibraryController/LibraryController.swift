@@ -11,6 +11,7 @@ class LibraryController: UIViewController {
 
     @IBOutlet weak var navigationTableView: UITableView!
     @IBOutlet weak var recentlyAddedCollectionView: UICollectionView!
+    @IBOutlet weak var recentlyAddedLabel: UILabel!
     
     static let id = String(describing: LibraryController.self)
     
@@ -22,14 +23,17 @@ class LibraryController: UIViewController {
         navigationTableView.delegate = self
         recentlyAddedCollectionView.dataSource = self
         registerCells()
-        tracks = RealmManager<LibraryTrack>().read().reversed().suffix(5)
-        print(tracks.count)
+        tracks = RealmManager<LibraryTrack>().read().suffix(5).reversed()
+        setLocale()
+    }
+    
+    private func setLocale() {
+        recentlyAddedLabel.text = Localization.Controller.Library.recentlyAddedLabel.rawValue.localized
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        tracks = RealmManager<LibraryTrack>().read().reversed().suffix(5)
-        print(tracks.count)
+        tracks = RealmManager<LibraryTrack>().read().suffix(5).reversed()
         recentlyAddedCollectionView.reloadData()
     }
     

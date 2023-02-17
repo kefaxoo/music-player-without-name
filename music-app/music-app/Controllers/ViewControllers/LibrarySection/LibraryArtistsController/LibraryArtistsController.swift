@@ -30,13 +30,13 @@ class LibraryArtistsController: UIViewController {
     }
     
     private func setupNavBar() {
-        searchController.searchBar.placeholder = "Type artist name..."
+        searchController.searchBar.placeholder = Localization.SearchBarPlaceholder.artists.rawValue.localized
         navigationItem.searchController = searchController
         searchController.searchBar.delegate = self
     }
     
     private func getArtists() {
-        let alertView = SPAlertView(title: "Loading artists", preset: .spinner)
+        let alertView = SPAlertView(title: Localization.Alert.Title.loadingArtists.rawValue.localized, preset: .spinner)
         alertView.dismissByTap = false
         alertView.present()
         let tracks = RealmManager<LibraryTrack>().read()
@@ -48,7 +48,7 @@ class LibraryArtistsController: UIViewController {
         artistsID = Array(Set(artistsID))
         artists.removeAll()
         artistsID.forEach { id in
-            DeezerProvider().getArtist(id) { artist in
+            DeezerProvider.getArtist(id) { artist in
                 self.artists.append(artist)
                 self.artists = self.artists.sorted { artistI, artistJ in
                     return artistI.name < artistJ.name

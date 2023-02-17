@@ -31,7 +31,7 @@ class LibrarySongsController: UIViewController {
     }
     
     private func setupNavBar() {
-        searchController.searchBar.placeholder = "Type track name..."
+        searchController.searchBar.placeholder = Localization.SearchBarPlaceholder.tracks.rawValue.localized
         navigationItem.searchController = searchController
         searchController.searchBar.delegate = self
     }

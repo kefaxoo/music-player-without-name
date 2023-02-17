@@ -7,12 +7,12 @@
 
 import UIKit
 
-enum MenuActionsEnum: String {
-    case addToLibrary = "Add to library"
-    case removeFromLibrary = "Remove from library"
-    case shareSong = "Share song"
-    case shareLink = "Share link"
-    case removePlaylistFromLibrary = "Remove playlist from library"
+enum MenuActionsEnum {
+    case addToLibrary
+    case removeFromLibrary
+    case shareSong
+    case shareLink
+    case removePlaylistFromLibrary
     
     var image: UIImage? {
         switch self {
@@ -26,6 +26,21 @@ enum MenuActionsEnum: String {
                 return UIImage(systemName: "square.and.arrow.up")
             case .removePlaylistFromLibrary:
                 return UIImage(systemName: "trash.fill")
+        }
+    }
+    
+    var title: String {
+        switch self {
+            case .addToLibrary:
+                return Localization.MenuActions.addToLibrary.rawValue.localized
+            case .removeFromLibrary:
+                return Localization.MenuActions.removeFromLibrary.rawValue.localized
+            case .shareSong:
+                return Localization.MenuActions.shareSong.rawValue.localized
+            case .shareLink:
+                return Localization.MenuActions.shareLink.rawValue.localized
+            case .removePlaylistFromLibrary:
+                return Localization.MenuActions.removePlaylistFromLibrary.rawValue.localized
         }
     }
 }
