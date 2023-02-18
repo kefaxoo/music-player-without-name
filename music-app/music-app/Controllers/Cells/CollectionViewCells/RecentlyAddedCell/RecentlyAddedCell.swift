@@ -11,7 +11,7 @@ class RecentlyAddedCell: UICollectionViewCell {
 
     @IBOutlet weak var coverView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var creatorLabel: UILabel!
+    @IBOutlet weak var artistLabel: UILabel!
     
     static var id = String(describing: RecentlyAddedCell.self)
     
@@ -19,25 +19,28 @@ class RecentlyAddedCell: UICollectionViewCell {
         super.awakeFromNib()
     }
     
-    func set(_ item: DeezerAlbum) {
-        self.titleLabel.text = item.title
-        self.coverView.sd_setImage(with: URL(string: item.coverBig))
-        self.creatorLabel.text = item.artist?.name
+    func set(_ album: DeezerAlbum, _ artist: String = "") {
+        self.titleLabel.text = album.title
+        self.coverView.sd_setImage(with: URL(string: album.coverBig))
+        if album.artist != nil {
+            self.artistLabel.text = album.artist?.name
+        } else {
+            self.artistLabel.text = artist
+        }
     }
 
-    func set(_ item: LibraryTrack) {
-        DeezerProvider.getAlbum(item.albumID) { album in
-            self.titleLabel.text = item.title
+    func set(_ track: LibraryTrack) {
+        DeezerProvider.getAlbum(track.albumID) { album in
+            self.titleLabel.text = track.title
             self.coverView.sd_setImage(with: URL(string: album.coverBig))
         } failure: { error in
             print(error)
         }
         
-        DeezerProvider.getArtist(item.artistID) { artist in
-            self.creatorLabel.text = artist.name
+        DeezerProvider.getArtist(track.artistID) { artist in
+            self.artistLabel.text = artist.name
         } failure: { error in
             print(error)
         }
-
     }
 }

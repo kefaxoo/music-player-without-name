@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SPAlert
 
 class LibraryController: UIViewController {
 
@@ -22,6 +23,7 @@ class LibraryController: UIViewController {
         navigationTableView.dataSource = self
         navigationTableView.delegate = self
         recentlyAddedCollectionView.dataSource = self
+        recentlyAddedCollectionView.delegate = self
         registerCells()
         tracks = RealmManager<LibraryTrack>().read().suffix(5).reversed()
         setLocale()
@@ -79,5 +81,18 @@ extension LibraryController: UITableViewDelegate {
         let vc = LibraryEnum.allCases[indexPath.row].vc
         vc.navigationItem.title = LibraryEnum.allCases[indexPath.row].name
         navigationController?.pushViewController(vc, animated: true)
+    }
+}
+
+extension LibraryController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        DeezerProvider.getAlbum(tracks[indexPath.row].albumID) { album in
+            let albumVC = AlbumController()
+            albumVC.set(album)
+            self.navigationController?.pushViewController(albumVC, animated: true)
+        } failure: { error in
+            let alert = SPAlertView(title: Localization.Alert.Title.error.rawValue, message: error, preset: .error)
+            alert.present(haptic: .error)
+        }
     }
 }

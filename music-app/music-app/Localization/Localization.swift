@@ -24,6 +24,7 @@ extension Localization {
         case shareSong = "menuActions.shareSong"
         case shareLink = "menuActions.shareLink"
         case removePlaylistFromLibrary = "menuActions.removePlaylistFromLibrary"
+        case showAlbum = "menuActions.showAlbum"
     }
     
     enum TabBar: String {
@@ -77,6 +78,8 @@ extension Localization.Controller {
     enum Library: String {
         case recentlyAddedLabel = "controller.library.recentlyAddedLabel"
     }
+    
+    enum Album {}
 }
 
 extension Localization.Controller.Search {
@@ -90,5 +93,12 @@ extension Localization.Controller.Search {
 extension Localization.Controller.Library {
     enum Playlists: String {
         case navBarButton = "controller.library.playlists.addPlaylist"
+    }
+}
+
+extension Localization.Controller.Album {
+    enum AlbumInfoCell: String {
+        case playButton = "controller.album.albumInfoCell.playButton"
+        case shuffleButton = "controller.album.albumInfoCell.shuffleButton"
     }
 }

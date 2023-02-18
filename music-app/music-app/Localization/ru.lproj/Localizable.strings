@@ -15,6 +15,12 @@
 "alert.title.success" = "Успешно";
 
 /*  */
+"controller.album.albumInfoCell.playButton" = "По порядку";
+
+/*  */
+"controller.album.albumInfoCell.shuffleButton" = "В перемешку";
+
+/*  */
 "controller.addPlaylist.addTracks" = "Добавить треки";
 
 /*  */
@@ -30,28 +36,10 @@
 "controller.addPlaylist.title" = "Новый плейлист";
 
 /*  */
-"controller.library.albums.searchBarPlaceholder" = "Введите название альбома...";
-
-/*  */
-"controller.library.artists.searchBarPlaceholder" = "Введите название артиста...";
-
-/*  */
 "controller.library.playlists.addPlaylist" = "Создать плейлист";
 
 /*  */
-"controller.library.playlists.search" = "Введите название плейлиста";
-
-/*  */
-"controller.library.playlists.searchBarPlaceholder" = "Введите название плейлиста...";
-
-/*  */
 "controller.library.recentlyAddedLabel" = "Недавно добавленные";
-
-/*  */
-"controller.library.songs.searchBarPlaceholder" = "Введите название песни...";
-
-/*  */
-"controller.search.searchBarPlaceholder" = "Введите песню, артиста, альбом...";
 
 /*  */
 "controller.search.segmentedControl.albums" = "Альбомы";
@@ -62,44 +50,41 @@
 /*  */
 "controller.search.segmentedControl.tracks" = "Треки";
 
-
+/*  */
 "library.albums" = "Альбомы";
 
-
+/*  */
 "library.artists" = "Исполнители";
 
-
+/*  */
 "library.downloaded" = "Загрузки";
 
-/* 
-  Localizable.strings
-  music-app
-
-  Created by Bahdan Piatrouski on 17.02.23.
-  
- */
+/*  */
 "library.playlists" = "Плейлисты";
 
-
+/*  */
 "library.songs" = "Треки";
 
-
+/*  */
 "menuActions.addToLibrary" = "Добавить в библиотеку";
 
-
+/*  */
 "menuActions.removeFromLibrary" = "Удалить из библиотеки";
 
-
+/*  */
 "menuActions.removePlaylistFromLibrary" = "Удалить плейлист из библиотеки";
 
-
+/*  */
 "menuActions.shareLink" = "Поделиться ссылкой";
 
 /*  */
 "menuActions.shareLink.shareSong" = "Слушайте %@ от %@\n%@";
 
-
+/*  */
 "menuActions.shareSong" = "Поделиться песней";
+
+/*  */
+"menuActions.showAlbum" = "Показать альбом";
 
 /*  */
 "searchBarPlaceholder.albums" = "Введите название альбома...";

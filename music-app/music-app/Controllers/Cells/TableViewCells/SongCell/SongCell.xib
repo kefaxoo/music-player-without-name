@@ -29,19 +29,19 @@
                                 </constraints>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="BeT-dM-iQ1">
-                                <rect key="frame" x="60" y="36.666666666666671" width="58.666666666666657" height="35.666666666666671"/>
+                                <rect key="frame" x="60" y="36.666666666666671" width="50.666666666666657" height="35.666666666666671"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="PXh-AX-P0S">
-                                        <rect key="frame" x="0.0" y="0.0" width="58.666666666666664" height="15"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="50.666666666666664" height="15"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IZE-Ag-XUY">
-                                                <rect key="frame" x="0.0" y="0.0" width="33" height="15"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="25.666666666666668" height="15"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="e.square.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="LfB-RT-C2A">
-                                                <rect key="frame" x="38" y="1.6666666666666643" width="15" height="12.000000000000004"/>
+                                                <rect key="frame" x="30.666666666666671" y="1.6666666666666643" width="15" height="12.000000000000004"/>
                                                 <color key="tintColor" systemColor="systemPurpleColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="15" id="DC1-q6-JUp"/>
@@ -50,13 +50,13 @@
                                                 </constraints>
                                             </imageView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ky0-qi-vd7">
-                                                <rect key="frame" x="58" y="0.0" width="0.6666666666666643" height="15"/>
+                                                <rect key="frame" x="50.666666666666671" y="0.0" width="0.0" height="15"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </view>
                                         </subviews>
                                     </stackView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Artist" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oif-1w-8hE">
-                                        <rect key="frame" x="0.0" y="20.000000000000007" width="58.666666666666664" height="15.666666666666664"/>
+                                        <rect key="frame" x="0.0" y="20.000000000000007" width="50.666666666666664" height="15.666666666666664"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -64,13 +64,24 @@
                                 </subviews>
                             </stackView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CRK-Yg-sQB">
-                                <rect key="frame" x="128.66666666666666" y="29.666666666666664" width="123.66666666666666" height="49.999999999999993"/>
+                                <rect key="frame" x="120.66666666666669" y="29.666666666666664" width="109.33333333333331" height="49.999999999999993"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="doh-w5-SHW">
-                                <rect key="frame" x="262.33333333333331" y="37.333333333333329" width="47.666666666666686" height="34.333333333333329"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="heart.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="3ob-94-bY1">
+                                <rect key="frame" x="240" y="44" width="25" height="22"/>
+                                <color key="tintColor" systemColor="systemPurpleColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="47.670000000000002" id="Qlp-dT-sLt"/>
+                                    <constraint firstAttribute="height" constant="25" id="08u-5F-3dR"/>
+                                    <constraint firstAttribute="width" secondItem="3ob-94-bY1" secondAttribute="height" multiplier="1:1" id="2TO-ru-bFc"/>
+                                    <constraint firstAttribute="width" constant="25" id="SEh-I1-NMj"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="doh-w5-SHW">
+                                <rect key="frame" x="275" y="37" width="35" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="J9D-rj-Jd0"/>
+                                    <constraint firstAttribute="width" constant="35" id="Qlp-dT-sLt"/>
+                                    <constraint firstAttribute="width" secondItem="doh-w5-SHW" secondAttribute="height" multiplier="1:1" id="mRl-0E-v46"/>
                                 </constraints>
                                 <color key="tintColor" systemColor="labelColor"/>
                                 <state key="normal" title="Button"/>
@@ -94,6 +105,7 @@
                 <outlet property="artistAndAlbumLabel" destination="oif-1w-8hE" id="Xew-sK-bkN"/>
                 <outlet property="coverImageView" destination="0Fi-4L-h6Q" id="YLT-dR-OVj"/>
                 <outlet property="explicitImageView" destination="LfB-RT-C2A" id="pML-xt-dYX"/>
+                <outlet property="inLibraryImageView" destination="3ob-94-bY1" id="ezP-BL-QPL"/>
                 <outlet property="menuButton" destination="doh-w5-SHW" id="qCf-OT-p4l"/>
                 <outlet property="titleLabel" destination="IZE-Ag-XUY" id="mG3-61-FSj"/>
             </connections>
@@ -103,6 +115,7 @@
     <resources>
         <image name="e.square.fill" catalog="system" width="128" height="114"/>
         <image name="ellipsis" catalog="system" width="128" height="37"/>
+        <image name="heart.fill" catalog="system" width="128" height="107"/>
         <systemColor name="labelColor">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

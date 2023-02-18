@@ -30,14 +30,25 @@ class LibraryAlbumCell: UITableViewCell {
     }
 
     func set(_ album: DeezerAlbum) {
-        guard let url = URL(string: album.coverBig),
-              let artist = album.artist?.name
-        else { return }
+        if let url = URL(string: album.coverBig) {
+            coverView.sd_setImage(with: url)
+        }
+        
+        if let artist = album.artist {
+            artistLabel.text = artist.name
+        } else {
+            DeezerProvider.getAlbum(album.id) { responseAlbum in
+                self.album = responseAlbum
+                self.artistLabel.text = responseAlbum.artist?.name
+            } failure: { error in
+                let alert = SPAlertView(title: Localization.Alert.Title.error.rawValue, message: error, preset: .error)
+                alert.present(haptic: .error)
+            }
+
+        }
         
         self.album = album
-        coverView.sd_setImage(with: url)
         titleLabel.text = album.title
-        artistLabel.text = artist
         if let year = album.releaseDate?.year {
             releaseYearLabel.text = "\(year)"
         } else {

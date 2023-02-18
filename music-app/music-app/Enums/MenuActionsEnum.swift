@@ -13,6 +13,7 @@ enum MenuActionsEnum {
     case shareSong
     case shareLink
     case removePlaylistFromLibrary
+    case showAlbum
     
     var image: UIImage? {
         switch self {
@@ -26,6 +27,8 @@ enum MenuActionsEnum {
                 return UIImage(systemName: "square.and.arrow.up")
             case .removePlaylistFromLibrary:
                 return UIImage(systemName: "trash.fill")
+            case .showAlbum:
+                return UIImage(systemName: "play.square")
         }
     }
     
@@ -41,6 +44,8 @@ enum MenuActionsEnum {
                 return Localization.MenuActions.shareLink.rawValue.localized
             case .removePlaylistFromLibrary:
                 return Localization.MenuActions.removePlaylistFromLibrary.rawValue.localized
+            case .showAlbum:
+                return Localization.MenuActions.showAlbum.rawValue.localized
         }
     }
 }

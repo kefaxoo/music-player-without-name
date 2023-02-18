@@ -63,7 +63,6 @@ class LibraryTrackCell: UITableViewCell {
         
         let libraryActionsMenu = UIMenu(options: .displayInline, children: [removeFromLibraryAction])
         
-        var shareActions = [UIAction]()
         let shareSongAction = UIAction(title: MenuActionsEnum.shareSong.title, image: MenuActionsEnum.shareSong.image) { _ in
             let alertView = SPAlertView(title: "", preset: .spinner)
             alertView.dismissByTap = false
@@ -107,8 +106,6 @@ class LibraryTrackCell: UITableViewCell {
             }
         }
         
-        shareActions.append(shareSongAction)
-        
         let shareLinkAction = UIAction(title: MenuActionsEnum.shareLink.title, image: MenuActionsEnum.shareLink.image) { _ in
             guard let track = self.track else { return }
             
@@ -125,10 +122,27 @@ class LibraryTrackCell: UITableViewCell {
             }
         }
         
-        shareActions.append(shareLinkAction)
-        let shareActionsMenu = UIMenu(options: .displayInline, children: shareActions)
+        let shareActionsMenu = UIMenu(options: .displayInline, children: [shareSongAction, shareLinkAction])
+        
+        let showAlbumAction = UIAction(title: MenuActionsEnum.showAlbum.title, image: MenuActionsEnum.showAlbum.image) { _ in
+            var alert = SPAlertView(title: "", preset: .spinner)
+            alert.dismissByTap = false
+            alert.present()
+            DeezerProvider.getAlbum(track.albumID) { album in
+                let albumVC = AlbumController()
+                albumVC.set(album)
+                alert.dismiss()
+                delegate.pushViewController(albumVC)
+            } failure: { error in
+                alert.dismiss()
+                alert = SPAlertView(title: Localization.Alert.Title.error.rawValue.localized, message: error, preset: .error)
+                alert.present(haptic: .error)
+            }
+        }
+        
+        let showActionsMenu = UIMenu(options: .displayInline, children: [showAlbumAction])
         
         menuButton.showsMenuAsPrimaryAction = true
-        menuButton.menu = UIMenu(children: [libraryActionsMenu, shareActionsMenu])
+        menuButton.menu = UIMenu(children: [libraryActionsMenu, shareActionsMenu, showActionsMenu])
     }
 }

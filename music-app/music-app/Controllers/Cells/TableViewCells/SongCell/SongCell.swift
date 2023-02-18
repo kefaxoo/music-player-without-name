@@ -16,6 +16,7 @@ class SongCell: UITableViewCell {
     @IBOutlet weak var explicitImageView: UIImageView!
     @IBOutlet weak var artistAndAlbumLabel: UILabel!
     @IBOutlet weak var menuButton: UIButton!
+    @IBOutlet weak var inLibraryImageView: UIImageView!
     
     static let id = String(describing: SongCell.self)
     
@@ -38,6 +39,7 @@ class SongCell: UITableViewCell {
         titleLabel.text = track.title
         explicitImageView.isHidden = !track.isExplicit
         artistAndAlbumLabel.text = "\(artist) • \(album.title)"
+        inLibraryImageView.isHidden = !LibraryManager.isTrackInLibrary(track.id)
     }
     
     @IBAction func menuButtonDidTap(_ sender: Any) {
@@ -45,10 +47,12 @@ class SongCell: UITableViewCell {
               let delegate
         else { return }
         
+        print(LibraryManager.isTrackInLibrary(track.id))
+        
         var libraryActions = [UIAction]()
         
         if LibraryManager.isTrackInLibrary(track.id) {
-            let removeFromLibraryAction = UIAction(title: MenuActionsEnum.removeFromLibrary.title, image: MenuActionsEnum.removeFromLibrary.image) { _ in
+            let removeFromLibraryAction = UIAction(title: MenuActionsEnum.removeFromLibrary.title, image: MenuActionsEnum.removeFromLibrary.image, attributes: .destructive) { _ in
                 guard let removingTrack = RealmManager<LibraryTrack>().read().first(where: { $0.id == track.id }) else { return }
                 
                 RealmManager<LibraryTrack>().delete(object: removingTrack)
@@ -83,7 +87,6 @@ class SongCell: UITableViewCell {
         
         let libraryActionsMenu = UIMenu(options: .displayInline, children: libraryActions)
         
-        var shareActions = [UIAction]()
         let shareSongAction = UIAction(title: MenuActionsEnum.shareSong.title, image: MenuActionsEnum.shareSong.image) { _ in
             let alertView = SPAlertView(title: "", preset: .spinner)
             alertView.dismissByTap = false
@@ -128,8 +131,6 @@ class SongCell: UITableViewCell {
             }
         }
         
-        shareActions.append(shareSongAction)
-        
         let shareLinkAction = UIAction(title: MenuActionsEnum.shareLink.title, image: MenuActionsEnum.shareLink.image) { _ in
             guard let track = self.track,
                   let artist = track.artist
@@ -148,10 +149,29 @@ class SongCell: UITableViewCell {
             }
         }
         
-        shareActions.append(shareLinkAction)
-        let shareActionsMenu = UIMenu(options: .displayInline, children: shareActions)
+        let shareActionsMenu = UIMenu(options: .displayInline, children: [shareSongAction, shareLinkAction])
+        
+        let showAlbumAction = UIAction(title: MenuActionsEnum.showAlbum.title, image: MenuActionsEnum.showAlbum.image) { _ in
+            guard let albumID = track.album?.id else { return }
+            
+            var alert = SPAlertView(title: "", preset: .spinner)
+            alert.dismissByTap = false
+            alert.present()
+            DeezerProvider.getAlbum(albumID) { album in
+                let albumVC = AlbumController()
+                albumVC.set(album)
+                alert.dismiss()
+                delegate.pushViewController(albumVC)
+            } failure: { error in
+                alert.dismiss()
+                alert = SPAlertView(title: Localization.Alert.Title.error.rawValue.localized, message: error, preset: .error)
+                alert.present(haptic: .error)
+            }
+        }
+        
+        let showActionsMenu = UIMenu(options: .displayInline, children: [showAlbumAction])
         
         menuButton.showsMenuAsPrimaryAction = true
-        menuButton.menu = UIMenu(children: [libraryActionsMenu, shareActionsMenu])
+        menuButton.menu = UIMenu(children: [libraryActionsMenu, shareActionsMenu, showActionsMenu])
     }
 }

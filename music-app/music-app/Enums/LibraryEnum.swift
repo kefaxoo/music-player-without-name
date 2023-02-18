@@ -14,18 +14,18 @@ enum LibraryEnum: CaseIterable {
     case songs
     case downloaded
     
-    var icon: String {
+    var icon: UIImage? {
         switch self {
             case .playlists:
-                return "music.note.list"
+                return UIImage(systemName: "music.note.list")
             case .artists:
-                return "music.mic"
+                return UIImage(systemName: "music.mic")
             case .albums:
-                return "play.square"
+                return UIImage(systemName: "play.square")
             case .songs:
-                return "music.quarternote.3"
+                return UIImage(systemName: "music.quarternote.3")
             case .downloaded:
-                return "square.and.arrow.down"
+                return UIImage(systemName: "square.and.arrow.down")
         }
     }
     

@@ -28,6 +28,7 @@ class SearchController: UIViewController {
         resultTableView.dataSource = self
         registerCell()
         setLocale()
+        showTop()
     }
     
     private func setLocale() {
@@ -40,6 +41,19 @@ class SearchController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         resultTableView.reloadData()
+    }
+    
+    private func getResult() {
+        switch typeSegmentedControl.selectedSegmentIndex {
+            case 0:
+                showTracks(query)
+            case 1:
+                showArtists(query)
+            case 2:
+                showAlbums(query)
+            default:
+                return
+        }
     }
     
     private func registerCell() {
@@ -59,16 +73,7 @@ class SearchController: UIViewController {
     }
     
     @IBAction func typeDidChange(_ sender: Any) {
-        switch typeSegmentedControl.selectedSegmentIndex {
-            case 0:
-                showTracks(query)
-            case 1:
-                showArtists(query)
-            case 2:
-                showAlbums(query)
-            default:
-                return
-        }
+        getResult()
     }
 }
 
@@ -174,8 +179,6 @@ extension SearchController {
 }
 
 extension SearchController: UISearchBarDelegate {
-    
-    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         UIView.animate(withDuration: 0.5) {
             self.typeSegmentedControl.isHidden = searchText.isEmpty
@@ -185,22 +188,8 @@ extension SearchController: UISearchBarDelegate {
         if searchText.isEmpty {
             showTop()
         } else {
-            switch typeSegmentedControl.selectedSegmentIndex {
-                case 0:
-                    showTracks(searchText)
-                case 1:
-                    showArtists(searchText)
-                case 2:
-                    showAlbums(searchText)
-                default:
-                    return
-            }
+            getResult()
         }
-    }
-    
-    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
-        showTop()
-        return true
     }
 }
 
@@ -211,5 +200,9 @@ extension SearchController: MenuActionsDelegate {
     
     func presentActivityController(_ vc: UIActivityViewController) {
         self.present(vc, animated: true)
+    }
+    
+    func pushViewController(_ vc: UIViewController) {
+        navigationController?.pushViewController(vc, animated: true)
     }
 }

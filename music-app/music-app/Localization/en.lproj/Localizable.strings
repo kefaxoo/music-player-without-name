@@ -19,6 +19,7 @@
 "menuActions.shareSong" = "Share song";
 "menuActions.shareLink" = "Share link";
 "menuActions.removePlaylistFromLibrary" = "Remove playlist from library";
+"menuActions.showAlbum" = "Show album";
 
 // Menu Actions Share Link Section
 "menuActions.shareLink.shareSong" = "Listen %@ by %@\n%@";
@@ -55,6 +56,11 @@
 
 // Controller Library Playlists Section
 "controller.library.playlists.addPlaylist" = "Add playlist";
+
+// Controller Album Section
+// Controller Album AlbumInfoCell Section
+"controller.album.albumInfoCell.playButton" = "Play";
+"controller.album.albumInfoCell.shuffleButton" = "Shuffle";
 
 // SearchBarPlaceholder Section
 "searchBarPlaceholder.tracks" = "Type track name...";

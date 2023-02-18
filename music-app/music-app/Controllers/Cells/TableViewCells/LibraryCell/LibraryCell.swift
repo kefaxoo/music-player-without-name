@@ -19,7 +19,7 @@ class LibraryCell: UITableViewCell {
     }
     
     func set(_ type: LibraryEnum) {
-        iconView.image = UIImage(systemName: type.icon)
+        iconView.image = type.icon
         nameLabel.text = type.name
     }
     

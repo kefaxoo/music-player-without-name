@@ -15,6 +15,12 @@
 "alert.title.success" = "Паспяхова";
 
 /*  */
+"controller.album.albumInfoCell.playButton" = "Па парадку";
+
+/*  */
+"controller.album.albumInfoCell.shuffleButton" = "У перамешку";
+
+/*  */
 "controller.addPlaylist.addTracks" = "Дадаць трекі";
 
 /*  */
@@ -30,25 +36,10 @@
 "controller.addPlaylist.title" = "Новы плэйліст";
 
 /*  */
-"controller.library.albums.searchBarPlaceholder" = "Увядзіце назву альбома...";
-
-/*  */
-"controller.library.artists.searchBarPlaceholder" = "Увядзіце назву спевака...";
-
-/*  */
 "controller.library.playlists.addPlaylist" = "Стварыць плэйліст";
 
 /*  */
-"controller.library.playlists.searchBarPlaceholder" = "Увядзіце назву плэйліста...";
-
-/*  */
 "controller.library.recentlyAddedLabel" = "Нядаўна дададзеныя";
-
-/*  */
-"controller.library.songs.searchBarPlaceholder" = "Увядзіце назву трэка...";
-
-/*  */
-"controller.search.searchBarPlaceholder" = "Увядзіце трэк, спевака, альбома...";
 
 /*  */
 "controller.search.segmentedControl.albums" = "Альбомы";
@@ -59,44 +50,41 @@
 /*  */
 "controller.search.segmentedControl.tracks" = "Трэкі";
 
-
+/*  */
 "library.albums" = "Альбомы";
 
-
+/*  */
 "library.artists" = "Спевакі";
 
-
+/*  */
 "library.downloaded" = "Загрузкі";
 
-/* 
-  Localizable.strings
-  music-app
-
-  Created by Bahdan Piatrouski on 17.02.23.
-  
- */
+/*  */
 "library.playlists" = "Плэйлісты";
 
-
+/*  */
 "library.songs" = "Трэкі";
 
-
+/*  */
 "menuActions.addToLibrary" = "Дадаць у бібліятэку";
 
-
+/*  */
 "menuActions.removeFromLibrary" = "Выдаліць з бібліятэкі";
 
-
+/*  */
 "menuActions.removePlaylistFromLibrary" = "Выдаліць плэйліст з бібліятэкі";
 
-
+/*  */
 "menuActions.shareLink" = "Падзяліцца спасылкай";
 
 /*  */
 "menuActions.shareLink.shareSong" = "Слухайце %@ ад %@\n%@";
 
-
+/*  */
 "menuActions.shareSong" = "Падзяліцца песняй";
+
+/*  */
+"menuActions.showAlbum" = "Паказаць альбом";
 
 /*  */
 "searchBarPlaceholder.albums" = "Увядзіце назву альбома...";

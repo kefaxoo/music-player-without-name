@@ -17,6 +17,7 @@ enum DeezerAPI {
     case getGenre(_ id: Int)
     case find(queryParameter: String, type: DeezerType)
     case getTrack(_ id: Int)
+    case getArtistAlbums(_ id: Int)
 }
 
 extension DeezerAPI: TargetType {
@@ -52,6 +53,8 @@ extension DeezerAPI: TargetType {
                 return path
             case .getTrack(let id):
                 return "/track/\(id)"
+            case .getArtistAlbums(let id):
+                return "/artist/\(id)/albums"
         }
     }
     

@@ -10,10 +10,11 @@ import UIKit
 protocol MenuActionsDelegate: AnyObject {
     func reloadData()
     func presentActivityController(_ vc: UIActivityViewController)
+    func pushViewController(_ vc: UIViewController)
 }
 
 extension MenuActionsDelegate {
     func reloadData() {}
-    
     func presentActivityController(_ vc: UIActivityViewController) {}
+    func pushViewController(_ vc: UIViewController) {}
 }

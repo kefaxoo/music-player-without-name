@@ -19,6 +19,7 @@ class LibraryAlbumsController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         albumsTableView.dataSource = self
+        albumsTableView.delegate = self
         registerCell()
         getAlbums()
         setupNavBar()
@@ -100,5 +101,13 @@ extension LibraryAlbumsController: UISearchBarDelegate {
         }
         
         albumsTableView.reloadData()
+    }
+}
+
+extension LibraryAlbumsController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let albumVC = AlbumController()
+        albumVC.set(albums[indexPath.row])
+        navigationController?.pushViewController(albumVC, animated: true)
     }
 }

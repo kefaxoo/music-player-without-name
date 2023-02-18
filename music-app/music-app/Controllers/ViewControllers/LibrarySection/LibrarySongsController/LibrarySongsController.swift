@@ -67,6 +67,10 @@ extension LibrarySongsController: MenuActionsDelegate {
     func presentActivityController(_ vc: UIActivityViewController) {
         present(vc, animated: true)
     }
+    
+    func pushViewController(_ vc: UIViewController) {
+        navigationController?.pushViewController(vc, animated: true)
+    }
 }
 
 extension LibrarySongsController: UISearchBarDelegate {

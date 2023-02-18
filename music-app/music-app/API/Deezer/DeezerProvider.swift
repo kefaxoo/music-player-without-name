@@ -8,7 +8,6 @@
 import Foundation
 import Moya
 import Moya_ObjectMapper
-import Alamofire
 
 final class DeezerProvider {
     private static let provider = MoyaProvider<DeezerAPI>(plugins: [NetworkLoggerPlugin()])
@@ -155,6 +154,21 @@ final class DeezerProvider {
                     guard let track = try? response.mapObject(DeezerTrack.self) else { return }
                     
                     success(track)
+                case .failure(let error):
+                    guard let description = error.errorDescription else { return }
+                    
+                    failure(description)
+            }
+        }
+    }
+    
+    static func getArtistAlbums(_ id: Int, success: @escaping(([DeezerAlbum]) -> Void), failure: @escaping((String) -> Void)) {
+        provider.request(.getArtistAlbums(id)) { result in
+            switch result {
+                case .success(let response):
+                    guard let albums = try? response.mapObject(DeezerData<DeezerAlbum>.self).data else { return }
+                    
+                    success(albums)
                 case .failure(let error):
                     guard let description = error.errorDescription else { return }
                     
