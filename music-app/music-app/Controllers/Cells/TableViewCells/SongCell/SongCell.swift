@@ -47,8 +47,6 @@ class SongCell: UITableViewCell {
               let delegate
         else { return }
         
-        print(LibraryManager.isTrackInLibrary(track.id))
-        
         var libraryActions = [UIAction]()
         
         if LibraryManager.isTrackInLibrary(track.id) {

@@ -176,4 +176,19 @@ final class DeezerProvider {
             }
         }
     }
+    
+    static func getArtistTracks(_ id: Int, limitTracks: Int = 5, success: @escaping(([DeezerTrack]) -> Void), failure: @escaping((String) -> Void)) {
+        provider.request(.getArtistTracks(id, limitTracks)) { result in
+            switch result {
+                case .success(let response):
+                    guard let tracks = try? response.mapObject(DeezerData<DeezerTrack>.self).data else { return }
+                    
+                    success(tracks)
+                case .failure(let error):
+                    guard let description = error.errorDescription else { return }
+                    
+                    failure(description)
+            }
+        }
+    }
 }

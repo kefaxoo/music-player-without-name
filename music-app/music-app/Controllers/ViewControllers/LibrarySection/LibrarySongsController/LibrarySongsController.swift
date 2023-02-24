@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SPAlert
 
 class LibrarySongsController: UIViewController {
 
@@ -17,6 +18,7 @@ class LibrarySongsController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tracksTableView.dataSource = self
+        tracksTableView.delegate = self
         registerCell()
         tracks = RealmManager<LibraryTrack>().read().reversed()
         tracksTableView.reloadData()
@@ -25,7 +27,7 @@ class LibrarySongsController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.navigationBar.tintColor = .purple
+        navigationController?.navigationBar.tintColor = .systemPurple
         tracks = RealmManager<LibraryTrack>().read().reversed()
         tracksTableView.reloadData()
     }
@@ -81,5 +83,27 @@ extension LibrarySongsController: UISearchBarDelegate {
         }
         
         tracksTableView.reloadData()
+    }
+}
+
+extension LibrarySongsController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        DeezerProvider.getTrack(tracks[indexPath.row].id) { track in
+            let nowPlayingVC = NowPlayingController()
+            nowPlayingVC.modalPresentationStyle = .fullScreen
+            nowPlayingVC.set(track: track)
+            nowPlayingVC.delegate = self
+            
+            self.present(nowPlayingVC, animated: true)
+        } failure: { error in
+            let alert = SPAlertView(title: Localization.Alert.Title.error.rawValue, message: error, preset: .error)
+            alert.present(haptic: .error)
+        }
+    }
+}
+
+extension LibrarySongsController: ViewControllerDelegate {
+    func pushVC(_ vc: UIViewController) {
+        navigationController?.pushViewController(vc, animated: true)
     }
 }

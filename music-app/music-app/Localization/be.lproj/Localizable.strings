@@ -15,12 +15,6 @@
 "alert.title.success" = "Паспяхова";
 
 /*  */
-"controller.album.albumInfoCell.playButton" = "Па парадку";
-
-/*  */
-"controller.album.albumInfoCell.shuffleButton" = "У перамешку";
-
-/*  */
 "controller.addPlaylist.addTracks" = "Дадаць трекі";
 
 /*  */
@@ -34,6 +28,21 @@
 
 /*  */
 "controller.addPlaylist.title" = "Новы плэйліст";
+
+/*  */
+"controller.album.albumInfoCell.playButton" = "Па парадку";
+
+/*  */
+"controller.album.albumInfoCell.shuffleButton" = "У перамешку";
+
+/*  */
+"controller.album.moreAlbumsCell.moreByButton" = "Больш ад %@";
+
+/*  */
+"controller.artist.moreAlbumsCell.moreByButton" = "Альбомы";
+
+/*  */
+"controller.artist.topTrackLabelCell.title" = "Трэкi";
 
 /*  */
 "controller.library.playlists.addPlaylist" = "Стварыць плэйліст";

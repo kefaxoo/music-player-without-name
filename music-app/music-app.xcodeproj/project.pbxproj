@@ -7,6 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7009ACD829A936D300D9B800 /* Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7009ACD729A936D300D9B800 /* Double.swift */; };
+		7009ACDA29A93C4E00D9B800 /* MPVolumeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7009ACD929A93C4E00D9B800 /* MPVolumeView.swift */; };
+		7026489629A295B80092E111 /* ArtistInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7026489429A295B80092E111 /* ArtistInfoCell.swift */; };
+		7026489729A295B80092E111 /* ArtistInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7026489529A295B80092E111 /* ArtistInfoCell.xib */; };
+		702648A029A29D3D0092E111 /* TopTrackLabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7026489E29A29D3D0092E111 /* TopTrackLabelCell.swift */; };
+		702648A129A29D3D0092E111 /* TopTrackLabelCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7026489F29A29D3D0092E111 /* TopTrackLabelCell.xib */; };
+		703E24EC29A3F4DE00C6D957 /* TracksController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 703E24EB29A3F4DE00C6D957 /* TracksController.swift */; };
+		703E24EE29A3F4EB00C6D957 /* TracksController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 703E24ED29A3F4EB00C6D957 /* TracksController.xib */; };
+		7042E43C29A8BB8E0042B8C3 /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7042E43B29A8BB8E0042B8C3 /* AudioPlayer.swift */; };
+		7042E44029A8C7770042B8C3 /* AudioPlayerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7042E43F29A8C7770042B8C3 /* AudioPlayerDelegate.swift */; };
+		7042E44329A8FC5F0042B8C3 /* NowPlayingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7042E44129A8FC5F0042B8C3 /* NowPlayingController.swift */; };
+		7042E44429A8FC5F0042B8C3 /* NowPlayingController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7042E44229A8FC5F0042B8C3 /* NowPlayingController.xib */; };
 		70450FCB2990DBF1008E4C1C /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70450FCA2990DBF1008E4C1C /* RealmManager.swift */; };
 		70450FCE2990DC37008E4C1C /* LibraryTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70450FCD2990DC37008E4C1C /* LibraryTrack.swift */; };
 		704CD2A9299CE51600FFEBBA /* LibraryPlaylist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 704CD2A8299CE51600FFEBBA /* LibraryPlaylist.swift */; };
@@ -87,6 +99,18 @@
 /* Begin PBXFileReference section */
 		52B939403168AE812FDE9025 /* Pods-music-app.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-music-app.debug.xcconfig"; path = "Target Support Files/Pods-music-app/Pods-music-app.debug.xcconfig"; sourceTree = "<group>"; };
 		69EC8EDD2D061E079E7C2AC5 /* Pods-music-app.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-music-app.release.xcconfig"; path = "Target Support Files/Pods-music-app/Pods-music-app.release.xcconfig"; sourceTree = "<group>"; };
+		7009ACD729A936D300D9B800 /* Double.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Double.swift; sourceTree = "<group>"; };
+		7009ACD929A93C4E00D9B800 /* MPVolumeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPVolumeView.swift; sourceTree = "<group>"; };
+		7026489429A295B80092E111 /* ArtistInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistInfoCell.swift; sourceTree = "<group>"; };
+		7026489529A295B80092E111 /* ArtistInfoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ArtistInfoCell.xib; sourceTree = "<group>"; };
+		7026489E29A29D3D0092E111 /* TopTrackLabelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopTrackLabelCell.swift; sourceTree = "<group>"; };
+		7026489F29A29D3D0092E111 /* TopTrackLabelCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TopTrackLabelCell.xib; sourceTree = "<group>"; };
+		703E24EB29A3F4DE00C6D957 /* TracksController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TracksController.swift; sourceTree = "<group>"; };
+		703E24ED29A3F4EB00C6D957 /* TracksController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TracksController.xib; sourceTree = "<group>"; };
+		7042E43B29A8BB8E0042B8C3 /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
+		7042E43F29A8C7770042B8C3 /* AudioPlayerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerDelegate.swift; sourceTree = "<group>"; };
+		7042E44129A8FC5F0042B8C3 /* NowPlayingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NowPlayingController.swift; sourceTree = "<group>"; };
+		7042E44229A8FC5F0042B8C3 /* NowPlayingController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NowPlayingController.xib; sourceTree = "<group>"; };
 		70450FCA2990DBF1008E4C1C /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
 		70450FCD2990DC37008E4C1C /* LibraryTrack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryTrack.swift; sourceTree = "<group>"; };
 		704CD2A8299CE51600FFEBBA /* LibraryPlaylist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryPlaylist.swift; sourceTree = "<group>"; };
@@ -182,6 +206,51 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		700D5B9729A3F4C1008CB80E /* TracksController */ = {
+			isa = PBXGroup;
+			children = (
+				703E24ED29A3F4EB00C6D957 /* TracksController.xib */,
+				703E24EB29A3F4DE00C6D957 /* TracksController.swift */,
+			);
+			path = TracksController;
+			sourceTree = "<group>";
+		};
+		7026489329A2959D0092E111 /* ArtistSection */ = {
+			isa = PBXGroup;
+			children = (
+				7026489829A295BB0092E111 /* ArtistInfoCell */,
+				702648A229A29D400092E111 /* TopTrackLabelCell */,
+			);
+			path = ArtistSection;
+			sourceTree = "<group>";
+		};
+		7026489829A295BB0092E111 /* ArtistInfoCell */ = {
+			isa = PBXGroup;
+			children = (
+				7026489429A295B80092E111 /* ArtistInfoCell.swift */,
+				7026489529A295B80092E111 /* ArtistInfoCell.xib */,
+			);
+			path = ArtistInfoCell;
+			sourceTree = "<group>";
+		};
+		702648A229A29D400092E111 /* TopTrackLabelCell */ = {
+			isa = PBXGroup;
+			children = (
+				7026489E29A29D3D0092E111 /* TopTrackLabelCell.swift */,
+				7026489F29A29D3D0092E111 /* TopTrackLabelCell.xib */,
+			);
+			path = TopTrackLabelCell;
+			sourceTree = "<group>";
+		};
+		7042E44529A8FC630042B8C3 /* NowPlayingController */ = {
+			isa = PBXGroup;
+			children = (
+				7042E44129A8FC5F0042B8C3 /* NowPlayingController.swift */,
+				7042E44229A8FC5F0042B8C3 /* NowPlayingController.xib */,
+			);
+			path = NowPlayingController;
+			sourceTree = "<group>";
+		};
 		70450FC92990DBEA008E4C1C /* Realm */ = {
 			isa = PBXGroup;
 			children = (
@@ -263,6 +332,8 @@
 				709BA3F5299A46E200B4AD38 /* String.swift */,
 				70680324299F7DD200536187 /* Bundle.swift */,
 				70FCD0EB29A111A700AEB719 /* Int.swift */,
+				7009ACD729A936D300D9B800 /* Double.swift */,
+				7009ACD929A93C4E00D9B800 /* MPVolumeView.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -336,6 +407,7 @@
 			children = (
 				70D1A8B82993FC77003B3478 /* MenuActionsDelegate.swift */,
 				70FCD0F329A13A4D00AEB719 /* ViewControllerDelegate.swift */,
+				7042E43F29A8C7770042B8C3 /* AudioPlayerDelegate.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -405,9 +477,11 @@
 				70E63D0F298EE01C003D6CBF /* LibraryController */,
 				70E63D10298EE023003D6CBF /* SearchController */,
 				704CD2B3299CE80800FFEBBA /* AddPlaylistController */,
+				70FCD0F929A15C3B00AEB719 /* ArtistController */,
 				70FCD0D729A0F81E00AEB719 /* AlbumController */,
-				70FCD0FC29A15C5800AEB719 /* TODO */,
 				70FCD10129A15C9300AEB719 /* MoreAlbumsController */,
+				700D5B9729A3F4C1008CB80E /* TracksController */,
+				7042E44529A8FC630042B8C3 /* NowPlayingController */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -442,6 +516,7 @@
 		70E63D12298EE383003D6CBF /* TableViewCells */ = {
 			isa = PBXGroup;
 			children = (
+				7026489329A2959D0092E111 /* ArtistSection */,
 				70FCD0DC29A0FB6400AEB719 /* AlbumSection */,
 				709BA3F4299A200F00B4AD38 /* LibrarySection */,
 				70E63D13298EE389003D6CBF /* LibraryCell */,
@@ -534,6 +609,7 @@
 				70E63D02298EDE61003D6CBF /* Controllers */,
 				70E63CEB298EDD51003D6CBF /* API */,
 				70D1A8B12993F3FA003B3478 /* Managers */,
+				7042E43B29A8BB8E0042B8C3 /* AudioPlayer.swift */,
 				70F8AF45298EDC4A0002D1D0 /* AppDelegate.swift */,
 				70F8AF47298EDC4A0002D1D0 /* SceneDelegate.swift */,
 				70F8AF4B298EDC4A0002D1D0 /* Main.storyboard */,
@@ -607,14 +683,6 @@
 				70FCD0F629A15B5400AEB719 /* ArtistController.xib */,
 			);
 			path = ArtistController;
-			sourceTree = "<group>";
-		};
-		70FCD0FC29A15C5800AEB719 /* TODO */ = {
-			isa = PBXGroup;
-			children = (
-				70FCD0F929A15C3B00AEB719 /* ArtistController */,
-			);
-			path = TODO;
 			sourceTree = "<group>";
 		};
 		70FCD10129A15C9300AEB719 /* MoreAlbumsController */ = {
@@ -712,15 +780,18 @@
 				70FCD0EA29A1103400AEB719 /* TextAlbumInfoCell.xib in Resources */,
 				704CD2B9299CEE5600FFEBBA /* LibraryPlaylistCell.xib in Resources */,
 				704CD2B2299CE80500FFEBBA /* AddPlaylistController.xib in Resources */,
+				7042E44429A8FC5F0042B8C3 /* NowPlayingController.xib in Resources */,
 				70D1A8B62993F8B5003B3478 /* LibraryTrackCell.xib in Resources */,
 				70FCD10029A15C9000AEB719 /* MoreAlbumsController.xib in Resources */,
 				70D1A8AF2993F3C3003B3478 /* LibrarySongsController.xib in Resources */,
 				709BA400299AD1FF00B4AD38 /* LibraryArtistCell.xib in Resources */,
 				70FCD0F829A15B5400AEB719 /* ArtistController.xib in Resources */,
 				70F8AF52298EDC4B0002D1D0 /* LaunchScreen.storyboard in Resources */,
+				702648A129A29D3D0092E111 /* TopTrackLabelCell.xib in Resources */,
 				70FCD0F129A12A8A00AEB719 /* MoreAlbumsByArtistCell.xib in Resources */,
 				70F8AF4F298EDC4B0002D1D0 /* Assets.xcassets in Resources */,
 				70FCD0DB29A0FB4000AEB719 /* AlbumController.xib in Resources */,
+				7026489729A295B80092E111 /* ArtistInfoCell.xib in Resources */,
 				70E63D0E298EDFB4003D6CBF /* SearchController.xib in Resources */,
 				70F8AF4D298EDC4A0002D1D0 /* Main.storyboard in Resources */,
 				70FCD0E029A0FB7900AEB719 /* AlbumInfoCell.xib in Resources */,
@@ -728,6 +799,7 @@
 				70E63D0A298EDFAA003D6CBF /* LibraryController.xib in Resources */,
 				709BA3FB299ACE2100B4AD38 /* LibraryArtistsController.xib in Resources */,
 				7068031C299F7A9700536187 /* Localizable.strings in Resources */,
+				703E24EE29A3F4EB00C6D957 /* TracksController.xib in Resources */,
 				70BAA3EC2995103F008E6BE4 /* LibraryAlbumsController.xib in Resources */,
 				70E63D252990D3C4003D6CBF /* RecentlyAddedCell.xib in Resources */,
 				70E63D17298EE398003D6CBF /* LibraryCell.xib in Resources */,
@@ -793,8 +865,10 @@
 				704CD2A9299CE51600FFEBBA /* LibraryPlaylist.swift in Sources */,
 				70B028382993F0DA00BB9E01 /* SongLinkModel.swift in Sources */,
 				70680321299F7BC100536187 /* SearchBarEnum.swift in Sources */,
+				7042E44329A8FC5F0042B8C3 /* NowPlayingController.swift in Sources */,
 				70D1A8B92993FC77003B3478 /* MenuActionsDelegate.swift in Sources */,
 				70B028362993F0DA00BB9E01 /* SongLinkProvider.swift in Sources */,
+				702648A029A29D3D0092E111 /* TopTrackLabelCell.swift in Sources */,
 				70E92EFD2993E0550087E16A /* MenuActionsEnum.swift in Sources */,
 				70E63D1A2990C922003D6CBF /* LibraryEnum.swift in Sources */,
 				70E63D05298EDE7E003D6CBF /* TabBarController.swift in Sources */,
@@ -808,13 +882,18 @@
 				70E63CF9298EDDD7003D6CBF /* DeezerArtist.swift in Sources */,
 				70E71A0E29930634004E6309 /* SongCell.swift in Sources */,
 				70FCD0DF29A0FB7900AEB719 /* AlbumInfoCell.swift in Sources */,
+				7026489629A295B80092E111 /* ArtistInfoCell.swift in Sources */,
 				70FCD0E429A1082500AEB719 /* AlbumTrackCell.swift in Sources */,
 				70B028372993F0DA00BB9E01 /* SongLinkAPI.swift in Sources */,
 				70E63D242990D3C4003D6CBF /* RecentlyAddedCell.swift in Sources */,
 				70FCD0F029A12A8A00AEB719 /* MoreAlbumsByArtistCell.swift in Sources */,
+				7009ACDA29A93C4E00D9B800 /* MPVolumeView.swift in Sources */,
 				70FCD0F729A15B5400AEB719 /* ArtistController.swift in Sources */,
 				709BA3F1299A200500B4AD38 /* LibraryAlbumCell.swift in Sources */,
+				703E24EC29A3F4DE00C6D957 /* TracksController.swift in Sources */,
+				7009ACD829A936D300D9B800 /* Double.swift in Sources */,
 				70BAA3EB2995103F008E6BE4 /* LibraryAlbumsController.swift in Sources */,
+				7042E43C29A8BB8E0042B8C3 /* AudioPlayer.swift in Sources */,
 				70450FCB2990DBF1008E4C1C /* RealmManager.swift in Sources */,
 				70FCD0DA29A0FB4000AEB719 /* AlbumController.swift in Sources */,
 				709BA3FA299ACE2100B4AD38 /* LibraryArtistsController.swift in Sources */,
@@ -826,6 +905,7 @@
 				70F8AF48298EDC4A0002D1D0 /* SceneDelegate.swift in Sources */,
 				70E63CFD298EDDFF003D6CBF /* DeezerGenre.swift in Sources */,
 				704CD2B5299CEA1600FFEBBA /* LibraryTrackInPlaylist.swift in Sources */,
+				7042E44029A8C7770042B8C3 /* AudioPlayerDelegate.swift in Sources */,
 				70E63D09298EDFAA003D6CBF /* LibraryController.swift in Sources */,
 				704CD2AC299CE71200FFEBBA /* LibraryPlaylistsController.swift in Sources */,
 				70450FCE2990DC37008E4C1C /* LibraryTrack.swift in Sources */,

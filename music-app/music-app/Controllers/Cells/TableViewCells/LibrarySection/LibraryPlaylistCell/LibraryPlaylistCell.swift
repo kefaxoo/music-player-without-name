@@ -26,8 +26,9 @@ class LibraryPlaylistCell: UITableViewCell {
     func set(_ playlist: LibraryPlaylist) {
         self.playlist = playlist
         
-        if let path = URL(string: playlist.image),
-           let imageData = try? Data(contentsOf: path) {
+        let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
+        if let filePath = path?.appendingPathComponent(playlist.image),
+           let imageData = try? Data(contentsOf: filePath) {
             playlistImageView.image = UIImage(data: imageData)
         }
         

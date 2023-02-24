@@ -15,12 +15,6 @@
 "alert.title.success" = "Успешно";
 
 /*  */
-"controller.album.albumInfoCell.playButton" = "По порядку";
-
-/*  */
-"controller.album.albumInfoCell.shuffleButton" = "В перемешку";
-
-/*  */
 "controller.addPlaylist.addTracks" = "Добавить треки";
 
 /*  */
@@ -34,6 +28,21 @@
 
 /*  */
 "controller.addPlaylist.title" = "Новый плейлист";
+
+/*  */
+"controller.album.albumInfoCell.playButton" = "По порядку";
+
+/*  */
+"controller.album.albumInfoCell.shuffleButton" = "В перемешку";
+
+/*  */
+"controller.album.moreAlbumsCell.moreByButton" = "Больше от %@";
+
+/*  */
+"controller.artist.moreAlbumsCell.moreByButton" = "Альбомы";
+
+/*  */
+"controller.artist.topTrackLabelCell.title" = "Треки";
 
 /*  */
 "controller.library.playlists.addPlaylist" = "Создать плейлист";

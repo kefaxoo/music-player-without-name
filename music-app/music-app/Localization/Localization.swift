@@ -80,6 +80,8 @@ extension Localization.Controller {
     }
     
     enum Album {}
+    
+    enum Artist {}
 }
 
 extension Localization.Controller.Search {
@@ -100,5 +102,19 @@ extension Localization.Controller.Album {
     enum AlbumInfoCell: String {
         case playButton = "controller.album.albumInfoCell.playButton"
         case shuffleButton = "controller.album.albumInfoCell.shuffleButton"
+    }
+    
+    enum MoreAlbumsByArtistCell: String {
+        case moreByButton = "controller.album.moreAlbumsCell.moreByButton"
+    }
+}
+
+extension Localization.Controller.Artist {
+    enum TopTrackLabelCell: String {
+        case title = "controller.artist.topTrackLabelCell.title"
+    }
+    
+    enum MoreAlbumsByArtistCell: String {
+        case title = "controller.artist.moreAlbumsCell.moreByButton"
     }
 }

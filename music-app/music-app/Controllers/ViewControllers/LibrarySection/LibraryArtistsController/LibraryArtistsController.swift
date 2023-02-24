@@ -19,6 +19,7 @@ class LibraryArtistsController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         artistsTableView.dataSource = self
+        artistsTableView.delegate = self
         registerCell()
         getArtists()
         setupNavBar()
@@ -26,7 +27,7 @@ class LibraryArtistsController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.navigationBar.tintColor = .purple
+        navigationController?.navigationBar.tintColor = .systemPurple
     }
     
     private func setupNavBar() {
@@ -95,11 +96,23 @@ extension LibraryArtistsController: MenuActionsDelegate {
 extension LibraryArtistsController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if !searchText.isEmpty {
-            showedArtists = artists.filter({ $0.name.lowercased().contains(searchText.lowercased()) })
+            showedArtists = artists.filter({ $0.name.lowercased().contains(searchText.lowercased()) }).sorted { artistI, artistJ in
+                return artistI.name < artistJ.name
+            }
         } else {
-            showedArtists = artists
+            showedArtists = artists.sorted { artistI, artistJ in
+                return artistI.name < artistJ.name
+            }
         }
         
         artistsTableView.reloadData()
+    }
+}
+
+extension LibraryArtistsController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let artistVC = ArtistController()
+        artistVC.set(artists[indexPath.row])
+        navigationController?.pushViewController(artistVC, animated: true)
     }
 }

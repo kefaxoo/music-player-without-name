@@ -25,7 +25,7 @@ class LibraryPlaylistsController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.navigationBar.tintColor = .purple
+        navigationController?.navigationBar.tintColor = .systemPurple
     }
     
     private func setupNavBar() {

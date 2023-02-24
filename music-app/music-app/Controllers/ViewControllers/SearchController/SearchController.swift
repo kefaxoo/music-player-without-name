@@ -26,6 +26,7 @@ class SearchController: UIViewController {
         super.viewDidLoad()
         setSearchController()
         resultTableView.dataSource = self
+        resultTableView.delegate = self
         registerCell()
         setLocale()
         showTop()
@@ -125,7 +126,6 @@ extension SearchController: UITableViewDataSource {
     }
 }
 
-// MARK: -
 // MARK: Requests extension
 
 extension SearchController {
@@ -204,5 +204,26 @@ extension SearchController: MenuActionsDelegate {
     
     func pushViewController(_ vc: UIViewController) {
         navigationController?.pushViewController(vc, animated: true)
+    }
+}
+
+extension SearchController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch typeSegmentedControl.selectedSegmentIndex {
+            case 1:
+                guard let artist = result[indexPath.row] as? DeezerArtist else { return }
+                
+                let artistVC = ArtistController()
+                artistVC.set(artist)
+                navigationController?.pushViewController(artistVC, animated: true)
+            case 2:
+                guard let album = result[indexPath.row] as? DeezerAlbum else { return }
+                
+                let albumVC = AlbumController()
+                albumVC.set(album)
+                navigationController?.pushViewController(albumVC, animated: true)
+            default:
+                break
+        }
     }
 }

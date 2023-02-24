@@ -38,7 +38,7 @@ class TabBarController: UITabBarController {
 //        recognizeLinkVC.tabBarItem = UITabBarItem(title: "Recognize", image: UIImage(systemName: "text.viewfinder"), tag: 1003)
         
         self.viewControllers = [configureNavigationController(vc: libraryVC, title: Localization.TabBar.library.rawValue.localized), configureNavigationController(vc: searchVC, title: Localization.TabBar.search.rawValue.localized)]
-        self.tabBar.tintColor = .purple
+        self.tabBar.tintColor = .systemPurple
     }
     
     static var activeNavVC: UINavigationController? = {

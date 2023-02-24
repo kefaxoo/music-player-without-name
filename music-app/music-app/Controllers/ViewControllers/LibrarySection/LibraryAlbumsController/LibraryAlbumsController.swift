@@ -27,7 +27,7 @@ class LibraryAlbumsController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.navigationBar.tintColor = .purple
+        navigationController?.navigationBar.tintColor = .systemPurple
     }
     
     private func setupNavBar() {
@@ -95,9 +95,13 @@ extension LibraryAlbumsController: MenuActionsDelegate {
 extension LibraryAlbumsController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if !searchText.isEmpty {
-            showedAlbums = albums.filter({ $0.title.lowercased().contains(searchText.lowercased()) })
+            showedAlbums = albums.filter({ $0.title.lowercased().contains(searchText.lowercased()) }).sorted { albumI, albumJ in
+                return albumI.title < albumJ.title
+            }
         } else {
-            showedAlbums = albums
+            showedAlbums = albums.sorted { albumI, albumJ in
+                return albumI.title < albumJ.title
+            }
         }
         
         albumsTableView.reloadData()

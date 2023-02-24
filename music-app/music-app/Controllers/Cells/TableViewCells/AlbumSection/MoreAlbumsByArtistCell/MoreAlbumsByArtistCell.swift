@@ -33,10 +33,13 @@ class MoreAlbumsByArtistCell: UITableViewCell {
         albumsCollectionView.register(nib, forCellWithReuseIdentifier: RecentlyAddedCell.id)
     }
     
+    func setTextForButton(_ text: String) {
+        moreButton.setTitle(text, for: .normal)
+    }
+    
     func set(albums: [DeezerAlbum], artist: DeezerArtist) {
         self.albums = albums
         self.artist = artist
-        moreButton.setTitle("More by \(artist.name)", for: .normal)
         albumsCollectionView.reloadData()
     }
     
@@ -46,8 +49,10 @@ class MoreAlbumsByArtistCell: UITableViewCell {
         else { return }
         
         DeezerProvider.getArtistAlbums(artist.id) { albums in
+            guard let title = self.moreButton.currentTitle else { return }
+            
             let moreAlbumsVC = MoreAlbumsController()
-            moreAlbumsVC.navigationItem.title = "More by \(artist.name)"
+            moreAlbumsVC.navigationItem.title = title
             moreAlbumsVC.set(albums)
             delegate.pushVC(moreAlbumsVC)
         } failure: { error in

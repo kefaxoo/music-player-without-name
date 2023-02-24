@@ -7,6 +7,7 @@
 
 import UIKit
 import SDWebImage
+import SPAlert
 
 class AlbumInfoCell: UITableViewCell {
 
@@ -30,11 +31,19 @@ class AlbumInfoCell: UITableViewCell {
         setLocale()
     }
     
-    // TODO:
     @IBAction func artistButtonDidTap(_ sender: Any) {
-        guard let delegate else { return }
-        let artistVC = ArtistController()
-        delegate.pushVC(artistVC)
+        guard let artistID,
+              let delegate
+        else { return }
+        
+        DeezerProvider.getArtist(artistID) { artist in
+            let artistVC = ArtistController()
+            artistVC.set(artist)
+            delegate.pushVC(artistVC)
+        } failure: { error in
+            let alert = SPAlertView(title: Localization.Alert.Title.error.rawValue, message: error, preset: .error)
+            alert.present(haptic: .error)
+        }
     }
     
     private func setLocale() {

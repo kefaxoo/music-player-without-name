@@ -1,100 +1,99 @@
 
-/**/
+/*  */
 "alert.message.errorPlaylist" = "Unavailable to create playlist";
 
-/**/
+/*  */
 "alert.title.error" = "Error";
 
-/**/
+/*  */
 "alert.title.loadingAlbums" = "Loading albums";
 
-/**/
+/*  */
 "alert.title.loadingArtists" = "Loading artists";
 
-/**/
+/*  */
 "alert.title.success" = "Success";
 
-/**/
+/*  */
 "controller.addPlaylist.addTracks" = "Add tracks";
 
-/**/
+/*  */
 "controller.addPlaylist.cancel" = "Cancel";
 
-/**/
+/*  */
 "controller.addPlaylist.done" = "Done";
 
-/**/
+/*  */
 "controller.addPlaylist.textFieldPlaceholder" = "Enter playlist name";
 
-/**/
+/*  */
 "controller.addPlaylist.title" = "New playlist";
 
-/**/
+/*  */
 "controller.library.playlists.addPlaylist" = "Add playlist";
 
-/**/
+/*  */
 "controller.library.recentlyAddedLabel" = "Recently added";
 
-/**/
+/*  */
 "controller.search.segmentedControl.albums" = "Albums";
 
-/**/
+/*  */
 "controller.search.segmentedControl.artists" = "Artists";
 
-/**/
+/*  */
 "controller.search.segmentedControl.tracks" = "Tracks";
 
-/**/
+/*  */
 "library.albums" = "Albums";
 
-/**/
+/*  */
 "library.artists" = "Artists";
 
-/**/
+/*  */
 "library.downloaded" = "Downloaded";
 
-/**/
+/*  */
 "library.playlists" = "Playlists";
 
-/**/
+/*  */
 "library.songs" = "Songs";
 
-/**/
+/*  */
 "menuActions.addToLibrary" = "Add to library";
 
-/**/
+/*  */
 "menuActions.removeFromLibrary" = "Remove from library";
 
-/**/
+/*  */
 "menuActions.removePlaylistFromLibrary" = "Remove playlist from library";
 
-/**/
+/*  */
 "menuActions.shareLink" = "Share link";
 
-/**/
+/*  */
 "menuActions.shareLink.shareSong" = "Listen %@ by %@\n%@";
 
-/**/
+/*  */
 "menuActions.shareSong" = "Share song";
 
-/**/
+/*  */
 "searchBarPlaceholder.albums" = "Type album name...";
 
-/**/
+/*  */
 "searchBarPlaceholder.artists" = "Type artist name...";
 
-/**/
+/*  */
 "searchBarPlaceholder.main" = "Type track, album, artist name...";
 
-/**/
+/*  */
 "searchBarPlaceholder.playlists" = "Type playlist name...";
 
-/**/
+/*  */
 "searchBarPlaceholder.tracks" = "Type track name...";
 
-/**/
+/*  */
 "tabBar.library" = "Library";
 
-/**/
+/*  */
 "tabBar.search" = "Search";
-

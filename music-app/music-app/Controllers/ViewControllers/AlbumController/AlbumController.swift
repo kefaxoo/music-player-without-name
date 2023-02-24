@@ -51,7 +51,7 @@ class AlbumController: UIViewController {
     }
     
     private func setupNavBar() {
-        navigationController?.navigationBar.tintColor = .purple
+        navigationController?.navigationBar.tintColor = .systemPurple
         navigationController?.navigationBar.prefersLargeTitles = false
     }
     
@@ -131,6 +131,7 @@ extension AlbumController: UITableViewDataSource {
             else { return cell }
             
             moreAlbumsByArtistCell.set(albums: moreAlbums, artist: artist)
+            moreAlbumsByArtistCell.setTextForButton(Localization.Controller.Album.MoreAlbumsByArtistCell.moreByButton.rawValue.localizedWithParameters(artist: artist.name))
             moreAlbumsByArtistCell.delegate = self
             return moreAlbumsByArtistCell
         } else {
@@ -138,6 +139,7 @@ extension AlbumController: UITableViewDataSource {
             guard let albumTrackCell = cell as? AlbumTrackCell else { return cell }
             
             albumTrackCell.set(tracks[indexPath.row - 1])
+            albumTrackCell.delegate = self
             return albumTrackCell
         }
     }
@@ -146,5 +148,15 @@ extension AlbumController: UITableViewDataSource {
 extension AlbumController: ViewControllerDelegate {
     func pushVC(_ vc: UIViewController) {
         navigationController?.pushViewController(vc, animated: true)
+    }
+}
+
+extension AlbumController: MenuActionsDelegate {
+    func reloadData() {
+        albumTableView.reloadData()
+    }
+    
+    func presentActivityController(_ vc: UIActivityViewController) {
+        self.present(vc, animated: true)
     }
 }

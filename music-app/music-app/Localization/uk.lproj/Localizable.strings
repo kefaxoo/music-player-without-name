@@ -1,100 +1,99 @@
 
-/**/
+/*  */
 "alert.message.errorPlaylist" = "Неможливо створити плейліст";
 
-/**/
+/*  */
 "alert.title.error" = "Помилка";
 
-/**/
+/*  */
 "alert.title.loadingAlbums" = "Завантаження альбомів";
 
-/**/
+/*  */
 "alert.title.loadingArtists" = "Завантаження виконавця";
 
-/**/
+/*  */
 "alert.title.success" = "Успішно";
 
-/**/
+/*  */
 "controller.addPlaylist.addTracks" = "Додати композиції";
 
-/**/
+/*  */
 "controller.addPlaylist.cancel" = "Скасувати";
 
-/**/
+/*  */
 "controller.addPlaylist.done" = "Готово";
 
-/**/
+/*  */
 "controller.addPlaylist.textFieldPlaceholder" = "Введіть назву плейлісту";
 
-/**/
+/*  */
 "controller.addPlaylist.title" = "Новий плейліст";
 
-/**/
+/*  */
 "controller.library.playlists.addPlaylist" = "Додати плейліст";
 
-/**/
+/*  */
 "controller.library.recentlyAddedLabel" = "Нещодавно додане";
 
-/**/
+/*  */
 "controller.search.segmentedControl.albums" = "Альбоми";
 
-/**/
+/*  */
 "controller.search.segmentedControl.artists" = "Виконавці";
 
-/**/
+/*  */
 "controller.search.segmentedControl.tracks" = "Композиції";
 
-/**/
+/*  */
 "library.albums" = "Альбоми";
 
-/**/
+/*  */
 "library.artists" = "Виконавці";
 
-/**/
+/*  */
 "library.downloaded" = "Завантажене";
 
-/**/
+/*  */
 "library.playlists" = "Плейлісти";
 
-/**/
+/*  */
 "library.songs" = "Пісні";
 
-/**/
+/*  */
 "menuActions.addToLibrary" = "Додати до бібліотеки";
 
-/**/
+/*  */
 "menuActions.removeFromLibrary" = "Прибрати з бібліотеки";
 
-/**/
+/*  */
 "menuActions.removePlaylistFromLibrary" = "Прибрати плейліст з бібліотеки";
 
-/**/
+/*  */
 "menuActions.shareLink" = "Поділитися посиланням";
 
-/**/
+/*  */
 "menuActions.shareLink.shareSong" = "Слухайте %@ від %@\n%@";
 
-/**/
+/*  */
 "menuActions.shareSong" = "Поділитися піснею";
 
-/**/
+/*  */
 "searchBarPlaceholder.albums" = "Введіть назву альбому...";
 
-/**/
+/*  */
 "searchBarPlaceholder.artists" = "Введіть назву виконавця...";
 
-/**/
+/*  */
 "searchBarPlaceholder.main" = "Введіть назву композиції, альбому, виконавця, плейлісту...";
 
-/**/
+/*  */
 "searchBarPlaceholder.playlists" = "Введіть назву плейлісту...";
 
-/**/
+/*  */
 "searchBarPlaceholder.tracks" = "Введіть назву композиції...";
 
-/**/
+/*  */
 "tabBar.library" = "Бібліотека";
 
-/**/
+/*  */
 "tabBar.search" = "Пошук";
-

@@ -84,7 +84,7 @@ class AddPlaylistController: UIViewController {
         if let pngData = playlistImageView.image?.pngData(),
            let filePath = path?.appendingPathComponent("Playlist-\(playlistName).png") {
             try? pngData.write(to: filePath)
-            return filePath.absoluteString
+            return "Playlist-\(playlistName).png"
         }
         
         return ""

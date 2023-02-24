@@ -34,6 +34,10 @@ extension String {
         return String(format: self.localized, title, artist, link)
     }
     
+    func localizedWithParameters(artist: String) -> String {
+        return String(format: self.localized, artist)
+    }
+    
     var humanDate: String {
         var dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"

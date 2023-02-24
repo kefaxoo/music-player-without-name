@@ -64,6 +64,9 @@
                                 <color key="tintColor" systemColor="labelColor"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" image="ellipsis" catalog="system" title=""/>
+                                <connections>
+                                    <action selector="menuButtonDidTap:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="6zp-ld-Rui"/>
+                                </connections>
                             </button>
                         </subviews>
                     </stackView>

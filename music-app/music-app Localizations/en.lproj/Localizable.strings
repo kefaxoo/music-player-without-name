@@ -62,6 +62,16 @@
 "controller.album.albumInfoCell.playButton" = "Play";
 "controller.album.albumInfoCell.shuffleButton" = "Shuffle";
 
+// Controller Album MoreAlbumsCell Section
+"controller.album.moreAlbumsCell.moreByButton" = "More by %@";
+
+// Controller Artist Section
+// Controller Artist TopTrackLabelCell Section
+"controller.artist.topTrackLabelCell.title" = "Tracks";
+
+// Controller Artist MoreAlbumsCell Section
+"controller.artist.moreAlbumsCell.moreByButton" = "Albums";
+
 // SearchBarPlaceholder Section
 "searchBarPlaceholder.tracks" = "Type track name...";
 "searchBarPlaceholder.albums" = "Type album name...";
