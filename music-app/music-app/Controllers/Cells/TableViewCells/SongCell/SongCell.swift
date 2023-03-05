@@ -66,7 +66,7 @@ class SongCell: UITableViewCell {
                 alertView.dismissByTap = false
                 alertView.present()
                 DeezerProvider.getTrack(track.id, success: { track in
-                    let newTrack = LibraryTrack(id: track.id, title: track.title, duration: track.duration, trackPosition: track.trackPosition!, diskNumber: track.diskNumber!, isExplicit: track.isExplicit, artistID: track.artist!.id, albumID: track.album!.id, pathLink: "")
+                    let newTrack = LibraryTrack(id: track.id, title: track.title, duration: track.duration, trackPosition: track.trackPosition!, diskNumber: track.diskNumber!, isExplicit: track.isExplicit, artistID: track.artist!.id, albumID: track.album!.id, onlineLink: "", cacheLink: "")
                     
                     RealmManager<LibraryTrack>().write(object: newTrack)
                     alertView.dismiss()
@@ -107,7 +107,7 @@ class SongCell: UITableViewCell {
                                 let activityViewController = UIActivityViewController(activityItems: [trackDirectoryURL], applicationActivities: nil)
                                 activityViewController.excludedActivityTypes = [.airDrop, .mail, .message]
                                 alertView.dismiss()
-                                delegate.presentActivityController(activityViewController)
+                                delegate.present(activityViewController)
                                 activityViewController.completionWithItemsHandler = { (activityType, completed:Bool, returnedItems:[Any]?, error: Error?) in
                                     if completed {
                                         do {
@@ -139,7 +139,7 @@ class SongCell: UITableViewCell {
                 let activityViewController = UIActivityViewController(activityItems: [text], applicationActivities: nil)
                 
                 activityViewController.excludedActivityTypes = [.airDrop, .mail, .message]
-                delegate.presentActivityController(activityViewController)
+                delegate.present(activityViewController)
             } failure: { error in
                 let alertView = SPAlertView(title: Localization.Alert.Title.error.rawValue.localized, preset: .error)
                 alertView.duration = 5

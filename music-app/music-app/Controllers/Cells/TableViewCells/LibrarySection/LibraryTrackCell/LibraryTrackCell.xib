@@ -67,6 +67,15 @@
                                 <rect key="frame" x="161.33333333333334" y="7.6666666666666714" width="101.00000000000003" height="50"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
+                            <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow.down.square.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="GvG-dT-cf0">
+                                <rect key="frame" x="267.33333333333331" y="24.333333333333329" width="20" height="17"/>
+                                <color key="tintColor" systemColor="systemPurpleColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="EX2-p3-zRO"/>
+                                    <constraint firstAttribute="width" constant="20" id="sKE-oF-sRN"/>
+                                    <constraint firstAttribute="width" secondItem="GvG-dT-cf0" secondAttribute="height" multiplier="1:1" id="wmW-Pa-BBJ"/>
+                                </constraints>
+                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TJ7-HG-Vi3">
                                 <rect key="frame" x="272.33333333333331" y="15.333333333333332" width="47.666666666666686" height="34.333333333333343"/>
                                 <color key="tintColor" systemColor="labelColor"/>
@@ -90,6 +99,7 @@
             <connections>
                 <outlet property="artistLabel" destination="Sza-mT-ujr" id="yHs-dV-Erp"/>
                 <outlet property="coverView" destination="hek-FK-QHX" id="CMs-V9-uY9"/>
+                <outlet property="downloadImageView" destination="GvG-dT-cf0" id="9J6-sm-scA"/>
                 <outlet property="explicitImageView" destination="wuA-sg-g0o" id="qBf-NV-RdC"/>
                 <outlet property="menuButton" destination="TJ7-HG-Vi3" id="j1V-aV-nkD"/>
                 <outlet property="titleLabel" destination="4JX-AA-FCr" id="XKy-gG-jUR"/>
@@ -98,6 +108,7 @@
         </tableViewCell>
     </objects>
     <resources>
+        <image name="arrow.down.square.fill" catalog="system" width="128" height="114"/>
         <image name="e.square.fill" catalog="system" width="128" height="114"/>
         <image name="ellipsis" catalog="system" width="128" height="37"/>
         <systemColor name="labelColor">

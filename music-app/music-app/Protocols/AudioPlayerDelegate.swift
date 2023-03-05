@@ -13,11 +13,15 @@ protocol AudioPlayerDelegate: AnyObject {
     func previousTrackDidTap()
     func nextTrackDidTap()
     func setupController()
+    func setupView()
     func trackDidLoad()
 }
 
 extension AudioPlayerDelegate {
+    func playDidTap() {}
+    func pauseDidTap() {}
     func previousTrackDidTap() {}
     func setupController() {}
+    func setupView() {}
     func trackDidLoad() {}
 }

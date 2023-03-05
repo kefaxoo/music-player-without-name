@@ -15,6 +15,7 @@ class LibraryTrackCell: UITableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var explicitImageView: UIImageView!
     @IBOutlet weak var artistLabel: UILabel!
+    @IBOutlet weak var downloadImageView: UIImageView!
     @IBOutlet weak var menuButton: UIButton!
     
     private var track: LibraryTrack?
@@ -45,6 +46,12 @@ class LibraryTrackCell: UITableViewCell {
         
         titleLabel.text = track.title
         explicitImageView.isHidden = !track.isExplicit
+        DeezerProvider.getTrack(track.id) { track in
+            self.downloadImageView.isHidden = !LibraryManager.isTrackIsDownloaded(track)
+        } failure: { error in
+            let alert = SPAlertView(title: Localization.Alert.Title.error.rawValue, message: error, preset: .error)
+            alert.present(haptic: .error)
+        }
     }
     
     @IBAction func menuButtonDidTap(_ sender: Any) {
@@ -84,7 +91,7 @@ class LibraryTrackCell: UITableViewCell {
                                 let activityViewController = UIActivityViewController(activityItems: [trackDirectoryURL], applicationActivities: nil)
                                 activityViewController.excludedActivityTypes = [.airDrop, .mail, .message]
                                 alertView.dismiss()
-                                delegate.presentActivityController(activityViewController)
+                                delegate.present(activityViewController)
                                 activityViewController.completionWithItemsHandler = { (activityType, completed:Bool, returnedItems:[Any]?, error: Error?) in
                                     if completed {
                                         do {
@@ -114,7 +121,7 @@ class LibraryTrackCell: UITableViewCell {
                 let text = Localization.MenuActions.ShareLink.shareMessage.rawValue.localizedWithParameters(title: track.title, artist: self.artist, link: link)
                 let activityViewController = UIActivityViewController(activityItems: [text], applicationActivities: nil)
                 activityViewController.excludedActivityTypes = [.airDrop, .mail, .message]
-                delegate.presentActivityController(activityViewController)
+                delegate.present(activityViewController)
             } failure: { error in
                 let alertView = SPAlertView(title: Localization.Alert.Title.error.rawValue.localized, preset: .error)
                 alertView.duration = 5

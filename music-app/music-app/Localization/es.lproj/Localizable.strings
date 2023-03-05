@@ -51,7 +51,7 @@
 "library.artists" = "Artists";
 
 /*  */
-"library.downloaded" = "Downloaded";
+"library.download" = "Downloaded";
 
 /*  */
 "library.playlists" = "Playlists";

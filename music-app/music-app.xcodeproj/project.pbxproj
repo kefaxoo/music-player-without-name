@@ -33,6 +33,9 @@
 		70680321299F7BC100536187 /* SearchBarEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70680320299F7BC100536187 /* SearchBarEnum.swift */; };
 		70680325299F7DD200536187 /* Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70680324299F7DD200536187 /* Bundle.swift */; };
 		70680327299F7E2A00536187 /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70680326299F7E2A00536187 /* Localization.swift */; };
+		70826A6C29B1EA3F00A7FF73 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70826A6B29B1EA3F00A7FF73 /* NetworkManager.swift */; };
+		70826A6F29B1EC1D00A7FF73 /* DeviceKit in Frameworks */ = {isa = PBXBuildFile; productRef = 70826A6E29B1EC1D00A7FF73 /* DeviceKit */; };
+		70826A7129B1ECDD00A7FF73 /* ActionsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70826A7029B1ECDD00A7FF73 /* ActionsManager.swift */; };
 		709BA3F1299A200500B4AD38 /* LibraryAlbumCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 709BA3EF299A200500B4AD38 /* LibraryAlbumCell.swift */; };
 		709BA3F2299A200500B4AD38 /* LibraryAlbumCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 709BA3F0299A200500B4AD38 /* LibraryAlbumCell.xib */; };
 		709BA3F6299A46E200B4AD38 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 709BA3F5299A46E200B4AD38 /* String.swift */; };
@@ -45,6 +48,8 @@
 		70B028382993F0DA00BB9E01 /* SongLinkModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B028352993F0DA00BB9E01 /* SongLinkModel.swift */; };
 		70BAA3EB2995103F008E6BE4 /* LibraryAlbumsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70BAA3E92995103F008E6BE4 /* LibraryAlbumsController.swift */; };
 		70BAA3EC2995103F008E6BE4 /* LibraryAlbumsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70BAA3EA2995103F008E6BE4 /* LibraryAlbumsController.xib */; };
+		70C4124C29AA27DE0039AFE1 /* NowPlayingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70C4124B29AA27DE0039AFE1 /* NowPlayingView.swift */; };
+		70C4124E29AA27E40039AFE1 /* NowPlayingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70C4124D29AA27E40039AFE1 /* NowPlayingView.xib */; };
 		70D1A8AE2993F3C3003B3478 /* LibrarySongsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70D1A8AC2993F3C3003B3478 /* LibrarySongsController.swift */; };
 		70D1A8AF2993F3C3003B3478 /* LibrarySongsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70D1A8AD2993F3C3003B3478 /* LibrarySongsController.xib */; };
 		70D1A8B52993F8B5003B3478 /* LibraryTrackCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70D1A8B32993F8B5003B3478 /* LibraryTrackCell.swift */; };
@@ -129,6 +134,8 @@
 		70680328299F804000536187 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/Localizable.strings; sourceTree = "<group>"; };
 		70680329299F817B00536187 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7068032A299F818600536187 /* be */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = be; path = be.lproj/Localizable.strings; sourceTree = "<group>"; };
+		70826A6B29B1EA3F00A7FF73 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		70826A7029B1ECDD00A7FF73 /* ActionsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionsManager.swift; sourceTree = "<group>"; };
 		709BA3EF299A200500B4AD38 /* LibraryAlbumCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryAlbumCell.swift; sourceTree = "<group>"; };
 		709BA3F0299A200500B4AD38 /* LibraryAlbumCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LibraryAlbumCell.xib; sourceTree = "<group>"; };
 		709BA3F5299A46E200B4AD38 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
@@ -141,6 +148,8 @@
 		70B028352993F0DA00BB9E01 /* SongLinkModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongLinkModel.swift; sourceTree = "<group>"; };
 		70BAA3E92995103F008E6BE4 /* LibraryAlbumsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryAlbumsController.swift; sourceTree = "<group>"; };
 		70BAA3EA2995103F008E6BE4 /* LibraryAlbumsController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LibraryAlbumsController.xib; sourceTree = "<group>"; };
+		70C4124B29AA27DE0039AFE1 /* NowPlayingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NowPlayingView.swift; sourceTree = "<group>"; };
+		70C4124D29AA27E40039AFE1 /* NowPlayingView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NowPlayingView.xib; sourceTree = "<group>"; };
 		70D1A8AC2993F3C3003B3478 /* LibrarySongsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibrarySongsController.swift; sourceTree = "<group>"; };
 		70D1A8AD2993F3C3003B3478 /* LibrarySongsController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LibrarySongsController.xib; sourceTree = "<group>"; };
 		70D1A8B32993F8B5003B3478 /* LibraryTrackCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryTrackCell.swift; sourceTree = "<group>"; };
@@ -200,6 +209,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B943A5D737383AB3D56FB54E /* Pods_music_app.framework in Frameworks */,
+				70826A6F29B1EC1D00A7FF73 /* DeviceKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -365,6 +375,23 @@
 			path = LibraryAlbumsController;
 			sourceTree = "<group>";
 		};
+		70C4124A29AA27D00039AFE1 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				70C4124F29AA27F20039AFE1 /* NowPlayingView */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		70C4124F29AA27F20039AFE1 /* NowPlayingView */ = {
+			isa = PBXGroup;
+			children = (
+				70C4124B29AA27DE0039AFE1 /* NowPlayingView.swift */,
+				70C4124D29AA27E40039AFE1 /* NowPlayingView.xib */,
+			);
+			path = NowPlayingView;
+			sourceTree = "<group>";
+		};
 		70D1A8AB2993F32A003B3478 /* LibrarySection */ = {
 			isa = PBXGroup;
 			children = (
@@ -389,6 +416,8 @@
 			isa = PBXGroup;
 			children = (
 				70E92EFA2993DF370087E16A /* LibraryManager.swift */,
+				70826A6B29B1EA3F00A7FF73 /* NetworkManager.swift */,
+				70826A7029B1ECDD00A7FF73 /* ActionsManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -455,6 +484,7 @@
 		70E63D02298EDE61003D6CBF /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				70C4124A29AA27D00039AFE1 /* Views */,
 				70E63D11298EE37C003D6CBF /* Cells */,
 				70E63D06298EDF9D003D6CBF /* ViewControllers */,
 				70E63D03298EDE6A003D6CBF /* TabBarController */,
@@ -729,6 +759,9 @@
 			dependencies = (
 			);
 			name = "music-app";
+			packageProductDependencies = (
+				70826A6E29B1EC1D00A7FF73 /* DeviceKit */,
+			);
 			productName = "music-app";
 			productReference = 70F8AF42298EDC4A0002D1D0 /* music-app.app */;
 			productType = "com.apple.product-type.application";
@@ -761,6 +794,9 @@
 				be,
 			);
 			mainGroup = 70F8AF39298EDC4A0002D1D0;
+			packageReferences = (
+				70826A6D29B1EC1D00A7FF73 /* XCRemoteSwiftPackageReference "device-kit" */,
+			);
 			productRefGroup = 70F8AF43298EDC4A0002D1D0 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -779,6 +815,7 @@
 				70FCD0E529A1082500AEB719 /* AlbumTrackCell.xib in Resources */,
 				70FCD0EA29A1103400AEB719 /* TextAlbumInfoCell.xib in Resources */,
 				704CD2B9299CEE5600FFEBBA /* LibraryPlaylistCell.xib in Resources */,
+				70C4124E29AA27E40039AFE1 /* NowPlayingView.xib in Resources */,
 				704CD2B2299CE80500FFEBBA /* AddPlaylistController.xib in Resources */,
 				7042E44429A8FC5F0042B8C3 /* NowPlayingController.xib in Resources */,
 				70D1A8B62993F8B5003B3478 /* LibraryTrackCell.xib in Resources */,
@@ -864,6 +901,7 @@
 				70FCD0E929A1103400AEB719 /* TextAlbumInfoCell.swift in Sources */,
 				704CD2A9299CE51600FFEBBA /* LibraryPlaylist.swift in Sources */,
 				70B028382993F0DA00BB9E01 /* SongLinkModel.swift in Sources */,
+				70826A6C29B1EA3F00A7FF73 /* NetworkManager.swift in Sources */,
 				70680321299F7BC100536187 /* SearchBarEnum.swift in Sources */,
 				7042E44329A8FC5F0042B8C3 /* NowPlayingController.swift in Sources */,
 				70D1A8B92993FC77003B3478 /* MenuActionsDelegate.swift in Sources */,
@@ -872,6 +910,7 @@
 				70E92EFD2993E0550087E16A /* MenuActionsEnum.swift in Sources */,
 				70E63D1A2990C922003D6CBF /* LibraryEnum.swift in Sources */,
 				70E63D05298EDE7E003D6CBF /* TabBarController.swift in Sources */,
+				70C4124C29AA27DE0039AFE1 /* NowPlayingView.swift in Sources */,
 				704CD2B1299CE80500FFEBBA /* AddPlaylistController.swift in Sources */,
 				70E63CFB298EDDF3003D6CBF /* DeezerData.swift in Sources */,
 				70D1A8AE2993F3C3003B3478 /* LibrarySongsController.swift in Sources */,
@@ -909,6 +948,7 @@
 				70E63D09298EDFAA003D6CBF /* LibraryController.swift in Sources */,
 				704CD2AC299CE71200FFEBBA /* LibraryPlaylistsController.swift in Sources */,
 				70450FCE2990DC37008E4C1C /* LibraryTrack.swift in Sources */,
+				70826A7129B1ECDD00A7FF73 /* ActionsManager.swift in Sources */,
 				70E63CF1298EDD7F003D6CBF /* DeezerAPI.swift in Sources */,
 				70FCD0EC29A111A700AEB719 /* Int.swift in Sources */,
 				70E63CFF298EDE0C003D6CBF /* DeezerTrack.swift in Sources */,
@@ -1077,11 +1117,12 @@
 				DEVELOPMENT_TEAM = RYL5V28X4W;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "music-app/Info.plist";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.music";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1089,9 +1130,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "by.kefaxoo.music-app";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -1106,11 +1150,12 @@
 				DEVELOPMENT_TEAM = RYL5V28X4W;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "music-app/Info.plist";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.music";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1118,9 +1163,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "by.kefaxoo.music-app";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -1146,6 +1194,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		70826A6D29B1EC1D00A7FF73 /* XCRemoteSwiftPackageReference "device-kit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/jVirus/device-kit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		70826A6E29B1EC1D00A7FF73 /* DeviceKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 70826A6D29B1EC1D00A7FF73 /* XCRemoteSwiftPackageReference "device-kit" */;
+			productName = DeviceKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 70F8AF3A298EDC4A0002D1D0 /* Project object */;
 }

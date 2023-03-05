@@ -15,7 +15,7 @@ extension Localization {
         case artists    = "library.artists"
         case albums     = "library.albums"
         case songs      = "library.songs"
-        case downloaded = "library.downloaded"
+        case download = "library.download"
     }
     
     enum MenuActions: String {
@@ -25,6 +25,9 @@ extension Localization {
         case shareLink = "menuActions.shareLink"
         case removePlaylistFromLibrary = "menuActions.removePlaylistFromLibrary"
         case showAlbum = "menuActions.showAlbum"
+        case download = "menuActions.download"
+        case deleteDownload = "menuActions.deleteDownload"
+        case showArtist = "menuActions.showArtist"
     }
     
     enum TabBar: String {

@@ -11,6 +11,7 @@ import SDWebImage
 import SPAlert
 import MediaPlayer
 import AVKit
+import SwiftUI
 
 class NowPlayingController: UIViewController {
     
@@ -57,7 +58,7 @@ class NowPlayingController: UIViewController {
         let swipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(viewSwipeDown))
         swipeGesture.direction = .down
         self.view.addGestureRecognizer(swipeGesture)
-        set()
+        setInterface()
     }
     
     @objc private func viewSwipeDown() {
@@ -83,17 +84,21 @@ class NowPlayingController: UIViewController {
         AudioPlayer.editTimeOnController = true
     }
     
-    func set() {
+    private func setInterface() {
         guard let track,
               let coverLink = track.album?.coverBig
         else { return }
         
         coverView.sd_setImage(with: URL(string: coverLink))
+        coverView.layer.cornerRadius = 20
         titleLabel.text = track.title
         explicitView.isHidden = !track.isExplicit
         artistLabel.text = track.artist?.name
+        artistLabel.textColor = artistLabel.textColor.withAlphaComponent(0.8)
         durationSlider.maximum = Float(track.duration)
         durationView.addSubview(durationSlider)
+        currentTimeLabel.textColor = currentTimeLabel.textColor.withAlphaComponent(0.8)
+        durationLabel.textColor = durationLabel.textColor.withAlphaComponent(0.8)
         previousTrackButton.imageView?.contentMode = .scaleAspectFit
         playPauseButton.imageView?.contentMode = .scaleAspectFit
         nextTrackButton.imageView?.contentMode = .scaleAspectFit
@@ -102,7 +107,15 @@ class NowPlayingController: UIViewController {
         makeSmallCover()
     }
     
-    func set(track: DeezerTrack, playlist: [DeezerTrack] = [DeezerTrack](), indexInPlaylist: Int = 0) {
+    func set() {
+        guard let track = AudioPlayer.currentTrack else { return }
+        self.track = track
+        AudioPlayer.delegate = self
+    }
+    
+    func set(track: DeezerTrack?, playlist: [DeezerTrack] = [DeezerTrack](), indexInPlaylist: Int = 0) {
+        guard let track else { return }
+        
         self.track = track
         var currentPlaylist = playlist
         if currentPlaylist.isEmpty {
@@ -134,35 +147,14 @@ class NowPlayingController: UIViewController {
     }
     
     @IBAction func menuTrackButtonDidTap(_ sender: Any) {
+        let actionManager = ActionsManager()
+        actionManager.delegate = self
         guard let track,
               let artist = track.artist,
               let album = track.album,
-              let delegate
+              let showArtistAction = actionManager.showArtistAction(artist),
+              let showAlbumAction = actionManager.showAlbumAction(album)
         else { return }
-        
-        let showArtistAction = UIAction(title: "Show artist", subtitle: artist.name, image: LibraryEnum.artists.icon) { _ in
-            DeezerProvider.getArtist(artist.id) { artist in
-                let artistVC = ArtistController()
-                artistVC.set(artist)
-                self.dismiss(animated: true)
-                delegate.pushVC(artistVC)
-            } failure: { error in
-                let alert = SPAlertView(title: Localization.Alert.Title.error.rawValue, message: error, preset: .error)
-                alert.present(haptic: .error)
-            }
-        }
-        
-        let showAlbumAction = UIAction(title: "Show album", subtitle: album.title, image: LibraryEnum.albums.icon) { _ in
-            DeezerProvider.getAlbum(album.id) { album in
-                let albumVC = AlbumController()
-                albumVC.set(album)
-                self.dismiss(animated: true)
-                delegate.pushVC(albumVC)
-            } failure: { error in
-                let alert = SPAlertView(title: Localization.Alert.Title.error.rawValue, message: error, preset: .error)
-                alert.present(haptic: .error)
-            }
-        }
         
         menuTrackButton.showsMenuAsPrimaryAction = true
         menuTrackButton.menu = UIMenu(options: .displayInline, children: [showAlbumAction, showArtistAction])
@@ -170,16 +162,16 @@ class NowPlayingController: UIViewController {
     
     @IBAction func showAirplayMenuAction(_ sender: Any) {
         let rect = CGRect(x: -100, y: 0, width: 0, height: 0)
-            let airplayVolume = MPVolumeView(frame: rect)
-            airplayVolume.showsVolumeSlider = false
-            self.view.addSubview(airplayVolume)
-            for view: UIView in airplayVolume.subviews {
-                if let button = view as? UIButton {
-                    button.sendActions(for: .touchUpInside)
-                    break
-                }
+        let airplayVolume = MPVolumeView(frame: rect)
+        airplayVolume.showsVolumeSlider = false
+        self.view.addSubview(airplayVolume)
+        for view: UIView in airplayVolume.subviews {
+            if let button = view as? UIButton {
+                button.sendActions(for: .touchUpInside)
+                break
             }
-            airplayVolume.removeFromSuperview()
+        }
+        airplayVolume.removeFromSuperview()
     }
     
     @IBAction func menuButtonDidTap(_ sender: Any) {
@@ -199,13 +191,67 @@ class NowPlayingController: UIViewController {
             }
             
             libraryActions.append(removeFromLibraryAction)
+            
+            if LibraryManager.isTrackIsDownloaded(track),
+               let trackInLibrary = LibraryManager.trackInLibrary(track.id) {
+                let removeTrackFromCacheAction = UIAction(title: MenuActionsEnum.deleteDownload.title, image: MenuActionsEnum.deleteDownload.image, attributes: .destructive) { _ in
+                    var alert = SPAlertView(title: "", preset: .spinner)
+                    alert.dismissByTap = false
+                    alert.present()
+                    alert.dismiss()
+                    if let path = LibraryManager.getAbsolutePath(filename: trackInLibrary.cacheLink, path: .documentDirectory) {
+                        try? FileManager.default.removeItem(at: path)
+                        alert = SPAlertView(title: Localization.Alert.Title.success.rawValue.localized, preset: .done)
+                        alert.present(haptic: .success)
+                    } else {
+                        alert = SPAlertView(title: Localization.Alert.Title.error.rawValue.localized, preset: .error)
+                        alert.present(haptic: .error)
+                    }
+                }
+                
+                libraryActions.append(removeTrackFromCacheAction)
+            } else {
+                let downloadToCacheAction = UIAction(title: MenuActionsEnum.download.title.localized, image: MenuActionsEnum.download.image) { _ in
+                    var alert = SPAlertView(title: "", preset: .spinner)
+                    alert.dismissByTap = false
+                    guard let artist = track.artist?.name,
+                          let album = track.album?.title
+                    else { return }
+                    
+                    alert.present()
+                    
+                    let filename = "Music/\(artist.toUnixFilename) - \(track.title.toUnixFilename) - \(album.toUnixFilename).mp3"
+                    if let trackDirectoryURL = LibraryManager.getAbsolutePath(filename: filename, path: .documentDirectory),
+                       let trackURL = URL(string: track.downloadLink) {
+                        URLSession.shared.downloadTask(with: trackURL) { tempFileURL, response, error in
+                            if let trackTempFileURL = tempFileURL {
+                                do {
+                                    let trackData = try Data(contentsOf: trackTempFileURL)
+                                    try trackData.write(to: trackDirectoryURL)
+                                    DispatchQueue.main.async {
+                                        alert.dismiss()
+                                        alert = SPAlertView(title: Localization.Alert.Title.success.rawValue.localized, preset: .done)
+                                        alert.present(haptic: .success)
+                                    }
+                                } catch {
+                                    alert.dismiss()
+                                    alert = SPAlertView(title: Localization.Alert.Title.error.rawValue.localized, preset: .error)
+                                    alert.present(haptic: .error)
+                                }
+                            }
+                        }.resume()
+                    }
+                }
+                
+                libraryActions.append(downloadToCacheAction)
+            }
         } else {
             let addToLibraryAction = UIAction(title: MenuActionsEnum.addToLibrary.title, image: MenuActionsEnum.addToLibrary.image) { _ in
                 let alertView = SPAlertView(title: "", preset: .spinner)
                 alertView.dismissByTap = false
                 alertView.present()
                 DeezerProvider.getTrack(track.id, success: { track in
-                    let newTrack = LibraryTrack(id: track.id, title: track.title, duration: track.duration, trackPosition: track.trackPosition!, diskNumber: track.diskNumber!, isExplicit: track.isExplicit, artistID: track.artist!.id, albumID: track.album!.id, pathLink: "")
+                    let newTrack = LibraryTrack(id: track.id, title: track.title, duration: track.duration, trackPosition: track.trackPosition!, diskNumber: track.diskNumber!, isExplicit: track.isExplicit, artistID: track.artist!.id, albumID: track.album!.id, onlineLink: "", cacheLink: "")
                     
                     RealmManager<LibraryTrack>().write(object: newTrack)
                     alertView.dismiss()
@@ -306,7 +352,21 @@ class NowPlayingController: UIViewController {
             }
         }
         
-        let showActionsMenu = UIMenu(options: .displayInline, children: [showAlbumAction])
+        guard let artist = track.artist else { return }
+        
+        let showArtistAction = UIAction(title: MenuActionsEnum.showArtist.title, image: MenuActionsEnum.showArtist.image) { _ in
+            DeezerProvider.getArtist(artist.id) { artist in
+                let artistVC = ArtistController()
+                artistVC.set(artist)
+                self.dismiss(animated: true)
+                delegate.pushVC(artistVC)
+            } failure: { error in
+                let alert = SPAlertView(title: Localization.Alert.Title.error.rawValue, message: error, preset: .error)
+                alert.present(haptic: .error)
+            }
+        }
+        
+        let showActionsMenu = UIMenu(options: .displayInline, children: [showAlbumAction, showArtistAction])
         
         menuButton.showsMenuAsPrimaryAction = true
         menuButton.menu = UIMenu(children: [showActionsMenu, shareActionsMenu, libraryActionsMenu])
@@ -399,5 +459,19 @@ extension NowPlayingController: AudioPlayerDelegate {
         UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 1, options: .curveEaseInOut) {
             self.coverView.transform = .identity
         }
+    }
+}
+
+extension NowPlayingController: MenuActionsDelegate {
+    func dismissViewController() {
+        self.dismiss(animated: true)
+    }
+    
+    func pushViewController(_ vc: UIViewController) {
+        delegate?.pushVC(vc)
+    }
+    
+    func present(alert: SPAlertView, haptic: SPAlertHaptic = .none) {
+        alert.present(haptic: haptic)
     }
 }

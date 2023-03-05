@@ -28,8 +28,10 @@ class LibrarySongsController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.tintColor = .systemPurple
-        tracks = RealmManager<LibraryTrack>().read().reversed()
-        tracksTableView.reloadData()
+        if tracks.count != RealmManager<LibraryTrack>().read().count {
+            tracks = RealmManager<LibraryTrack>().read().reversed()
+            tracksTableView.reloadData()
+        }
     }
     
     private func setupNavBar() {
@@ -91,6 +93,7 @@ extension LibrarySongsController: UITableViewDelegate {
         DeezerProvider.getTrack(tracks[indexPath.row].id) { track in
             let nowPlayingVC = NowPlayingController()
             nowPlayingVC.modalPresentationStyle = .fullScreen
+            track.localLink = self.tracks[indexPath.row].cacheLink
             nowPlayingVC.set(track: track)
             nowPlayingVC.delegate = self
             

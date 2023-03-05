@@ -20,6 +20,7 @@ class AlbumController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         albumTableView.dataSource = self
+        albumTableView.delegate = self
         registerCells()
         getInfo()
         getMoreAlbums()
@@ -158,5 +159,18 @@ extension AlbumController: MenuActionsDelegate {
     
     func presentActivityController(_ vc: UIActivityViewController) {
         self.present(vc, animated: true)
+    }
+}
+
+extension AlbumController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let index = indexPath.row
+        if index > 0, index <= 1 + tracks.count {
+            let nowPlayingVC = NowPlayingController()
+            nowPlayingVC.modalPresentationStyle = .fullScreen
+            nowPlayingVC.set(track: tracks[index - 1], playlist: tracks, indexInPlaylist: index - 1)
+            nowPlayingVC.delegate = self
+            present(nowPlayingVC, animated: true)
+        }
     }
 }

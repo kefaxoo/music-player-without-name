@@ -20,6 +20,8 @@
 "menuActions.shareLink" = "Share link";
 "menuActions.removePlaylistFromLibrary" = "Remove playlist from library";
 "menuActions.showAlbum" = "Show album";
+"menuActions.download" = "Download";
+"menuActions.deleteDownload" = "Delete download";
 
 // Menu Actions Share Link Section
 "menuActions.shareLink.shareSong" = "Listen %@ by %@\n%@";

@@ -66,7 +66,7 @@
 "library.artists" = "Исполнители";
 
 /*  */
-"library.downloaded" = "Загрузки";
+"library.download" = "Загрузки";
 
 /*  */
 "library.playlists" = "Плейлисты";
@@ -76,6 +76,12 @@
 
 /*  */
 "menuActions.addToLibrary" = "Добавить в библиотеку";
+
+/*  */
+"menuActions.deleteDownload" = "Удалить с устройства";
+
+/*  */
+"menuActions.download" = "Скачать";
 
 /*  */
 "menuActions.removeFromLibrary" = "Удалить из библиотеки";
@@ -94,6 +100,9 @@
 
 /*  */
 "menuActions.showAlbum" = "Показать альбом";
+
+/*  */
+"menuActions.showArtist" = "Показать артиста";
 
 /*  */
 "searchBarPlaceholder.albums" = "Введите название альбома...";

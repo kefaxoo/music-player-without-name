@@ -20,6 +20,7 @@ class ArtistController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         artistTableView.dataSource = self
+        artistTableView.delegate = self
         registerCell()
     }
     
@@ -48,7 +49,9 @@ class ArtistController: UIViewController {
         self.artist = artist
         DeezerProvider.getArtistTracks(artist.id) { tracks in
             self.tracks = tracks
-            self.artistTableView.reloadData()
+            if self.artistTableView != nil {
+                self.artistTableView.reloadData()
+            }
         } failure: { error in
             let alert = SPAlertView(title: Localization.Alert.Title.error.rawValue, message: error, preset: .error)
             alert.present(haptic: .error)
@@ -57,7 +60,9 @@ class ArtistController: UIViewController {
         DeezerProvider.getArtistAlbums(artist.id) { albums in
             self.albums = albums
             self.moreAlbums = albums.shuffled().suffix(8)
-            self.artistTableView.reloadData()
+            if self.artistTableView != nil {
+                self.artistTableView.reloadData()
+            }
         } failure: { error in
             let alert = SPAlertView(title: Localization.Alert.Title.error.rawValue, message: error, preset: .error)
             alert.present(haptic: .error)
@@ -131,5 +136,19 @@ extension ArtistController: MenuActionsDelegate {
 extension ArtistController: ViewControllerDelegate {
     func pushVC(_ vc: UIViewController) {
         navigationController?.pushViewController(vc, animated: true)
+    }
+}
+
+extension ArtistController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let index = indexPath.row
+        if index > 1, index <= tracks.count + 1 {
+            let nowPlayingVC = NowPlayingController()
+            nowPlayingVC.modalPresentationStyle = .fullScreen
+            nowPlayingVC.set(track: tracks[index - 2], playlist: tracks, indexInPlaylist: index - 2)
+            nowPlayingVC.delegate = self
+            
+            self.present(nowPlayingVC, animated: true)
+        }
     }
 }

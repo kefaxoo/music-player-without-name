@@ -6,15 +6,20 @@
 //
 
 import UIKit
+import SPAlert
 
 protocol MenuActionsDelegate: AnyObject {
     func reloadData()
-    func presentActivityController(_ vc: UIActivityViewController)
+    func present(_ vc: UIActivityViewController)
     func pushViewController(_ vc: UIViewController)
+    func dismissViewController()
+    func present(alert: SPAlertView, haptic: SPAlertHaptic)
 }
 
 extension MenuActionsDelegate {
     func reloadData() {}
-    func presentActivityController(_ vc: UIActivityViewController) {}
+    func present(_ vc: UIActivityViewController) {}
     func pushViewController(_ vc: UIViewController) {}
+    func dismissViewController() {}
+    func present(alert: SPAlertView, haptic: SPAlertHaptic = .none) {}
 }

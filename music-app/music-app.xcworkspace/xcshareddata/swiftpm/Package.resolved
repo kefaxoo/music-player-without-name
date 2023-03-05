@@ -1,0 +1,14 @@
+{
+  "pins" : [
+    {
+      "identity" : "device-kit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/jVirus/device-kit",
+      "state" : {
+        "revision" : "b02fac4b184ed149360f1bd592a784822e218512",
+        "version" : "1.0.0"
+      }
+    }
+  ],
+  "version" : 2
+}

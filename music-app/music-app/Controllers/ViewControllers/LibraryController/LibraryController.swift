@@ -13,6 +13,7 @@ class LibraryController: UIViewController {
     @IBOutlet weak var navigationTableView: UITableView!
     @IBOutlet weak var recentlyAddedCollectionView: UICollectionView!
     @IBOutlet weak var recentlyAddedLabel: UILabel!
+    @IBOutlet weak var nowPlayingView: NowPlayingView!
     
     static let id = String(describing: LibraryController.self)
     
@@ -27,6 +28,25 @@ class LibraryController: UIViewController {
         registerCells()
         tracks = RealmManager<LibraryTrack>().read().suffix(5).reversed()
         setLocale()
+        nowPlayingView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(presentNowPlayingVC)))
+        setupNowPlayingView()
+    }
+    
+    @objc private func presentNowPlayingVC() {
+        let nowPlayingVC = NowPlayingController()
+        nowPlayingVC.delegate = self
+        nowPlayingVC.set()
+        nowPlayingVC.modalPresentationStyle = .fullScreen
+        present(nowPlayingVC, animated: true)
+    }
+    
+    private func setupNowPlayingView() {
+        if AudioPlayer.currentTrack != nil {
+            nowPlayingView.isHidden = false
+            nowPlayingView.set()
+        } else {
+            nowPlayingView.isHidden = true
+        }
     }
     
     private func setLocale() {
@@ -37,6 +57,7 @@ class LibraryController: UIViewController {
         super.viewWillAppear(animated)
         tracks = RealmManager<LibraryTrack>().read().suffix(5).reversed()
         recentlyAddedCollectionView.reloadData()
+        setupNowPlayingView()
     }
     
     private func registerCells() {
@@ -94,5 +115,11 @@ extension LibraryController: UICollectionViewDelegate {
             let alert = SPAlertView(title: Localization.Alert.Title.error.rawValue, message: error, preset: .error)
             alert.present(haptic: .error)
         }
+    }
+}
+
+extension LibraryController: ViewControllerDelegate {
+    func pushVC(_ vc: UIViewController) {
+        navigationController?.pushViewController(vc, animated: true)
     }
 }

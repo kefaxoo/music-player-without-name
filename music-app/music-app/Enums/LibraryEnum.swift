@@ -12,7 +12,7 @@ enum LibraryEnum: CaseIterable {
     case artists
     case albums
     case songs
-    case downloaded
+    case download
     
     var icon: UIImage? {
         switch self {
@@ -24,7 +24,7 @@ enum LibraryEnum: CaseIterable {
                 return UIImage(systemName: "play.square")
             case .songs:
                 return UIImage(systemName: "music.quarternote.3")
-            case .downloaded:
+            case .download:
                 return UIImage(systemName: "square.and.arrow.down")
         }
     }
@@ -39,8 +39,8 @@ enum LibraryEnum: CaseIterable {
                 return Localization.Library.albums.rawValue.localized
             case .songs:
                 return Localization.Library.songs.rawValue.localized
-            case .downloaded:
-                return Localization.Library.downloaded.rawValue.localized
+            case .download:
+                return Localization.Library.download.rawValue.localized
         }
     }
     
@@ -54,7 +54,7 @@ enum LibraryEnum: CaseIterable {
                 return LibraryAlbumsController()
             case .songs:
                 return LibrarySongsController()
-            case .downloaded:
+            case .download:
                 return LibrarySongsController()
         }
     }

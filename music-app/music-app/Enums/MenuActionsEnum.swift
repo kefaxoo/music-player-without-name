@@ -14,6 +14,9 @@ enum MenuActionsEnum {
     case shareLink
     case removePlaylistFromLibrary
     case showAlbum
+    case download
+    case deleteDownload
+    case showArtist
     
     var image: UIImage? {
         switch self {
@@ -25,10 +28,14 @@ enum MenuActionsEnum {
                 return UIImage(systemName: "music.note")
             case .shareLink:
                 return UIImage(systemName: "square.and.arrow.up")
-            case .removePlaylistFromLibrary:
+            case .removePlaylistFromLibrary, .deleteDownload:
                 return UIImage(systemName: "trash.fill")
             case .showAlbum:
                 return UIImage(systemName: "play.square")
+            case .download:
+                return UIImage(systemName: "square.and.arrow.down.fill")
+            case .showArtist:
+                return LibraryEnum.artists.icon
         }
     }
     
@@ -46,6 +53,12 @@ enum MenuActionsEnum {
                 return Localization.MenuActions.removePlaylistFromLibrary.rawValue.localized
             case .showAlbum:
                 return Localization.MenuActions.showAlbum.rawValue.localized
+            case .download:
+                return Localization.MenuActions.download.rawValue.localized
+            case .deleteDownload:
+                return Localization.MenuActions.deleteDownload.rawValue.localized
+            case .showArtist:
+                return Localization.MenuActions.showArtist.rawValue.localized
         }
     }
 }

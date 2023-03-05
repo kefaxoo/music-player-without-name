@@ -11,6 +11,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LibraryController" customModule="music_app" customModuleProvider="target">
             <connections>
                 <outlet property="navigationTableView" destination="6CE-rl-ffs" id="P76-L3-ycT"/>
+                <outlet property="nowPlayingView" destination="SjC-HD-3Cq" id="cVd-FI-7nS"/>
                 <outlet property="recentlyAddedCollectionView" destination="Gye-MD-417" id="1YQ-Bh-fs5"/>
                 <outlet property="recentlyAddedLabel" destination="Ezx-Yp-WoC" id="9Xs-hq-nUD"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -22,7 +23,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Wxl-CU-S4X">
-                    <rect key="frame" x="16" y="0.0" width="361" height="852"/>
+                    <rect key="frame" x="16" y="59" width="361" height="759"/>
                     <subviews>
                         <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="6CE-rl-ffs">
                             <rect key="frame" x="0.0" y="0.0" width="361" height="225"/>
@@ -51,17 +52,27 @@
                             </collectionViewFlowLayout>
                         </collectionView>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RJ4-Cs-uwv">
-                            <rect key="frame" x="0.0" y="498" width="361" height="354"/>
+                            <rect key="frame" x="0.0" y="498" width="361" height="261"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         </view>
                     </subviews>
                 </stackView>
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SjC-HD-3Cq" customClass="NowPlayingView" customModule="music_app" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="773" width="393" height="45"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="45" id="8Iy-kE-lZt"/>
+                    </constraints>
+                </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="SjC-HD-3Cq" secondAttribute="bottom" id="1FN-Aw-ZDe"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="SjC-HD-3Cq" secondAttribute="trailing" id="3ro-Qb-5fG"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="Wxl-CU-S4X" secondAttribute="bottom" id="Cvs-UD-qaP"/>
                 <constraint firstItem="Wxl-CU-S4X" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" constant="-16" id="htr-ov-5Ux"/>
+                <constraint firstItem="SjC-HD-3Cq" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="iuL-du-vHZ"/>
                 <constraint firstItem="Wxl-CU-S4X" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="n6j-ZD-XFs"/>
                 <constraint firstItem="Wxl-CU-S4X" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="yNE-Fn-RCM"/>
             </constraints>

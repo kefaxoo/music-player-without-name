@@ -11,7 +11,7 @@
 "library.artists" = "Artists";
 "library.albums" = "Albums";
 "library.songs" = "Songs";
-"library.downloaded" = "Downloaded";
+"library.download" = "Downloaded";
 
 // Menu Actions Section
 "menuActions.addToLibrary" = "Add to library";
@@ -20,6 +20,9 @@
 "menuActions.shareLink" = "Share link";
 "menuActions.removePlaylistFromLibrary" = "Remove playlist from library";
 "menuActions.showAlbum" = "Show album";
+"menuActions.download" = "Download";
+"menuActions.deleteDownload" = "Delete download";
+"menuActions.showArtist" = "Show artist";
 
 // Menu Actions Share Link Section
 "menuActions.shareLink.shareSong" = "Listen %@ by %@\n%@";

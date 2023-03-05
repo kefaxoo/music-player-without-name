@@ -15,6 +15,20 @@ class TabBarController: UITabBarController {
         guard let _ = try? AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: []) else { return }
         
         configureTabBar()
+        createCacheDirectory()
+    }
+    
+    private func createCacheDirectory() {
+        let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appending(path: "Music")
+        if let stringPath = path?.path,
+           let path,
+           !FileManager.default.fileExists(atPath: stringPath) {
+            do {
+                try FileManager.default.createDirectory(at: path, withIntermediateDirectories: true)
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
     }
     
     private func configureNavigationController(vc: UIViewController, title: String? = nil) -> UINavigationController {

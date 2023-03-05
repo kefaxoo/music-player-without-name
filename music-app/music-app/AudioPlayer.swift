@@ -22,6 +22,7 @@ final class AudioPlayer {
     private static var counterTappingOnPreviousTrack = 0
     
     static weak var delegate: AudioPlayerDelegate?
+    static weak var nowPlayingViewDelegate: AudioPlayerDelegate?
     
     static var editTimeOnController = true
     
@@ -36,7 +37,19 @@ final class AudioPlayer {
         }
         
         currentIndex = indexInPlaylist
-        guard let url = URL(string: track.downloadLink) else { return }
+        
+        var link = ""
+        if !LibraryManager.isTrackIsDownloaded(track) {
+            link = track.downloadLink
+        } else {
+            guard let localLink = LibraryManager.getAbsolutePath(filename: "Music/\(track.artist!.name) - \(track.title) - \(track.album!.title).mp3", path: .documentDirectory) else { return }
+            
+            link = localLink.absoluteString
+        }
+        
+        print(link)
+        
+        guard let url = URL(string: link) else { return }
         
         player.replaceCurrentItem(with: AVPlayerItem(url: url))
         player.play()
@@ -235,15 +248,23 @@ extension AudioPlayer {
         }
     }
     
-    private static func observeCurrentTime() {
+    static func observeCurrentTime() {
         let time = CMTime(value: 1, timescale: 600)
         timeObserver = player.addPeriodicTimeObserver(forInterval: time, queue: .main, using: { time in
+            var delegate: AudioPlayerDelegate?
+            if self.delegate != nil {
+                delegate = self.delegate
+            } else if nowPlayingViewDelegate != nil {
+                delegate = nowPlayingViewDelegate
+            }
+            
             guard let delegate,
                   let currentItem = player.currentItem
             else { return }
             
             delegate.setupController()
             delegate.trackDidLoad()
+            delegate.setupView()
             setupNowPlaying()
             setupTimeInNowPlaying()
             setupRemoteControls()

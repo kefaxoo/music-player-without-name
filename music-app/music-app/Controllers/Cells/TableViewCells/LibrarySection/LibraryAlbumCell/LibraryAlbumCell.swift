@@ -75,7 +75,7 @@ class LibraryAlbumCell: UITableViewCell {
                 let text = Localization.MenuActions.ShareLink.shareMessage.rawValue.localizedWithParameters(title: album.title, artist: artist, link: link)
                 let activityViewController = UIActivityViewController(activityItems: [text], applicationActivities: nil)
                 activityViewController.excludedActivityTypes = [.airDrop, .mail, .message]
-                delegate.presentActivityController(activityViewController)
+                delegate.present(activityViewController)
             } failure: { error in
                 let alertView = SPAlertView(title: Localization.Alert.Title.error.rawValue.localized, preset: .error)
                 alertView.duration = 5

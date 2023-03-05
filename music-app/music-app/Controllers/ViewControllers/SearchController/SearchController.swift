@@ -210,6 +210,15 @@ extension SearchController: MenuActionsDelegate {
 extension SearchController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch typeSegmentedControl.selectedSegmentIndex {
+            case 0:
+                guard let tracks = result as? [DeezerTrack] else { return }
+                
+                let nowPlayingVC = NowPlayingController()
+                nowPlayingVC.modalPresentationStyle = .fullScreen
+                nowPlayingVC.set(track: tracks[indexPath.row], playlist: tracks, indexInPlaylist: indexPath.row)
+                nowPlayingVC.delegate = self
+                
+                self.present(nowPlayingVC, animated: true)
             case 1:
                 guard let artist = result[indexPath.row] as? DeezerArtist else { return }
                 
@@ -225,5 +234,11 @@ extension SearchController: UITableViewDelegate {
             default:
                 break
         }
+    }
+}
+
+extension SearchController: ViewControllerDelegate {
+    func pushVC(_ vc: UIViewController) {
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
