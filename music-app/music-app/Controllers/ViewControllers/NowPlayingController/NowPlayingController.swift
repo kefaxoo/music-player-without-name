@@ -175,7 +175,9 @@ class NowPlayingController: UIViewController {
     }
     
     @IBAction func menuButtonDidTap(_ sender: Any) {
-        guard let track = self.track,
+        guard let track,
+              let artist = track.artist,
+              let album = track.album,
               let delegate
         else { return }
         
@@ -192,7 +194,7 @@ class NowPlayingController: UIViewController {
             
             libraryActions.append(removeFromLibraryAction)
             
-            if LibraryManager.isTrackIsDownloaded(track),
+            if !LibraryManager.isTrackDownloaded(artist: artist.name, title: track.title, album: album.title),
                let trackInLibrary = LibraryManager.trackInLibrary(track.id) {
                 let removeTrackFromCacheAction = UIAction(title: MenuActionsEnum.deleteDownload.title, image: MenuActionsEnum.deleteDownload.image, attributes: .destructive) { _ in
                     var alert = SPAlertView(title: "", preset: .spinner)
@@ -251,7 +253,13 @@ class NowPlayingController: UIViewController {
                 alertView.dismissByTap = false
                 alertView.present()
                 DeezerProvider.getTrack(track.id, success: { track in
-                    let newTrack = LibraryTrack(id: track.id, title: track.title, duration: track.duration, trackPosition: track.trackPosition!, diskNumber: track.diskNumber!, isExplicit: track.isExplicit, artistID: track.artist!.id, albumID: track.album!.id, onlineLink: "", cacheLink: "")
+                    guard let trackPosition = track.trackPosition,
+                          let diskNumber = track.diskNumber,
+                          let artist = track.artist,
+                          let album = track.album
+                    else { return }
+                    
+                    let newTrack = LibraryTrack(id: track.id, title: track.title, duration: track.duration, trackPosition: trackPosition, diskNumber: diskNumber, isExplicit: track.isExplicit, artistID: artist.id, artistName: artist.name, albumID: album.id, albumName: album.title, onlineLink: track.downloadLink, cacheLink: "", coverLink: "")
                     
                     RealmManager<LibraryTrack>().write(object: newTrack)
                     alertView.dismiss()

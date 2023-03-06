@@ -10,6 +10,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LibraryPlaylistsController" customModule="music_app" customModuleProvider="target">
             <connections>
+                <outlet property="descriptionLabel" destination="hLE-ie-ag4" id="XHh-5N-Soa"/>
+                <outlet property="emptyInfoView" destination="MBh-5d-YUf" id="7rN-QA-khK"/>
                 <outlet property="playlistsTableView" destination="2V2-bd-bGX" id="zJj-FP-304"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -23,6 +25,37 @@
                     <rect key="frame" x="0.0" y="59" width="393" height="759"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </tableView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MBh-5d-YUf">
+                    <rect key="frame" x="86.666666666666686" y="303.66666666666669" width="220" height="270.00000000000006"/>
+                    <subviews>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="questionmark.square.dashed" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Qgq-z2-Hqh">
+                            <rect key="frame" x="10" y="11.666666666666657" width="200" height="197"/>
+                            <color key="tintColor" systemColor="systemPurpleColor"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="200" id="JrF-7A-YjZ"/>
+                                <constraint firstAttribute="width" secondItem="Qgq-z2-Hqh" secondAttribute="height" multiplier="1:1" id="Uny-p5-620"/>
+                                <constraint firstAttribute="height" constant="200" id="gyo-Sf-EqO"/>
+                            </constraints>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="There is no playlists. Tap here to create playlist" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hLE-ie-ag4">
+                            <rect key="frame" x="10" y="219.99999999999994" width="200" height="40.666666666666686"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="hLE-ie-ag4" secondAttribute="trailing" constant="10" id="Cwl-Re-8dp"/>
+                        <constraint firstItem="Qgq-z2-Hqh" firstAttribute="leading" secondItem="MBh-5d-YUf" secondAttribute="leading" constant="10" id="Gfw-4D-JyG"/>
+                        <constraint firstItem="hLE-ie-ag4" firstAttribute="top" secondItem="Qgq-z2-Hqh" secondAttribute="bottom" constant="10" id="Y3j-wG-ZtO"/>
+                        <constraint firstItem="hLE-ie-ag4" firstAttribute="centerX" secondItem="Qgq-z2-Hqh" secondAttribute="centerX" id="jWD-1j-CgA"/>
+                        <constraint firstItem="Qgq-z2-Hqh" firstAttribute="top" secondItem="MBh-5d-YUf" secondAttribute="top" constant="10" id="pzN-UJ-n6K"/>
+                        <constraint firstItem="hLE-ie-ag4" firstAttribute="leading" secondItem="MBh-5d-YUf" secondAttribute="leading" constant="10" id="xO3-gZ-kgX"/>
+                        <constraint firstAttribute="trailing" secondItem="Qgq-z2-Hqh" secondAttribute="trailing" constant="10" id="zmU-yd-hR2"/>
+                        <constraint firstAttribute="height" constant="270" id="zwx-NE-s0b"/>
+                    </constraints>
+                </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -30,14 +63,20 @@
                 <constraint firstItem="2V2-bd-bGX" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="8H7-Uq-3jd"/>
                 <constraint firstItem="2V2-bd-bGX" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="PtI-RW-V8S"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="2V2-bd-bGX" secondAttribute="bottom" id="RcV-KO-qad"/>
+                <constraint firstItem="MBh-5d-YUf" firstAttribute="centerX" secondItem="2V2-bd-bGX" secondAttribute="centerX" id="bg5-Co-gGa"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="2V2-bd-bGX" secondAttribute="trailing" id="iQY-iv-G44"/>
+                <constraint firstItem="MBh-5d-YUf" firstAttribute="centerY" secondItem="2V2-bd-bGX" secondAttribute="centerY" id="mVy-k3-nFj"/>
             </constraints>
-            <point key="canvasLocation" x="118" y="21"/>
+            <point key="canvasLocation" x="116.79389312977099" y="20.422535211267608"/>
         </view>
     </objects>
     <resources>
+        <image name="questionmark.square.dashed" catalog="system" width="128" height="114"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemPurpleColor">
+            <color red="0.68627450980392157" green="0.32156862745098042" blue="0.87058823529411766" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

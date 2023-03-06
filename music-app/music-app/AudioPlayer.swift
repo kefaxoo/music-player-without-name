@@ -38,11 +38,15 @@ final class AudioPlayer {
         
         currentIndex = indexInPlaylist
         
+        guard let artist = track.artist,
+              let album = track.album
+        else { return }
+        
         var link = ""
-        if !LibraryManager.isTrackIsDownloaded(track) {
+        if !LibraryManager.isTrackDownloaded(artist: artist.name, title: track.title, album: album.title) {
             link = track.downloadLink
         } else {
-            guard let localLink = LibraryManager.getAbsolutePath(filename: "Music/\(track.artist!.name) - \(track.title) - \(track.album!.title).mp3", path: .documentDirectory) else { return }
+            guard let localLink = LibraryManager.getAbsolutePath(filename: "Music/\(artist.name) - \(track.title) - \(album.title).mp3", path: .documentDirectory) else { return }
             
             link = localLink.absoluteString
         }

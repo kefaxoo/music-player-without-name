@@ -19,7 +19,18 @@ class TabBarController: UITabBarController {
     }
     
     private func createCacheDirectory() {
-        let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appending(path: "Music")
+        var path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appending(path: "Music")
+        if let stringPath = path?.path,
+           let path,
+           !FileManager.default.fileExists(atPath: stringPath) {
+            do {
+                try FileManager.default.createDirectory(at: path, withIntermediateDirectories: true)
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+        
+        path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appending(path: "Artworks")
         if let stringPath = path?.path,
            let path,
            !FileManager.default.fileExists(atPath: stringPath) {

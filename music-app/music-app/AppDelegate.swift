@@ -26,6 +26,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         _ = try! Realm()
         
+        print("Realm DB here: \(config.fileURL!.path)")
+        
         return true
     }
     

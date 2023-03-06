@@ -10,12 +10,12 @@ import SPAlert
 
 class AddPlaylistController: UIViewController {
 
+    @IBOutlet weak var viewTitleLabel: UILabel!
     @IBOutlet weak var playlistNameTextField: UITextField!
     @IBOutlet weak var playlistImageView: UIImageView!
     @IBOutlet weak var addImageView: UIImageView!
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var doneButton: UIButton!
-    @IBOutlet weak var addTracksButton: UIButton!
     @IBOutlet weak var titleLabel: UILabel!
     
     private var tracks = [LibraryTrackInPlaylist]()
@@ -31,7 +31,6 @@ class AddPlaylistController: UIViewController {
     private func setLocale() {
         cancelButton.setTitle(Localization.Controller.AddPlaylist.cancel.rawValue.localized, for: .normal)
         doneButton.setTitle(Localization.Controller.AddPlaylist.done.rawValue.localized, for: .normal)
-        addTracksButton.setTitle(Localization.Controller.AddPlaylist.addTracks.rawValue.localized, for: .normal)
         playlistNameTextField.placeholder = Localization.Controller.AddPlaylist.textFieldPlaceholder.rawValue.localized
         titleLabel.text = Localization.Controller.AddPlaylist.title.rawValue.localized
     }
@@ -77,6 +76,16 @@ class AddPlaylistController: UIViewController {
         reloadClosure?()
         self.dismiss(animated: true)
         
+    }
+    
+    @IBAction func textFieldDidChange(_ sender: Any) {
+        guard let text = playlistNameTextField.text else { return }
+        
+        if text.isEmpty {
+            viewTitleLabel.text = Localization.Controller.AddPlaylist.title.rawValue.localized
+        } else {
+            viewTitleLabel.text = text
+        }
     }
     
     private func saveImage(_ playlistName: String) -> String {

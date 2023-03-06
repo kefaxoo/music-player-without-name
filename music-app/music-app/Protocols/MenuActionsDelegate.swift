@@ -12,14 +12,24 @@ protocol MenuActionsDelegate: AnyObject {
     func reloadData()
     func present(_ vc: UIActivityViewController)
     func pushViewController(_ vc: UIViewController)
-    func dismissViewController()
+    func present(_ vc: UIViewController)
+    func dismiss()
+    func dismiss(_ alert: SPAlertView)
     func present(alert: SPAlertView, haptic: SPAlertHaptic)
+    func startDonwloadSpinner()
+    func stopDownloadSpinner()
+    func popVC()
 }
 
 extension MenuActionsDelegate {
     func reloadData() {}
     func present(_ vc: UIActivityViewController) {}
     func pushViewController(_ vc: UIViewController) {}
-    func dismissViewController() {}
-    func present(alert: SPAlertView, haptic: SPAlertHaptic = .none) {}
+    func present(_ vc: UIViewController) {}
+    func dismiss() {}
+    func dismiss(_ alert: SPAlertView) {}
+    func present(alert: SPAlertView, haptic: SPAlertHaptic) {}
+    func startDonwloadSpinner() {}
+    func stopDownloadSpinner() {}
+    func popVC() {}
 }

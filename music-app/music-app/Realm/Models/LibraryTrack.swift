@@ -23,7 +23,7 @@ class LibraryTrack: Object {
     @objc dynamic var cacheLink = ""
     @objc dynamic var coverLink = ""
     
-    convenience init(id: Int, title: String, duration: Int, trackPosition: Int, diskNumber: Int, isExplicit: Bool, artistID: Int, artistName: String = "", albumID: Int, albumName: String = "", onlineLink: String, cacheLink: String, coverLink: String = "") {
+    convenience init(id: Int, title: String, duration: Int, trackPosition: Int, diskNumber: Int, isExplicit: Bool, artistID: Int, artistName: String, albumID: Int, albumName: String, onlineLink: String, cacheLink: String, coverLink: String) {
         self.init()
         self.id = id
         self.title = title

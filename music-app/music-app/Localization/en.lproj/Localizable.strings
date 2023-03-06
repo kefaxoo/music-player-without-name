@@ -23,6 +23,7 @@
 "menuActions.download" = "Download";
 "menuActions.deleteDownload" = "Delete download";
 "menuActions.showArtist" = "Show artist";
+"menuActions.addToPlaylist" = "Add to playlist";
 
 // Menu Actions Share Link Section
 "menuActions.shareLink.shareSong" = "Listen %@ by %@\n%@";
@@ -37,9 +38,16 @@
 "alert.title.success" = "Success";
 "alert.title.loadingArtists" = "Loading artists";
 "alert.title.loadingAlbums" = "Loading albums";
+"alert.title.trackInPlaylist" = "This song is already in your playlist";
 
 // Alert Message Section
 "alert.message.errorPlaylist" = "Unavailable to create playlist";
+"alert.message.errorDownload" = "Unavailable to download track";
+"alert.message.trackInPlaylist" = "Add this song anyway?";
+
+// Alert Action Section
+"alert.action.addAnyway" = "Add anyway";
+"alert.action.skipAdding" = "Skip adding";
 
 // Controller Section
 // Controller Add Playlist Section
@@ -59,6 +67,22 @@
 
 // Controller Library Playlists Section
 "controller.library.playlists.addPlaylist" = "Add playlist";
+"controller.library.playlists.description" = "There is no playlists. Tap here to create new playlist";
+
+// Controller Library Songs Section
+"controller.library.songs.sortButton.title" = "Sort";
+"controller.library.songs.sortButton.alphabet" = "Alphabet";
+"controller.library.songs.sortButton.reversedAlphabet" = "Reversed Alphabet";
+"controller.library.songs.sortButton.recentlyAdded" = "Recently Added";
+
+// Controller Library AddToPlaylist Section
+"controller.library.addToPlaylist.title" = "Add to playlist";
+"controller.library.addToPlaylist.cancelButton" = "Cancel";
+
+// Controller Library Playlist Section
+// Controller Library Playlist AlbumInfoCell Section
+"controller.library.playlist.playlistInfoCell.playButton" = "Play";
+"controller.library.playlist.playlistInfoCell.shuffleButton" = "Shuffle";
 
 // Controller Album Section
 // Controller Album AlbumInfoCell Section

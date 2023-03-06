@@ -21,4 +21,32 @@ class LibraryPlaylist: Object {
         self.name = name
         self.isExplicit = isExplicit
     }
+    
+    func updateIsExplicit() {
+        var isExplicit = false
+        RealmManager<LibraryTrackInPlaylist>().read().filter({ $0.playlistID == id }).forEach { track in
+            if track.isExplicit {
+                isExplicit = true
+            }
+        }
+        
+        RealmManager<LibraryPlaylist>().update { realm in
+            try? realm.write {
+                self.isExplicit = isExplicit
+            }
+        }
+    }
+    
+    var duration: Int {
+        var duration = 0
+        RealmManager<LibraryTrackInPlaylist>().read().filter({ $0.playlistID == self.id }).forEach { track in
+            duration += track.duration
+        }
+        
+        return duration
+    }
+    
+    var countOfTracks: Int {
+        return RealmManager<LibraryTrackInPlaylist>().read().filter({ $0.playlistID == self.id }).count
+    }
 }

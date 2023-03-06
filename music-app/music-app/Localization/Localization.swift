@@ -28,6 +28,7 @@ extension Localization {
         case download = "menuActions.download"
         case deleteDownload = "menuActions.deleteDownload"
         case showArtist = "menuActions.showArtist"
+        case addToPlaylist = "menuActions.addToPlaylist"
     }
     
     enum TabBar: String {
@@ -60,10 +61,18 @@ extension Localization.Alert {
         case success = "alert.title.success"
         case loadingArtists = "alert.title.loadingArtists"
         case loadingAlbums = "alert.title.loadingAlbums"
+        case trackInPlaylist = "alert.title.trackInPlaylist"
     }
     
     enum Message: String {
         case errorPlaylist = "alert.message.errorPlaylist"
+        case errorDownload = "alert.message.errorDownload"
+        case trackInPlaylist = "alert.message.trackInPlaylist"
+    }
+    
+    enum Action: String {
+        case addAnyway = "alert.action.addAnyway"
+        case skipAdding = "alert.action.skipAdding"
     }
 }
 
@@ -98,6 +107,32 @@ extension Localization.Controller.Search {
 extension Localization.Controller.Library {
     enum Playlists: String {
         case navBarButton = "controller.library.playlists.addPlaylist"
+        case desctiptionEmpty = "controller.library.playlists.description"
+    }
+    
+    enum Songs {}
+    
+    enum AddToPlaylist: String {
+        case title = "controller.library.addToPlaylist.title"
+        case cancelButton = "controller.library.addToPlaylist.cancelButton"
+    }
+    
+    enum Playlist {}
+}
+
+extension Localization.Controller.Library.Songs {
+    enum SortButton: String {
+        case title = "controller.library.songs.sortButton.title"
+        case alphabet = "controller.library.songs.sortButton.alphabet"
+        case reversedAlphabet = "controller.library.songs.sortButton.reversedAlphabet"
+        case recentlyAdded = "controller.library.songs.sortButton.recentlyAdded"
+    }
+}
+
+extension Localization.Controller.Library.Playlist {
+    enum PlaylistInfoCell: String {
+        case playButton = "controller.library.playlist.playlistInfoCell.playButton"
+        case shuffleButton = "controller.library.playlist.playlistInfoCell.shuffleButton"
     }
 }
 

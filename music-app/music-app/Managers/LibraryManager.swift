@@ -12,11 +12,10 @@ final class LibraryManager {
         return RealmManager<LibraryTrack>().read().contains { $0.id == trackID }
     }
     
-    static func isTrackIsDownloaded(_ track: DeezerTrack) -> Bool {
-        guard let artist = track.artist?.name,
-              let album = track.album?.title,
-              let path = getAbsolutePath(filename: "Music/\(artist.toUnixFilename) - \(track.title.toUnixFilename) - \(album.toUnixFilename).mp3", path: .documentDirectory)?.path
-        else { return false }
+    static func isTrackDownloaded(artist: String, title: String, album: String) -> Bool {
+        let filename = "\(artist) - \(title) - \(album).mp3".toUnixFilename
+        
+        guard let path = getAbsolutePath(filename: "Music/\(filename)", path: .documentDirectory)?.path else { return false }
         
         return FileManager.default.fileExists(atPath: path)
     }
@@ -29,5 +28,53 @@ final class LibraryManager {
         let path = FileManager.default.urls(for: path, in: .userDomainMask).first
         
         return path?.appending(path: filename)
+    }
+    
+    static func downloadArtworks() {
+        RealmManager<LibraryTrack>().read().forEach { track in
+            if track.coverLink.isEmpty {
+                DeezerProvider.getAlbum(track.albumID) { album in
+                    guard let artist = album.artist?.name else { return }
+                    
+                    let filename = "\(artist) - \(album.title)".toUnixFilename
+                    let directory = "Artworks/\(filename).jpg"
+                    if let url = URL(string: album.coverBig),
+                       let directoryURL = LibraryManager.getAbsolutePath(filename: directory, path: .documentDirectory)
+                    {
+                        URLSession.shared.dataTask(with: url) { imageData, response, error in
+                            guard let imageData else { return }
+                            
+                            do {
+                                try imageData.write(to: directoryURL)
+                                DispatchQueue.main.async {
+                                    RealmManager<LibraryTrack>().update { realm in
+                                        try? realm.write {
+                                            track.coverLink = directory
+                                        }
+                                    }
+                                }
+                            } catch {
+                                print(error.localizedDescription)
+                            }
+                        }.resume()
+                    }
+                } failure: { error in
+                    print(error)
+                }
+
+            }
+        }
+    }
+    
+    static func isTrackInPlaylist(trackID: Int, playlistID: String) -> Bool {
+        var isTrackInPlaylist = false
+        
+        RealmManager<LibraryTrackInPlaylist>().read().forEach { track in
+            if track.id == trackID {
+                isTrackInPlaylist = true
+            }
+        }
+        
+        return isTrackInPlaylist
     }
 }

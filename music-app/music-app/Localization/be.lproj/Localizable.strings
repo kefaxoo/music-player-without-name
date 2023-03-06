@@ -99,6 +99,9 @@
 "menuActions.showAlbum" = "Паказаць альбом";
 
 /*  */
+"menuActions.showArtist" = "";
+
+/*  */
 "searchBarPlaceholder.albums" = "Увядзіце назву альбома...";
 
 /*  */

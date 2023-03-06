@@ -1,6 +1,18 @@
 
 /*  */
+"alert.action.addAnyway" = "Добавить";
+
+/*  */
+"alert.action.skipAdding" = "Пропустить добавление";
+
+/*  */
+"alert.message.errorDownload" = "Невозможно скачать трек";
+
+/*  */
 "alert.message.errorPlaylist" = "Невозможно создать плейлист";
+
+/*  */
+"alert.message.trackInPlaylist" = "Добавить эту песню?";
 
 /*  */
 "alert.title.error" = "Ошибка";
@@ -13,6 +25,9 @@
 
 /*  */
 "alert.title.success" = "Успешно";
+
+/*  */
+"alert.title.trackInPlaylist" = "Эта песня уже в вашем плейлисте";
 
 /*  */
 "controller.addPlaylist.addTracks" = "Добавить треки";
@@ -45,10 +60,37 @@
 "controller.artist.topTrackLabelCell.title" = "Треки";
 
 /*  */
+"controller.library.addToPlaylist.cancelButton" = "Отменить";
+
+/*  */
+"controller.library.addToPlaylist.title" = "Добавить в плейлист";
+
+/*  */
+"controller.library.playlist.playlistInfoCell.playButton" = "По порядку";
+
+/*  */
+"controller.library.playlist.playlistInfoCell.shuffleButton" = "В перемешку";
+
+/*  */
 "controller.library.playlists.addPlaylist" = "Создать плейлист";
 
 /*  */
+"controller.library.playlists.description" = "В библиотеке нет плейлистов. Нажмите здесь, чтобы создать новый плейлист";
+
+/*  */
 "controller.library.recentlyAddedLabel" = "Недавно добавленные";
+
+/*  */
+"controller.library.songs.sortButton.alphabet" = " По алфавиту";
+
+/*  */
+"controller.library.songs.sortButton.recentlyAdded" = "По дате добавления";
+
+/*  */
+"controller.library.songs.sortButton.reversedAlphabet" = "В обратном алфавиту";
+
+/*  */
+"controller.library.songs.sortButton.title" = "Сортировка";
 
 /*  */
 "controller.search.segmentedControl.albums" = "Альбомы";
@@ -76,6 +118,9 @@
 
 /*  */
 "menuActions.addToLibrary" = "Добавить в библиотеку";
+
+/*  */
+"menuActions.addToPlaylist" = "Добавить в плейлист";
 
 /*  */
 "menuActions.deleteDownload" = "Удалить с устройства";

@@ -6,10 +6,13 @@
 //
 
 import UIKit
+import SPAlert
 
 class LibraryPlaylistsController: UIViewController {
 
     @IBOutlet weak var playlistsTableView: UITableView!
+    @IBOutlet weak var emptyInfoView: UIView!
+    @IBOutlet weak var descriptionLabel: UILabel!
     
     private let searchController = UISearchController(searchResultsController: nil)
     private var playlists = [LibraryPlaylist]()
@@ -18,13 +21,24 @@ class LibraryPlaylistsController: UIViewController {
         super.viewDidLoad()
         setupNavBar()
         playlistsTableView.dataSource = self
+        playlistsTableView.delegate = self
         registerCell()
-        playlists = RealmManager<LibraryPlaylist>().read()
+        playlists = RealmManager<LibraryPlaylist>().read().reversed()
         playlistsTableView.reloadData()
+        emptyInfoView.isHidden = !playlists.isEmpty
+        emptyInfoView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(addPlaylistAction)))
+        setLocale()
+    }
+    
+    private func setLocale() {
+        descriptionLabel.text = Localization.Controller.Library.Playlists.desctiptionEmpty.rawValue.localized
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        playlists = RealmManager<LibraryPlaylist>().read().reversed()
+        playlistsTableView.reloadData()
+        emptyInfoView.isHidden = !playlists.isEmpty
         navigationController?.navigationBar.tintColor = .systemPurple
     }
     
@@ -45,6 +59,7 @@ class LibraryPlaylistsController: UIViewController {
         addPlaylistVC.reloadClosure = {
             self.playlists = RealmManager<LibraryPlaylist>().read()
             self.playlistsTableView.reloadData()
+            self.emptyInfoView.isHidden = !self.playlists.isEmpty
         }
         
         if let presentController = addPlaylistVC.presentationController as? UISheetPresentationController {
@@ -74,16 +89,29 @@ extension LibraryPlaylistsController: MenuActionsDelegate {
     func reloadData() {
         playlists = RealmManager<LibraryPlaylist>().read()
         playlistsTableView.reloadData()
+        emptyInfoView.isHidden = !playlists.isEmpty
+    }
+    
+    func present(alert: SPAlertView, haptic: SPAlertHaptic) {
+        alert.present(haptic: haptic)
     }
 }
 
 extension LibraryPlaylistsController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        playlists = RealmManager<LibraryPlaylist>().read()
+        playlists = RealmManager<LibraryPlaylist>().read().reversed()
         if !searchText.isEmpty {
             playlists = playlists.filter({ $0.name.lowercased().contains(searchText.lowercased()) })
         }
         
         playlistsTableView.reloadData()
+    }
+}
+
+extension LibraryPlaylistsController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let playlistVC = PlaylistController()
+        playlistVC.set(playlists[indexPath.row])
+        navigationController?.pushViewController(playlistVC, animated: true)
     }
 }

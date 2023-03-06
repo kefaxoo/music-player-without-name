@@ -8,27 +8,15 @@
 import Foundation
 import RealmSwift
 
-class LibraryTrackInPlaylist: Object {
-    @objc dynamic var id = 0
+class LibraryTrackInPlaylist: LibraryTrack {
     @objc dynamic var playlistID = ""
-    @objc dynamic var title = ""
-    @objc dynamic var duration = 0
-    @objc dynamic var trackPosition = 0
-    @objc dynamic var isExplicit = false
-    @objc dynamic var artistID = 0
-    @objc dynamic var albumID = 0
-    @objc dynamic var pathLink = ""
     
-    convenience init(id: Int, playlistID: String, title: String, duration: Int, trackPosition: Int, isExplicit: Bool, artistID: Int, albumID: Int) {
-        self.init()
-        self.id = id
+    convenience init(id: Int, title: String, duration: Int, trackPosition: Int, diskNumber: Int, isExplicit: Bool, artistID: Int, artistName: String, albumID: Int, albumName: String, onlineLink: String, cacheLink: String, coverLink: String, playlistID: String) {
+        self.init(id: id, title: title, duration: duration, trackPosition: trackPosition, diskNumber: diskNumber, isExplicit: isExplicit, artistID: artistID, artistName: artistName, albumID: albumID, albumName: albumName, onlineLink: onlineLink, cacheLink: cacheLink, coverLink: coverLink)
         self.playlistID = playlistID
-        self.title = title
-        self.duration = duration
-        self.trackPosition = trackPosition
-        self.isExplicit = isExplicit
-        self.artistID = artistID
-        self.albumID = albumID
-        self.pathLink = pathLink
+    }
+    
+    var libraryTrack: LibraryTrack {
+        return LibraryTrack(id: self.id, title: self.title, duration: self.duration, trackPosition: self.trackPosition, diskNumber: self.diskNumber, isExplicit: self.isExplicit, artistID: self.artistID, artistName: self.artistName, albumID: self.albumID, albumName: self.albumTitle, onlineLink: self.onlineLink, cacheLink: self.cacheLink, coverLink: self.coverLink)
     }
 }

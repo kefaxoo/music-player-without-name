@@ -1,5 +1,8 @@
 
 /*  */
+"alert.message.errorDownload" = " ";
+
+/*  */
 "alert.message.errorPlaylist" = "Неможливо створити плейліст";
 
 /*  */
@@ -30,10 +33,37 @@
 "controller.addPlaylist.title" = "Новий плейліст";
 
 /*  */
+"controller.album.albumInfoCell.playButton" = " ";
+
+/*  */
+"controller.album.albumInfoCell.shuffleButton" = " ";
+
+/*  */
+"controller.album.moreAlbumsCell.moreByButton" = " ";
+
+/*  */
+"controller.artist.moreAlbumsCell.moreByButton" = " ";
+
+/*  */
+"controller.artist.topTrackLabelCell.title" = " ";
+
+/*  */
 "controller.library.playlists.addPlaylist" = "Додати плейліст";
 
 /*  */
 "controller.library.recentlyAddedLabel" = "Нещодавно додане";
+
+/*  */
+"controller.library.songs.sortButton.alphabet" = " ";
+
+/*  */
+"controller.library.songs.sortButton.recentlyAdded" = " ";
+
+/*  */
+"controller.library.songs.sortButton.reversedAlphabet" = " ";
+
+/*  */
+"controller.library.songs.sortButton.title" = " ";
 
 /*  */
 "controller.search.segmentedControl.albums" = "Альбоми";
@@ -63,6 +93,15 @@
 "menuActions.addToLibrary" = "Додати до бібліотеки";
 
 /*  */
+"menuActions.addToPlaylist" = " ";
+
+/*  */
+"menuActions.deleteDownload" = " ";
+
+/*  */
+"menuActions.download" = " ";
+
+/*  */
 "menuActions.removeFromLibrary" = "Прибрати з бібліотеки";
 
 /*  */
@@ -76,6 +115,12 @@
 
 /*  */
 "menuActions.shareSong" = "Поділитися піснею";
+
+/*  */
+"menuActions.showAlbum" = " ";
+
+/*  */
+"menuActions.showArtist" = " ";
 
 /*  */
 "searchBarPlaceholder.albums" = "Введіть назву альбому...";

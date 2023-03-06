@@ -20,7 +20,6 @@ class LibrarySongsController: UIViewController {
         tracksTableView.dataSource = self
         tracksTableView.delegate = self
         registerCell()
-        tracks = RealmManager<LibraryTrack>().read().reversed()
         tracksTableView.reloadData()
         setupNavBar()
     }
@@ -29,8 +28,33 @@ class LibrarySongsController: UIViewController {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.tintColor = .systemPurple
         if tracks.count != RealmManager<LibraryTrack>().read().count {
-            tracks = RealmManager<LibraryTrack>().read().reversed()
+            if LibraryDataManager.Songs.alphabetSort {
+                tracks = RealmManager<LibraryTrack>().read().sorted(by: { trackI, trackJ in
+                    return trackI.title < trackJ.title
+                })
+            } else if LibraryDataManager.Songs.reversedAlphabetSort {
+                tracks = RealmManager<LibraryTrack>().read().sorted(by: { trackI, trackJ in
+                    return trackI.title > trackJ.title
+                })
+            } else {
+                tracks = RealmManager<LibraryTrack>().read().reversed()
+            }
+            
             tracksTableView.reloadData()
+        }
+    }
+    
+    private func setTracks() {
+        if LibraryDataManager.Songs.alphabetSort {
+            tracks = RealmManager<LibraryTrack>().read().sorted(by: { trackI, trackJ in
+                return trackI.title < trackJ.title
+            })
+        } else if LibraryDataManager.Songs.reversedAlphabetSort {
+            tracks = RealmManager<LibraryTrack>().read().sorted(by: { trackI, trackJ in
+                return trackI.title > trackJ.title
+            })
+        } else {
+            tracks = RealmManager<LibraryTrack>().read().reversed()
         }
     }
     
@@ -38,6 +62,42 @@ class LibrarySongsController: UIViewController {
         searchController.searchBar.placeholder = Localization.SearchBarPlaceholder.tracks.rawValue.localized
         navigationItem.searchController = searchController
         searchController.searchBar.delegate = self
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: Localization.Controller.Library.Songs.SortButton.title.rawValue.localized, menu: createSortMenu())
+    }
+    
+    private func createSortMenu() -> UIMenu {
+        let sortByTitleAlphabetAction = UIAction(title: Localization.Controller.Library.Songs.SortButton.alphabet.rawValue.localized, state: LibraryDataManager.Songs.alphabetSort.getState) { _ in
+            LibraryDataManager.Songs.alphabetSort = true
+            LibraryDataManager.Songs.reversedAlphabetSort = false
+            LibraryDataManager.Songs.recentlyAddedSort = false
+            self.tracks = self.tracks.sorted(by: { trackI, trackJ in
+                return trackI.title < trackJ.title
+            })
+            
+            self.tracksTableView.reloadData()
+        }
+        
+        let sortByTitleReverseAlphabetAction = UIAction(title: Localization.Controller.Library.Songs.SortButton.reversedAlphabet.rawValue.localized, state: LibraryDataManager.Songs.reversedAlphabetSort.getState) { _ in
+            LibraryDataManager.Songs.alphabetSort = false
+            LibraryDataManager.Songs.reversedAlphabetSort = true
+            LibraryDataManager.Songs.recentlyAddedSort = false
+            self.tracks = self.tracks.sorted(by: { trackI, trackJ in
+                return trackI.title > trackJ.title
+            })
+            
+            self.tracksTableView.reloadData()
+        }
+        
+        let sortByDateAction = UIAction(title: Localization.Controller.Library.Songs.SortButton.recentlyAdded.rawValue.localized, state: LibraryDataManager.Songs.recentlyAddedSort.getState) { _ in
+            LibraryDataManager.Songs.alphabetSort = false
+            LibraryDataManager.Songs.reversedAlphabetSort = false
+            LibraryDataManager.Songs.recentlyAddedSort = true
+            self.tracks = RealmManager<LibraryTrack>().read().reversed()
+            self.tracksTableView.reloadData()
+        }
+        
+        return UIMenu(options: .singleSelection, children: [sortByTitleAlphabetAction, sortByTitleReverseAlphabetAction, sortByDateAction])
     }
     
     private func registerCell() {
@@ -68,7 +128,7 @@ extension LibrarySongsController: MenuActionsDelegate {
         tracksTableView.reloadData()
     }
     
-    func presentActivityController(_ vc: UIActivityViewController) {
+    func present(_ vc: UIActivityViewController) {
         present(vc, animated: true)
     }
     
@@ -79,9 +139,24 @@ extension LibrarySongsController: MenuActionsDelegate {
 
 extension LibrarySongsController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        tracks = RealmManager<LibraryTrack>().read()
+        tracks = RealmManager<LibraryTrack>().read().sorted(by: { trackI, trackJ in
+            return trackI.title < trackJ.title
+        })
+        
         if !searchText.isEmpty {
             tracks = tracks.filter({ $0.title.lowercased().contains(searchText.lowercased()) })
+        } else {
+            if LibraryDataManager.Songs.alphabetSort {
+                tracks = tracks.sorted(by: { trackI, trackJ in
+                    return trackI.title < trackJ.title
+                })
+            } else if LibraryDataManager.Songs.reversedAlphabetSort {
+                tracks = tracks.sorted(by: { trackI, trackJ in
+                    return trackI.title > trackJ.title
+                })
+            } else if LibraryDataManager.Songs.recentlyAddedSort {
+                tracks = tracks.reversed()
+            }
         }
         
         tracksTableView.reloadData()
@@ -108,5 +183,9 @@ extension LibrarySongsController: UITableViewDelegate {
 extension LibrarySongsController: ViewControllerDelegate {
     func pushVC(_ vc: UIViewController) {
         navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func present(_ vc: UIViewController) {
+        present(vc, animated: true)
     }
 }

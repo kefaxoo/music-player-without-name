@@ -37,28 +37,29 @@ class LibraryPlaylistCell: UITableViewCell {
     }
     
     @IBAction func menuButtonAction(_ sender: Any) {
+        let actionsManager = ActionsManager()
+        actionsManager.delegate = self
         guard let playlist,
-              let delegate
+              let deletePlaylistAction = actionsManager.deletePlaylistFromLibraryAction(playlist)
         else { return }
         
-        let deleteAction = UIAction(title: MenuActionsEnum.removePlaylistFromLibrary.title, image: MenuActionsEnum.removePlaylistFromLibrary.image, attributes: .destructive) { _ in
-            let tracksInPlaylist = RealmManager<LibraryTrackInPlaylist>().read().filter({ $0.playlistID == playlist.id })
-            if !tracksInPlaylist.isEmpty {
-                tracksInPlaylist.forEach { track in
-                    RealmManager<LibraryTrackInPlaylist>().delete(object: track)
-                }
-            }
-            
-            try? FileManager.default.removeItem(atPath: playlist.image)
-            RealmManager<LibraryPlaylist>().delete(object: playlist)
-            let alertView = SPAlertView(title: Localization.Alert.Title.success.rawValue.localized, preset: .done)
-            alertView.present(haptic: .success)
-            delegate.reloadData()
-        }
-        
-        let deleteSection = UIMenu(options: .displayInline, children: [deleteAction])
+        let deleteSection = UIMenu(options: .displayInline, children: [deletePlaylistAction])
         menuButton.showsMenuAsPrimaryAction = true
         menuButton.menu = UIMenu(options: .displayInline, children: [deleteSection])
     }
     
+}
+
+extension LibraryPlaylistCell: MenuActionsDelegate {
+    func present(alert: SPAlertView, haptic: SPAlertHaptic) {
+        if let delegate {
+            delegate.present(alert: alert, haptic: haptic)
+        }
+    }
+    
+    func reloadData() {
+        if let delegate {
+            delegate.reloadData()
+        }
+    }
 }

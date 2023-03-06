@@ -30,6 +30,7 @@ class LibraryController: UIViewController {
         setLocale()
         nowPlayingView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(presentNowPlayingVC)))
         setupNowPlayingView()
+        LibraryManager.downloadArtworks()
     }
     
     @objc private func presentNowPlayingVC() {
@@ -58,6 +59,7 @@ class LibraryController: UIViewController {
         tracks = RealmManager<LibraryTrack>().read().suffix(5).reversed()
         recentlyAddedCollectionView.reloadData()
         setupNowPlayingView()
+        LibraryManager.downloadArtworks()
     }
     
     private func registerCells() {
