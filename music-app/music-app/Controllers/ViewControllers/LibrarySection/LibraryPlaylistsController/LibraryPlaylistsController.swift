@@ -13,6 +13,7 @@ class LibraryPlaylistsController: UIViewController {
     @IBOutlet weak var playlistsTableView: UITableView!
     @IBOutlet weak var emptyInfoView: UIView!
     @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet weak var emptyImageView: UIImageView!
     
     private let searchController = UISearchController(searchResultsController: nil)
     private var playlists = [LibraryPlaylist]()
@@ -22,12 +23,16 @@ class LibraryPlaylistsController: UIViewController {
         setupNavBar()
         playlistsTableView.dataSource = self
         playlistsTableView.delegate = self
-        registerCell()
+        playlistsTableView.register(LibraryPlaylistCell.self)
         playlists = RealmManager<LibraryPlaylist>().read().reversed()
         playlistsTableView.reloadData()
         emptyInfoView.isHidden = !playlists.isEmpty
         emptyInfoView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(addPlaylistAction)))
         setLocale()
+    }
+    
+    private func setInterface() {
+        emptyInfoView.tintColor = SettingsManager.getColor.color
     }
     
     private func setLocale() {
@@ -39,7 +44,7 @@ class LibraryPlaylistsController: UIViewController {
         playlists = RealmManager<LibraryPlaylist>().read().reversed()
         playlistsTableView.reloadData()
         emptyInfoView.isHidden = !playlists.isEmpty
-        navigationController?.navigationBar.tintColor = .systemPurple
+        navigationController?.navigationBar.tintColor = SettingsManager.getColor.color
     }
     
     private func setupNavBar() {
@@ -47,11 +52,6 @@ class LibraryPlaylistsController: UIViewController {
         searchController.searchBar.placeholder = Localization.SearchBarPlaceholder.playlists.rawValue.localized
         navigationItem.searchController = searchController
         searchController.searchBar.delegate = self
-    }
-    
-    private func registerCell() {
-        let nib = UINib(nibName: LibraryPlaylistCell.id, bundle: nil)
-        playlistsTableView.register(nib, forCellReuseIdentifier: LibraryPlaylistCell.id)
     }
 
     @objc private func addPlaylistAction() {

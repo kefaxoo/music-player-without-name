@@ -45,8 +45,11 @@ class LibraryTrackCell: UITableViewCell {
         self.artistLabel.text = track.artistName
         titleLabel.text = track.title
         explicitImageView.isHidden = !track.isExplicit
+        explicitImageView.tintColor = SettingsManager.getColor.color
         self.downloadImageView.isHidden = !LibraryManager.isTrackDownloaded(artist: track.artistName, title: track.title, album: track.albumTitle)
+        self.downloadImageView.tintColor = SettingsManager.getColor.color
         self.downloadIndicator.isHidden = true
+        self.downloadIndicator.color = SettingsManager.getColor.color
     }
     
     @IBAction func menuButtonDidTap(_ sender: Any) {
@@ -62,7 +65,7 @@ class LibraryTrackCell: UITableViewCell {
         else { return }
         
         actions.append(removeFromLibraryAction)
-        if !LibraryManager.isTrackDownloaded(artist: track.artistName, title: track.title, album: track.albumTitle) {
+        if LibraryManager.isTrackDownloaded(artist: track.artistName, title: track.title, album: track.albumTitle) {
             guard let removeTrackFromCacheAction = actionsManager.deleteTrackFromCacheAction(track) else { return }
             
             actions.append(removeTrackFromCacheAction)

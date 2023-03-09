@@ -11,15 +11,18 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NowPlayingController" customModule="music_app" customModuleProvider="target">
             <connections>
+                <outlet property="airplayButton" destination="1R6-7S-G0k" id="cvI-66-7VR"/>
                 <outlet property="artistLabel" destination="htI-uH-LUL" id="Qhn-7u-xTL"/>
                 <outlet property="coverView" destination="kom-EA-txw" id="dmE-Kj-3Pe"/>
                 <outlet property="currentTimeLabel" destination="695-WA-dp3" id="7Pf-H5-7VW"/>
                 <outlet property="durationLabel" destination="wNl-Wp-tk2" id="BxY-TE-ym1"/>
                 <outlet property="durationView" destination="jln-5C-c3J" id="aeX-Rs-Alx"/>
                 <outlet property="explicitView" destination="OLU-oA-5Nc" id="JYi-H5-A3q"/>
+                <outlet property="fullVolumeImageView" destination="JOH-CE-P6A" id="Pnv-UK-aSa"/>
                 <outlet property="menuButton" destination="wdm-N5-FoV" id="3Ex-er-2Mo"/>
                 <outlet property="menuTrackButton" destination="m7D-k4-gE7" id="4Py-1a-NvW"/>
                 <outlet property="nextTrackButton" destination="7uK-xD-EDZ" id="GKN-3U-XIJ"/>
+                <outlet property="noVolumeImageView" destination="eeM-Ih-HVK" id="QeO-jY-86U"/>
                 <outlet property="nowPlayingOnLabel" destination="1Tk-k0-eoo" id="jw9-pn-d0I"/>
                 <outlet property="playPauseButton" destination="9fc-8P-bhn" id="nbj-u7-UaI"/>
                 <outlet property="previousTrackButton" destination="1Fk-Ha-IJQ" id="RyW-l0-klp"/>

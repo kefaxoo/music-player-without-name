@@ -27,9 +27,14 @@ class SearchController: UIViewController {
         setSearchController()
         resultTableView.dataSource = self
         resultTableView.delegate = self
-        registerCell()
+        resultTableView.register(SongCell.self, LibraryArtistCell.self, LibraryAlbumCell.self)
         setLocale()
         showTop()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.navigationBar.tintColor = SettingsManager.getColor.color
     }
     
     private func setLocale() {
@@ -55,15 +60,6 @@ class SearchController: UIViewController {
             default:
                 return
         }
-    }
-    
-    private func registerCell() {
-        var nib = UINib(nibName: SongCell.id, bundle: nil)
-        resultTableView.register(nib, forCellReuseIdentifier: SongCell.id)
-        nib = UINib(nibName: LibraryArtistCell.id, bundle: nil)
-        resultTableView.register(nib, forCellReuseIdentifier: LibraryArtistCell.id)
-        nib = UINib(nibName: LibraryAlbumCell.id, bundle: nil)
-        resultTableView.register(nib, forCellReuseIdentifier: LibraryAlbumCell.id)
     }
     
     private func setSearchController() {

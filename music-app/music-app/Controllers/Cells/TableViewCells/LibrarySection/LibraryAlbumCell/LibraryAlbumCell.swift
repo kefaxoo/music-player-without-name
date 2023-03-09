@@ -60,6 +60,7 @@ class LibraryAlbumCell: UITableViewCell {
         }
         
         explicitView.isHidden = !album.isExplicit
+        explicitView.tintColor = SettingsManager.getColor.color
     }
     
     @IBAction func menuButtonDidTap(_ sender: Any) {

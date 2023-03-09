@@ -25,12 +25,7 @@ class MoreAlbumsByArtistCell: UITableViewCell {
         self.backgroundColor = .lightGray.withAlphaComponent(0.3)
         albumsCollectionView.dataSource = self
         albumsCollectionView.delegate = self
-        registerCell()
-    }
-    
-    private func registerCell() {
-        let nib = UINib(nibName: RecentlyAddedCell.id, bundle: nil)
-        albumsCollectionView.register(nib, forCellWithReuseIdentifier: RecentlyAddedCell.id)
+        albumsCollectionView.register(RecentlyAddedCell.self)
     }
     
     func setTextForButton(_ text: String) {

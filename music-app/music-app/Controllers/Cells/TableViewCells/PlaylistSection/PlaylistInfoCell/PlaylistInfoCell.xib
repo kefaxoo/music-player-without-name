@@ -19,7 +19,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="nRe-nq-6Tg">
-                        <rect key="frame" x="0.0" y="0.0" width="352" height="376"/>
+                        <rect key="frame" x="0.0" y="0.0" width="352" height="366"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zyi-SO-Uoe">
                                 <rect key="frame" x="0.0" y="0.0" width="352" height="200"/>
@@ -76,10 +76,10 @@
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="GZ7-mm-P83">
-                                <rect key="frame" x="0.0" y="236" width="352" height="140"/>
+                                <rect key="frame" x="0.0" y="236" width="352" height="130"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Cw-Sy-zga">
-                                        <rect key="frame" x="0.0" y="0.0" width="168" height="140"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="168" height="130"/>
                                         <color key="tintColor" systemColor="systemPurpleColor"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="gray" title="Play" imagePadding="5">
@@ -87,7 +87,7 @@
                                         </buttonConfiguration>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dit-UJ-Xkg">
-                                        <rect key="frame" x="184" y="0.0" width="168" height="140"/>
+                                        <rect key="frame" x="184" y="0.0" width="168" height="130"/>
                                         <color key="tintColor" systemColor="systemPurpleColor"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="gray" title="Shuffle" imagePadding="5">
@@ -105,7 +105,7 @@
                     <constraint firstItem="hHa-2W-TAS" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="fC4-rf-Ylk"/>
                     <constraint firstAttribute="trailing" secondItem="nRe-nq-6Tg" secondAttribute="trailing" id="mRx-GN-8PG"/>
                     <constraint firstItem="nRe-nq-6Tg" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="pRO-r0-cdt"/>
-                    <constraint firstAttribute="bottom" secondItem="nRe-nq-6Tg" secondAttribute="bottom" id="tDr-rp-VRv"/>
+                    <constraint firstAttribute="bottom" secondItem="nRe-nq-6Tg" secondAttribute="bottom" constant="10" id="tDr-rp-VRv"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>

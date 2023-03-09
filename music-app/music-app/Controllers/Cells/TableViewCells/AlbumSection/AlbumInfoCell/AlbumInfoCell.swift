@@ -61,6 +61,7 @@ class AlbumInfoCell: UITableViewCell {
         
         titleLabel.text = album.title
         artistButton.setTitle(artist.name, for: .normal)
+        artistButton.tintColor = SettingsManager.getColor.color
         artistID = artist.id
         if let genre = album.genres?.data.first {
             albumInfoLabel.text = "\(genre.name)"
@@ -76,6 +77,9 @@ class AlbumInfoCell: UITableViewCell {
         }
         
         explicitImageView.isHidden = !album.isExplicit
+        explicitImageView.tintColor = SettingsManager.getColor.color
+        playButton.tintColor = SettingsManager.getColor.color
+        shuffleButton.tintColor = SettingsManager.getColor.color
     }
     
 }

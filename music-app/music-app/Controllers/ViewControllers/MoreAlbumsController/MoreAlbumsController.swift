@@ -18,12 +18,7 @@ class MoreAlbumsController: UIViewController {
         super.viewDidLoad()
         albumsTableView.dataSource = self
         albumsTableView.delegate = self
-        registerCell()
-    }
-    
-    private func registerCell() {
-        let nib = UINib(nibName: LibraryAlbumCell.id, bundle: nil)
-        albumsTableView.register(nib, forCellReuseIdentifier: LibraryAlbumCell.id)
+        albumsTableView.register(LibraryAlbumCell.self)
     }
     
     func set(_ albums: [DeezerAlbum]) {

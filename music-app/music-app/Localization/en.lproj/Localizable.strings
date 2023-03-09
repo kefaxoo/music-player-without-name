@@ -31,6 +31,7 @@
 // TabBar Section
 "tabBar.search" = "Search";
 "tabBar.library" = "Library";
+"tabBar.settings" = "Settings";
 
 // Alert Section
 // Alert Title Section
@@ -105,3 +106,18 @@
 "searchBarPlaceholder.artists" = "Type artist name...";
 "searchBarPlaceholder.playlists" = "Type playlist name...";
 "searchBarPlaceholder.main" = "Type track, album, artist name...";
+
+// Settings Section
+// Settings Color Section
+"settings.color.title" = "Color";
+"settings.color.blue" = "Blue";
+"settings.color.cyan" = "Cyan";
+"settings.color.green" = "Green";
+"settings.color.indigo" = "Indigo";
+"settings.color.mint" = "Mint";
+"settings.color.orange" = "Orange";
+"settings.color.pink" = "Pink";
+"settings.color.purple" = "Purple";
+"settings.color.red" = "Red";
+"settings.color.teal" = "Teal";
+"settings.color.yellow" = "Yellow";

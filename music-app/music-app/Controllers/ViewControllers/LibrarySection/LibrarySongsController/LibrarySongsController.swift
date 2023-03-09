@@ -19,14 +19,14 @@ class LibrarySongsController: UIViewController {
         super.viewDidLoad()
         tracksTableView.dataSource = self
         tracksTableView.delegate = self
-        registerCell()
+        tracksTableView.register(LibraryTrackCell.self)
         tracksTableView.reloadData()
         setupNavBar()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.navigationBar.tintColor = .systemPurple
+        navigationController?.navigationBar.tintColor = SettingsManager.getColor.color
         if tracks.count != RealmManager<LibraryTrack>().read().count {
             if LibraryDataManager.Songs.alphabetSort {
                 tracks = RealmManager<LibraryTrack>().read().sorted(by: { trackI, trackJ in
@@ -98,11 +98,6 @@ class LibrarySongsController: UIViewController {
         }
         
         return UIMenu(options: .singleSelection, children: [sortByTitleAlphabetAction, sortByTitleReverseAlphabetAction, sortByDateAction])
-    }
-    
-    private func registerCell() {
-        let nib = UINib(nibName: LibraryTrackCell.id, bundle: nil)
-        tracksTableView.register(nib, forCellReuseIdentifier: LibraryTrackCell.id)
     }
 
 }

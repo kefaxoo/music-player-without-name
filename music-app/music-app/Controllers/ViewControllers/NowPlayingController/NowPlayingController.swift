@@ -29,11 +29,14 @@ class NowPlayingController: UIViewController {
     @IBOutlet weak var playPauseButton: UIButton!
     @IBOutlet weak var nextTrackButton: UIButton!
     @IBOutlet weak var volumeView: UIView!
+    @IBOutlet weak var noVolumeImageView: UIImageView!
+    @IBOutlet weak var fullVolumeImageView: UIImageView!
+    @IBOutlet weak var airplayButton: UIButton!
     
     lazy var volumeSlider: TactileSlider = {
         let slider = TactileSlider(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width - 92, height: 10))
         slider.enableTapping = true
-        slider.tintColor = .systemPurple
+        slider.tintColor = SettingsManager.getColor.color
         slider.addTarget(self, action: #selector(volumeDidChange), for: [.touchUpInside, .touchUpOutside])
         slider.addTarget(self, action: #selector(volumeWillChange), for: .touchDown)
         return slider
@@ -42,7 +45,7 @@ class NowPlayingController: UIViewController {
     lazy var durationSlider: TactileSlider = {
         let slider = TactileSlider(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width - 32, height: 10))
         slider.enableTapping = true
-        slider.tintColor = .systemPurple
+        slider.tintColor = SettingsManager.getColor.color
         slider.steppingMode = .stepValue(1)
         slider.addTarget(self, action: #selector(durationDidChange), for: [.touchUpInside, .touchUpOutside])
         slider.addTarget(self, action: #selector(durationWillChange), for: .touchDown)
@@ -93,6 +96,7 @@ class NowPlayingController: UIViewController {
         coverView.layer.cornerRadius = 20
         titleLabel.text = track.title
         explicitView.isHidden = !track.isExplicit
+        explicitView.tintColor = SettingsManager.getColor.color
         artistLabel.text = track.artist?.name
         artistLabel.textColor = artistLabel.textColor.withAlphaComponent(0.8)
         durationSlider.maximum = Float(track.duration)
@@ -100,10 +104,16 @@ class NowPlayingController: UIViewController {
         currentTimeLabel.textColor = currentTimeLabel.textColor.withAlphaComponent(0.8)
         durationLabel.textColor = durationLabel.textColor.withAlphaComponent(0.8)
         previousTrackButton.imageView?.contentMode = .scaleAspectFit
+        previousTrackButton.tintColor = SettingsManager.getColor.color
         playPauseButton.imageView?.contentMode = .scaleAspectFit
+        playPauseButton.tintColor = SettingsManager.getColor.color
         nextTrackButton.imageView?.contentMode = .scaleAspectFit
+        nextTrackButton.tintColor = SettingsManager.getColor.color
+        noVolumeImageView.tintColor = SettingsManager.getColor.color
         volumeView.addSubview(volumeSlider)
         volumeSlider.setValue(AVAudioSession.sharedInstance().outputVolume, animated: true)
+        fullVolumeImageView.tintColor = SettingsManager.getColor.color
+        airplayButton.tintColor = SettingsManager.getColor.color
         makeSmallCover()
     }
     

@@ -23,7 +23,7 @@ class AddToPlaylistController: UIViewController {
         super.viewDidLoad()
         playlistsTableView.dataSource = self
         playlistsTableView.delegate = self
-        registerCell()
+        playlistsTableView.register(PlaylistCell.self)
         playlists = RealmManager<LibraryPlaylist>().read().reversed()
     }
     
@@ -33,7 +33,7 @@ class AddToPlaylistController: UIViewController {
     }
     
     private func setupNavBar() {
-        navigationController?.navigationBar.tintColor = .systemPurple
+        navigationController?.navigationBar.tintColor = SettingsManager.getColor.color
         searchController.searchBar.placeholder = Localization.SearchBarPlaceholder.playlists.rawValue.localized
         navigationItem.searchController = searchController
         searchController.searchBar.delegate = self
@@ -44,11 +44,6 @@ class AddToPlaylistController: UIViewController {
     
     @objc private func cancelButtonDidTap() {
         self.dismiss(animated: true)
-    }
-    
-    private func registerCell() {
-        let nib = UINib(nibName: PlaylistCell.id, bundle: nil)
-        playlistsTableView.register(nib, forCellReuseIdentifier: PlaylistCell.id)
     }
     
     func set(_ track: LibraryTrack) {

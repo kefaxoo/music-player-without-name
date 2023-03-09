@@ -21,7 +21,7 @@ class ArtistController: UIViewController {
         super.viewDidLoad()
         artistTableView.dataSource = self
         artistTableView.delegate = self
-        registerCell()
+        artistTableView.register(ArtistInfoCell.self, TopTrackLabelCell.self, SongCell.self, MoreAlbumsByArtistCell.self)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -30,19 +30,8 @@ class ArtistController: UIViewController {
     }
     
     private func setupNavBar() {
-        navigationController?.navigationBar.tintColor = .systemPurple
+        navigationController?.navigationBar.tintColor = SettingsManager.getColor.color
         navigationController?.navigationBar.prefersLargeTitles = false
-    }
-    
-    private func registerCell() {
-        var nib = UINib(nibName: ArtistInfoCell.id, bundle: nil)
-        artistTableView.register(nib, forCellReuseIdentifier: ArtistInfoCell.id)
-        nib = UINib(nibName: TopTrackLabelCell.id, bundle: nil)
-        artistTableView.register(nib, forCellReuseIdentifier: TopTrackLabelCell.id)
-        nib = UINib(nibName: SongCell.id, bundle: nil)
-        artistTableView.register(nib, forCellReuseIdentifier: SongCell.id)
-        nib = UINib(nibName: MoreAlbumsByArtistCell.id, bundle: nil)
-        artistTableView.register(nib, forCellReuseIdentifier: MoreAlbumsByArtistCell.id)
     }
     
     func set(_ artist: DeezerArtist) {

@@ -21,7 +21,7 @@ class AlbumController: UIViewController {
         super.viewDidLoad()
         albumTableView.dataSource = self
         albumTableView.delegate = self
-        registerCells()
+        albumTableView.register(AlbumInfoCell.self, AlbumTrackCell.self, TextAlbumInfoCell.self, MoreAlbumsByArtistCell.self)
         getInfo()
         getMoreAlbums()
         albumTableView.reloadData()
@@ -52,19 +52,8 @@ class AlbumController: UIViewController {
     }
     
     private func setupNavBar() {
-        navigationController?.navigationBar.tintColor = .systemPurple
+        navigationController?.navigationBar.tintColor = SettingsManager.getColor.color
         navigationController?.navigationBar.prefersLargeTitles = false
-    }
-    
-    private func registerCells() {
-        var nib = UINib(nibName: AlbumInfoCell.id, bundle: nil)
-        albumTableView.register(nib, forCellReuseIdentifier: AlbumInfoCell.id)
-        nib = UINib(nibName: AlbumTrackCell.id, bundle: nil)
-        albumTableView.register(nib, forCellReuseIdentifier: AlbumTrackCell.id)
-        nib = UINib(nibName: TextAlbumInfoCell.id, bundle: nil)
-        albumTableView.register(nib, forCellReuseIdentifier: TextAlbumInfoCell.id)
-        nib = UINib(nibName: MoreAlbumsByArtistCell.id, bundle: nil)
-        albumTableView.register(nib, forCellReuseIdentifier: MoreAlbumsByArtistCell.id)
     }
     
     func set(_ album: DeezerAlbum) {

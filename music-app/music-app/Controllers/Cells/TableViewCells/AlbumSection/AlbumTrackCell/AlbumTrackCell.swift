@@ -38,7 +38,9 @@ class AlbumTrackCell: UITableViewCell {
         
         titleLabel.text = track.title
         explicitImageView.isHidden = !track.isExplicit
+        explicitImageView.tintColor = SettingsManager.getColor.color
         inLibraryImageView.isHidden = !LibraryManager.isTrackInLibrary(track.id)
+        inLibraryImageView.tintColor = SettingsManager.getColor.color
     }
     
     @IBAction func menuButtonDidTap(_ sender: Any) {

@@ -20,14 +20,14 @@ class LibraryAlbumsController: UIViewController {
         super.viewDidLoad()
         albumsTableView.dataSource = self
         albumsTableView.delegate = self
-        registerCell()
+        albumsTableView.register(LibraryAlbumCell.self)
         getAlbums()
         setupNavBar()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.navigationBar.tintColor = .systemPurple
+        navigationController?.navigationBar.tintColor = SettingsManager.getColor.color
     }
     
     private func setupNavBar() {
@@ -62,11 +62,6 @@ class LibraryAlbumsController: UIViewController {
         }
         
         alertView.dismiss()
-    }
-    
-    private func registerCell() {
-        let nib = UINib(nibName: LibraryAlbumCell.id, bundle: nil)
-        albumsTableView.register(nib, forCellReuseIdentifier: LibraryAlbumCell.id)
     }
     
 }

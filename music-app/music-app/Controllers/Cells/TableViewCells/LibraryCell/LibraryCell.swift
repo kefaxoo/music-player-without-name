@@ -20,6 +20,7 @@ class LibraryCell: UITableViewCell {
     
     func set(_ type: LibraryEnum) {
         iconView.image = type.icon
+        iconView.tintColor = SettingsManager.getColor.color
         nameLabel.text = type.name
     }
     

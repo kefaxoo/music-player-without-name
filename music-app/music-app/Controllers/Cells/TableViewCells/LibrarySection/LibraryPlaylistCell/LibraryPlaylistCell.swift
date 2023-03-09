@@ -34,6 +34,7 @@ class LibraryPlaylistCell: UITableViewCell {
         
         playlistNameLabel.text = playlist.name
         explicitImageView.isHidden = !playlist.isExplicit
+        explicitImageView.tintColor = SettingsManager.getColor.color
     }
     
     @IBAction func menuButtonAction(_ sender: Any) {

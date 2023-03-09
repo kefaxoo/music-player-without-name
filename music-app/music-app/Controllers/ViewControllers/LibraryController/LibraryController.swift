@@ -23,9 +23,10 @@ class LibraryController: UIViewController {
         super.viewDidLoad()
         navigationTableView.dataSource = self
         navigationTableView.delegate = self
+        navigationTableView.register(LibraryCell.self)
         recentlyAddedCollectionView.dataSource = self
         recentlyAddedCollectionView.delegate = self
-        registerCells()
+        recentlyAddedCollectionView.register(RecentlyAddedCell.self)
         tracks = RealmManager<LibraryTrack>().read().suffix(5).reversed()
         setLocale()
         nowPlayingView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(presentNowPlayingVC)))
@@ -60,13 +61,6 @@ class LibraryController: UIViewController {
         recentlyAddedCollectionView.reloadData()
         setupNowPlayingView()
         LibraryManager.downloadArtworks()
-    }
-    
-    private func registerCells() {
-        var nib = UINib(nibName: LibraryCell.id, bundle: nil)
-        navigationTableView.register(nib, forCellReuseIdentifier: LibraryCell.id)
-        nib = UINib(nibName: RecentlyAddedCell.id, bundle: nil)
-        recentlyAddedCollectionView.register(nib, forCellWithReuseIdentifier: RecentlyAddedCell.id)
     }
 
 }

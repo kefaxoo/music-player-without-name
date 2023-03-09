@@ -10,6 +10,8 @@ import AVKit
 
 class TabBarController: UITabBarController {
 
+    private var color: SettingsManager.ColorType = .purple
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         guard let _ = try? AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: []) else { return }
@@ -59,11 +61,17 @@ class TabBarController: UITabBarController {
         let libraryVC = LibraryController(nibName: LibraryController.id, bundle: nil)
         libraryVC.tabBarItem = UITabBarItem(title: Localization.TabBar.library.rawValue.localized, image: UIImage(systemName: "heart"), selectedImage: UIImage(systemName: "heart.fill"))
         
+        let settingsVC = SettingsController(nibName: SettingsController.id, bundle: nil)
+        settingsVC.tabBarItem = UITabBarItem(title: Localization.TabBar.settings.rawValue.localized, image: UIImage(systemName: "gear"), tag: 1002)
+        let closure: SetColorClosure = { color in
+            self.tabBar.tintColor = color.color
+        }
+        settingsVC.set(closure)
+        
 //        let recognizeLinkVC = RecognizeLinkController(nibName: RecognizeLinkController.id, bundle: nil)
 //        recognizeLinkVC.tabBarItem = UITabBarItem(title: "Recognize", image: UIImage(systemName: "text.viewfinder"), tag: 1003)
-        
-        self.viewControllers = [configureNavigationController(vc: libraryVC, title: Localization.TabBar.library.rawValue.localized), configureNavigationController(vc: searchVC, title: Localization.TabBar.search.rawValue.localized)]
-        self.tabBar.tintColor = .systemPurple
+        self.viewControllers = [configureNavigationController(vc: libraryVC, title: Localization.TabBar.library.rawValue.localized), configureNavigationController(vc: searchVC, title: Localization.TabBar.search.rawValue.localized), configureNavigationController(vc: settingsVC, title: Localization.TabBar.settings.rawValue.localized)]
+        self.tabBar.tintColor = SettingsManager.getColor.color
     }
     
     static var activeNavVC: UINavigationController? = {

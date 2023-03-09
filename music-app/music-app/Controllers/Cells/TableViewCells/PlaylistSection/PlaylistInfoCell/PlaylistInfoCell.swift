@@ -28,6 +28,9 @@ class PlaylistInfoCell: UITableViewCell {
         coverView.layer.cornerRadius = 20
         nameLabel.text = playlist.name
         explicitImageView.isHidden = !playlist.isExplicit
+        explicitImageView.tintColor = SettingsManager.getColor.color
+        playButton.tintColor = SettingsManager.getColor.color
+        shuffleButton.tintColor = SettingsManager.getColor.color
         setLocale()
     }
     

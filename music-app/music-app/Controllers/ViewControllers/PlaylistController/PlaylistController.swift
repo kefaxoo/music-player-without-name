@@ -28,26 +28,17 @@ class PlaylistController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
-        registerCells()
+        tableView.register(TrackInPlaylistCell.self, PlaylistInfoCell.self, TextPlaylistInfoCell.self)
         setupNavBar()
     }
     
     private func setupNavBar() {
-        navigationController?.navigationBar.tintColor = .systemPurple
+        navigationController?.navigationBar.tintColor = SettingsManager.getColor.color
         navigationController?.navigationBar.prefersLargeTitles = false
         
         guard let createMenu else { return }
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "ellipsis"), menu: createMenu)
-    }
-    
-    private func registerCells() {
-        var nib = UINib(nibName: TrackInPlaylistCell.id, bundle: nil)
-        tableView.register(nib, forCellReuseIdentifier: TrackInPlaylistCell.id)
-        nib = UINib(nibName: PlaylistInfoCell.id, bundle: nil)
-        tableView.register(nib, forCellReuseIdentifier: PlaylistInfoCell.id)
-        nib = UINib(nibName: TextPlaylistInfoCell.id, bundle: nil)
-        tableView.register(nib, forCellReuseIdentifier: TextPlaylistInfoCell.id)
     }
     
     func set(_ playlist: LibraryPlaylist) {
@@ -110,5 +101,9 @@ extension PlaylistController: MenuActionsDelegate {
     
     func reloadData() {
         self.tableView.reloadData()
+    }
+    
+    func dismiss(_ alert: SPAlertView) {
+        alert.dismiss()
     }
 }

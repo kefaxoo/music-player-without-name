@@ -18,12 +18,7 @@ class TracksController: UIViewController {
         super.viewDidLoad()
         tracksTableView.dataSource = self
         tracksTableView.delegate = self
-        registerCell()
-    }
-    
-    private func registerCell() {
-        let nib = UINib(nibName: SongCell.id, bundle: nil)
-        tracksTableView.register(nib, forCellReuseIdentifier: SongCell.id)
+        tracksTableView.register(SongCell.self)
     }
 
     func set(_ tracks: [DeezerTrack]) {

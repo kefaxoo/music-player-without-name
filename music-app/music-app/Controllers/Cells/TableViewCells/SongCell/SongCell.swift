@@ -38,8 +38,10 @@ class SongCell: UITableViewCell {
         coverImageView.sd_setImage(with: url)
         titleLabel.text = track.title
         explicitImageView.isHidden = !track.isExplicit
+        explicitImageView.tintColor = SettingsManager.getColor.color
         artistAndAlbumLabel.text = "\(artist) • \(album.title)"
         inLibraryImageView.isHidden = !LibraryManager.isTrackInLibrary(track.id)
+        inLibraryImageView.tintColor = SettingsManager.getColor.color
     }
     
     @IBAction func menuButtonDidTap(_ sender: Any) {

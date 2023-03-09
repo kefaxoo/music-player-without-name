@@ -406,7 +406,7 @@ final class ActionsManager {
             delegate.dismiss()
         }
         
-        action.setValue(UIColor.systemPurple, forKey: "titleTextColor")
+        action.setValue(SettingsManager.getColor.color, forKey: "titleTextColor")
         return action
     }
     

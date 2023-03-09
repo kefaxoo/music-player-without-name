@@ -26,6 +26,12 @@ class AddPlaylistController: UIViewController {
         super.viewDidLoad()
         setGestures()
         setLocale()
+        setInterface()
+    }
+    
+    private func setInterface() {
+        cancelButton.tintColor = SettingsManager.getColor.color
+        doneButton.tintColor = SettingsManager.getColor.color
     }
     
     private func setLocale() {

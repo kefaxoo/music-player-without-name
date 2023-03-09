@@ -165,7 +165,46 @@
 "searchBarPlaceholder.tracks" = "Введите название трека...";
 
 /*  */
+"settings.color.blue" = "Синий";
+
+/*  */
+"settings.color.cyan" = "Голубой";
+
+/*  */
+"settings.color.green" = "Зелёный";
+
+/*  */
+"settings.color.indigo" = "Индиго";
+
+/*  */
+"settings.color.mint" = "Мятный";
+
+/*  */
+"settings.color.orange" = "Оранжевый";
+
+/*  */
+"settings.color.pink" = "Розовый";
+
+/*  */
+"settings.color.purple" = "Фиолетовый";
+
+/*  */
+"settings.color.red" = "Красный";
+
+/*  */
+"settings.color.teal" = "Бирюзовый";
+
+/*  */
+"settings.color.title" = "Цвет приложения";
+
+/*  */
+"settings.color.yellow" = "Жёлтый";
+
+/*  */
 "tabBar.library" = "Библиотека";
 
 /*  */
 "tabBar.search" = "Поиск";
+
+/*  */
+"tabBar.settings" = "Настройки";

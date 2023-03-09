@@ -34,6 +34,7 @@ extension Localization {
     enum TabBar: String {
         case search = "tabBar.search"
         case library = "tabBar.library"
+        case settings = "tabBar.settings"
     }
     
     enum Alert {}
@@ -47,6 +48,8 @@ extension Localization {
         case playlists = "searchBarPlaceholder.playlists"
         case main = "searchBarPlaceholder.main"
     }
+    
+    enum Settings {}
 }
 
 extension Localization.MenuActions {
@@ -154,5 +157,22 @@ extension Localization.Controller.Artist {
     
     enum MoreAlbumsByArtistCell: String {
         case title = "controller.artist.moreAlbumsCell.moreByButton"
+    }
+}
+
+extension Localization.Settings {
+    enum Color: String {
+        case title = "settings.color.title"
+        case blue = "settings.color.blue"
+        case cyan = "settings.color.cyan"
+        case green = "settings.color.green"
+        case indigo = "settings.color.indigo"
+        case mint = "settings.color.mint"
+        case orange = "settings.color.orange"
+        case pink = "settings.color.pink"
+        case purple = "settings.color.purple"
+        case red = "settings.color.red"
+        case teal = "settings.color.teal"
+        case yellow = "settings.color.yellow"
     }
 }

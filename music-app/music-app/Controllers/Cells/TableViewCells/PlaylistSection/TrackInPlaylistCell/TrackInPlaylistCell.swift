@@ -33,6 +33,12 @@ class TrackInPlaylistCell: UITableViewCell {
         titleLabel.text = track.title
         artistLabel.text = track.artistName
         explicitImageView.isHidden = !track.isExplicit
+        explicitImageView.tintColor = SettingsManager.getColor.color
+        downloadedImageView.isHidden = true
+        downloadedImageView.tintColor = SettingsManager.getColor.color
+        likedImageView.isHidden = true
+        likedImageView.tintColor = SettingsManager.getColor.color
+        downloadedImageView.tintColor = SettingsManager.getColor.color
         if LibraryManager.isTrackDownloaded(artist: track.artistName, title: track.title, album: track.albumTitle) {
             downloadedImageView.isHidden = false
         } else if LibraryManager.isTrackInLibrary(track.id) {
@@ -81,6 +87,12 @@ extension TrackInPlaylistCell: MenuActionsDelegate {
     func present(alert: SPAlertView, haptic: SPAlertHaptic) {
         if let delegate {
             delegate.present(alert: alert, haptic: haptic)
+        }
+    }
+    
+    func dismiss(_ alert: SPAlertView) {
+        if let delegate {
+            delegate.dismiss(alert)
         }
     }
     

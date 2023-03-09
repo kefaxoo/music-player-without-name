@@ -13,6 +13,7 @@ protocol MenuActionsDelegate: AnyObject {
     func present(_ vc: UIActivityViewController)
     func pushViewController(_ vc: UIViewController)
     func present(_ vc: UIViewController)
+    func present(_ alert: UIAlertController)
     func dismiss()
     func dismiss(_ alert: SPAlertView)
     func present(alert: SPAlertView, haptic: SPAlertHaptic)
@@ -26,6 +27,7 @@ extension MenuActionsDelegate {
     func present(_ vc: UIActivityViewController) {}
     func pushViewController(_ vc: UIViewController) {}
     func present(_ vc: UIViewController) {}
+    func present(_ alert: UIAlertController) {}
     func dismiss() {}
     func dismiss(_ alert: SPAlertView) {}
     func present(alert: SPAlertView, haptic: SPAlertHaptic) {}

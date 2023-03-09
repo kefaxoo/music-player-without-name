@@ -138,7 +138,13 @@
 "searchBarPlaceholder.tracks" = "Введіть назву композиції...";
 
 /*  */
+"settings.color.yellow" = "";
+
+/*  */
 "tabBar.library" = "Бібліотека";
 
 /*  */
 "tabBar.search" = "Пошук";
+
+/*  */
+"tabBar.settings" = "";
