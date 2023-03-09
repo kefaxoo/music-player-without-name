@@ -449,7 +449,7 @@ extension NowPlayingController: AudioPlayerDelegate {
         else { return }
         
         if AudioPlayer.editTimeOnController {
-            durationSlider.setValue(Float(currentTime), animated: true)
+            durationSlider.setValue(Float(currentTime), animated: false)
             currentTimeLabel.text = currentTime.time
             durationLabel.text = "-\((duration - currentTime).time)"
         }
