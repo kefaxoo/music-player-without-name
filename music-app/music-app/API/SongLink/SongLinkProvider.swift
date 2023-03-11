@@ -16,9 +16,9 @@ final class SongLinkProvider {
         provider.request(.getLink(url)) { result in
             switch result {
                 case .success(let response):
-                    guard let link = try? response.mapObject(ShareLinkModel.self) else { return }
+                    guard let links = try? response.mapObject(LinkModel.self) else { return }
                     
-                    success(link.link)
+                    success(links.link)
                 case .failure(let error):
                     guard let description = error.errorDescription else { return }
                     
@@ -27,17 +27,44 @@ final class SongLinkProvider {
         }
     }
     
-    func recognizeLink(_ url: String, success: @escaping((Int) -> Void), failure: @escaping((String) -> Void)) {
-        provider.request(.recognizeLink(url)) { result in
+    func getSpotifyID(_ url: String, success: @escaping((String) -> Void), failure: ((String) -> Void)? = nil) {
+        provider.request(.getLink(url)) { result in
             switch result {
                 case .success(let response):
-                    guard let id = try? response.mapObject(IDModel.self) else { return }
+                    guard let links = try? response.mapObject(LinkModel.self),
+                          let spotifyID = links.spotifyID else { return }
                     
-                    success(id.deezerID)
+                    success(spotifyID)
                 case .failure(let error):
-                    guard let description = error.errorDescription else { return }
+                    print(error)
+            }
+        }
+    }
+    
+    func getYandexMusicID(_ url: String, success: @escaping((Int) -> Void), failure: ((String) -> Void)?) {
+        provider.request(.getLink(url)) { result in
+            switch result {
+                case .success(let response):
+                    guard let links = try? response.mapObject(LinkModel.self),
+                          let yandexMusicID = links.yandexMusicID
+                    else { return }
                     
-                    failure(description)
+                    success(yandexMusicID)
+                case .failure(let error):
+                    print(error)
+            }
+        }
+    }
+    
+    func getLinks(_ url: String, success: @escaping((LinkModel) -> Void), failure: ((String) -> Void)? = nil) {
+        provider.request(.getLink(url)) { result in
+            switch result {
+                case .success(let response):
+                    guard let links = try? response.mapObject(LinkModel.self) else { return }
+                    
+                    success(links)
+                case .failure(_):
+                    break
             }
         }
     }

@@ -3,23 +3,23 @@
 Идеи можно брать [Здесь](https://yandexmusic.userecho.com)
 
 ## Плеер
-1) Вывод знака [E] в плеере iOS
-2) Добавить режим караоке (прокрутка текста песни) [Обсуждение](https://yandexmusic.userecho.com/ru/communities/45/topics/427-rezhim-karaoke-prokrutka-teksta-pesni)
-Реализация: добавить чтение srt [Структура файла](http://fileext.ru/srt) файла
+1) ~~Вывод знака [E] в плеере iOS~~
+2) ~~Добавить режим караоке (прокрутка текста песни) [Обсуждение](https://yandexmusic.userecho.com/ru/communities/45/topics/427-rezhim-karaoke-prokrutka-teksta-pesni)
+Реализация: добавить чтение srt [Структура файла](http://fileext.ru/srt) файла~~ Комментарий: так как проект не коммерческий, Musixmatch не даёт полный доступ к их сервису бесплатно и подобным моему проекту, что грустно
 3) Сохранять последний воспроизведённый трек [Обсуждение](https://yandexmusic.userecho.com/ru/communities/45/topics/6991-zapominat-poslednij-vklyuchennyij-trek-pri-zakryitii-prilozheniya)
 4) Сохранять позицию последнего воспроизведённого трека
 5) Добавить в настройки пункт сохранения позиции последнего воспроизведённого трека
 6) Добавить таймер сна
 7) Добавить свайпы (свайп вправо - следующий трек, влево - предыдущий, свайп вниз - сворачивание плеера, свайп вверх со строки воспроизведения - открытие плеера, свайп для удаления трека)
-8) Добавить кнопку лайка в строку воспроизведения
+8) ~~Добавить кнопку лайка в строку воспроизведения~~ Изменено: строка воспроизведения имеет другой вид (референс: Tidal)
 9) Плавный переход между треками (кроссфейд) [Обсуждение #1](https://yandexmusic.userecho.com/ru/communities/45/topics/212-plavnyij-perehod-mezhdu-trekami-krossfejd) [Обсуждение #2](https://yandexmusic.userecho.com/ru/communities/45/topics/273-besshovnyij-perehod-mezhdu-pesnyami-gapless)
 10) Добавить информацию, что трек - HQ (320 кб/сек) [Обсуждение](https://yandexmusic.userecho.com/ru/communities/45/topics/6878-otobrazhat-tehnicheskuyu-informatsiyu-o-treke)
-11) Добавить информацию, что трек - explicit
+11) ~~Добавить информацию, что трек - explicit~~
 12) Добавить эквалайзер
 13) Добавить кнопку скачивания в плеере и в строке трека в плейлисте [Обсуждение](https://yandexmusic.userecho.com/ru/communities/45/topics/6550-dobavit-v-pleere-knopku-skachat)
 14) Сделать треки в плейлисте, отмеченные дизлайком, немного темнее, чем обычные (необходима система рекомендаций)
-15) Добавить знак, что трек в библиотеке (лайк)
-16) Лайк красного цвета [Обсуждение](https://yandexmusic.userecho.com/ru/communities/45/topics/6553-sdelat-lajk-krasnyim-tsvetom)
+15) ~~Добавить знак, что трек в библиотеке (лайк)~~
+16) ~~Лайк красного цвета [Обсуждение](https://yandexmusic.userecho.com/ru/communities/45/topics/6553-sdelat-lajk-krasnyim-tsvetom)~~ Изменено: цвет зависит от цвета приложения
 17) Добавить информацию, что трек - Clean [Обсуждение](https://yandexmusic.userecho.com/ru/communities/45/topics/4616-vozmozhnost-byistro-informirovat-vas-o-tom-chto-trek-ne-pomechen-kak-explicit)
 18) Добавить возможность выбрать другой внешний вид плеера
 
@@ -38,8 +38,6 @@
 ## Видеошоты (видео как фон для трека)
 Основное: Сделать поддержку коротких видео как фон в повторе [Обсуждение](https://yandexmusic.userecho.com/ru/communities/45/topics/2988-fonovoe-vosproizvedenie-video)
 
-Реализация: скорее всего грузить их на ютуб с доступом по ссылке
-
 1) Добавить в настройки пункт скачивания видеошотов (экономия памяти)
 2) Добавить в настройки пункт включения видеошотов
 
@@ -53,7 +51,7 @@
 2) Добавить плейлист с дизлайкнутыми треками (необходима система рекомендаций) [Обсуждение](https://yandexmusic.userecho.com/ru/communities/45/topics/23-dostupnyij-dlya-polzovatelya-spisok-dizlajkov)
 3) Добавить две кнопки: включение по порядку, включение в режиме Shuffle [Обсуждение](https://yandexmusic.userecho.com/ru/communities/45/topics/6784-vernite-v-plejlistyi-funktsiyu-igrat-v-peremeshku)
 4) Добавить разделение на диски в альбоме
-5) Уведомление, что трек добавлен в плейлист [Обсуждение](https://yandexmusic.userecho.com/ru/communities/45/topics/6719-uvedomlenie-chto-trek-dobavlen-v-plejlist)
+5) ~~Уведомление, что трек добавлен в плейлист [Обсуждение](https://yandexmusic.userecho.com/ru/communities/45/topics/6719-uvedomlenie-chto-trek-dobavlen-v-plejlist)~~
 6) Добавить итоги года [Обсуждение](https://yandexmusic.userecho.com/ru/communities/45/topics/6761-itogi-za-god-proslushivaniya-kak-v-spotify-wrapped-stories)
 7) Добавить анимированные обложки
 
@@ -71,8 +69,8 @@
 1) Добавить мессенджер внутри приложения, для обмена треками между друзьями
 
 ## Способы поделиться треком
-1) Отправлять песню в формате MP3/M4A
-2) Отправлять песню ссылкой на сторонний музыкальный сервис
+1) ~~Отправлять песню в формате MP3/M4A~~
+2) ~~Отправлять песню ссылкой на сторонний музыкальный сервис~~
 3) Возможность создать историю со строчками текста (Apple Music) [Обсуждение](https://yandexmusic.userecho.com/ru/communities/4/topics/6490-vozmozhnost-delitsya-v-instagram-strochkami-iz-trekov)
 
 ## Аналог Shazam

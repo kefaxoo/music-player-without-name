@@ -32,6 +32,17 @@ class PlaylistController: UIViewController {
         setupNavBar()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setInterface()
+        
+    }
+    
+    private func setInterface() {
+        setupNavBar()
+        self.tableView.reloadData()
+    }
+    
     private func setupNavBar() {
         navigationController?.navigationBar.tintColor = SettingsManager.getColor.color
         navigationController?.navigationBar.prefersLargeTitles = false

@@ -29,10 +29,11 @@ class LibraryPlaylistsController: UIViewController {
         emptyInfoView.isHidden = !playlists.isEmpty
         emptyInfoView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(addPlaylistAction)))
         setLocale()
+        setInterface()
     }
     
     private func setInterface() {
-        emptyInfoView.tintColor = SettingsManager.getColor.color
+        emptyImageView.tintColor = SettingsManager.getColor.color
     }
     
     private func setLocale() {

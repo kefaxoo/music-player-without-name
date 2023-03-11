@@ -58,10 +58,10 @@
                     </subviews>
                 </stackView>
                 <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SjC-HD-3Cq" customClass="NowPlayingView" customModule="music_app" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="773" width="393" height="45"/>
+                    <rect key="frame" x="0.0" y="763" width="393" height="55"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="45" id="8Iy-kE-lZt"/>
+                        <constraint firstAttribute="height" constant="55" id="8Iy-kE-lZt"/>
                     </constraints>
                 </view>
             </subviews>

@@ -32,6 +32,7 @@ class NowPlayingController: UIViewController {
     @IBOutlet weak var noVolumeImageView: UIImageView!
     @IBOutlet weak var fullVolumeImageView: UIImageView!
     @IBOutlet weak var airplayButton: UIButton!
+    @IBOutlet weak var videoShotView: UIView!
     
     lazy var volumeSlider: TactileSlider = {
         let slider = TactileSlider(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width - 92, height: 10))
@@ -114,13 +115,24 @@ class NowPlayingController: UIViewController {
         volumeSlider.setValue(AVAudioSession.sharedInstance().outputVolume, animated: true)
         fullVolumeImageView.tintColor = SettingsManager.getColor.color
         airplayButton.tintColor = SettingsManager.getColor.color
-        makeSmallCover()
+        nowPlayingOnLabel.tintColor = SettingsManager.getColor.color
+        makeCoverSmaller()
     }
     
     func set() {
         guard let track = AudioPlayer.currentTrack else { return }
         self.track = track
         AudioPlayer.delegate = self
+        VideoPlayer.delegate = self
+        loadVideoShot()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        VideoPlayer.player.pause()
+        videoShotView.subviews.forEach { view in
+            view.removeFromSuperview()
+        }
     }
     
     func set(track: DeezerTrack?, playlist: [DeezerTrack] = [DeezerTrack](), indexInPlaylist: Int = 0) {
@@ -154,6 +166,32 @@ class NowPlayingController: UIViewController {
             
         }
         AudioPlayer.delegate = self
+        VideoPlayer.delegate = self
+        loadVideoShot()
+    }
+    
+    private func loadVideoShot() {
+        guard let track else { return }
+        
+        SongLinkProvider().getLinks(track.shareLink) { links in
+            if let spotifyID = links.spotifyID {
+                SpotifyProvider().getCanvasLink(spotifyID) { canvasLink in
+                    if !canvasLink.isEmpty {
+                        VideoPlayer.setVideo(canvasLink)
+                    } else {
+                        if let yandexMusicID = links.yandexMusicID {
+                            YandexMusicProvider().getCanvasLink(yandexMusicID) { canvasLink in
+                                VideoPlayer.setVideo(canvasLink)
+                            }
+                        }
+                    }
+                }
+            } else if let yandexMusicID = links.yandexMusicID {
+                YandexMusicProvider().getCanvasLink(yandexMusicID) { canvasLink in
+                    VideoPlayer.setVideo(canvasLink)
+                }
+            }
+        }
     }
     
     @IBAction func menuTrackButtonDidTap(_ sender: Any) {
@@ -181,6 +219,7 @@ class NowPlayingController: UIViewController {
                 break
             }
         }
+        
         airplayVolume.removeFromSuperview()
     }
     
@@ -402,19 +441,6 @@ class NowPlayingController: UIViewController {
         }
     }
     
-    private func makeSmallCover() {
-        UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 1, options: .curveEaseInOut) {
-            let scale = 0.8
-            self.coverView.transform = CGAffineTransform(scaleX: scale, y: scale)
-        }
-    }
-    
-    private func makeLargeCover() {
-        UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 1, options: .curveEaseInOut) {
-            self.coverView.transform = .identity
-        }
-    }
-    
     @IBAction func nextTrackDidTap(_ sender: Any) {
         AudioPlayer.playNextTrack()
     }
@@ -426,20 +452,24 @@ class NowPlayingController: UIViewController {
 
 extension NowPlayingController: AudioPlayerDelegate {
     func playDidTap() {
-        makeSmallCover()
+        makeCoverSmaller()
+        pauseVideoShot()
     }
     
     func pauseDidTap() {
-        makeLargeCover()
+        makeCoverBigger()
+        playVideoShot()
     }
     
     func previousTrackDidTap() {
         track = AudioPlayer.currentTrack
+        pauseVideoShot()
         set()
     }
     
     func nextTrackDidTap() {
         track = AudioPlayer.currentTrack
+        pauseVideoShot()
         set()
     }
     
@@ -465,7 +495,7 @@ extension NowPlayingController: AudioPlayerDelegate {
         if AudioPlayer.isShowNowPlayingOnLabel() {
             guard let nameOfDevice = AudioPlayer.getNameOfOutputDevice() else { return }
             
-            nowPlayingOnLabel.text = "Now playing on \(nameOfDevice)"
+            nowPlayingOnLabel.text = nameOfDevice
         }
         
         if volumeSlider.value != AVAudioSession.sharedInstance().outputVolume, AudioPlayer.editVolumeOnController {
@@ -474,11 +504,12 @@ extension NowPlayingController: AudioPlayerDelegate {
     }
     
     func trackDidLoad() {
-        UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 1, options: .curveEaseInOut) {
-            self.coverView.transform = .identity
-        }
+        makeCoverBigger()
     }
 }
+
+// MARK: -
+// MARK: Menu Actions Delegate Extension
 
 extension NowPlayingController: MenuActionsDelegate {
     func dismissViewController() {
@@ -491,5 +522,74 @@ extension NowPlayingController: MenuActionsDelegate {
     
     func present(alert: SPAlertView, haptic: SPAlertHaptic = .none) {
         alert.present(haptic: haptic)
+    }
+}
+
+// MARK: -
+// MARK: Video Player Delegate
+
+extension NowPlayingController: VideoPlayerDelegate {
+    func setVideo(_ layer: AVPlayerLayer) {
+        layer.frame = videoShotView.bounds
+        videoShotView.layer.addSublayer(layer)
+        layer.videoGravity = .resizeAspectFill
+        VideoPlayer.player.play()
+    }
+    
+    func setCoverView() {
+        playVideoShot()
+    }
+}
+
+// MARK: -
+// MARK: Animations
+
+extension NowPlayingController {
+    private func playVideoShot() {
+        if VideoPlayer.player.currentItem != nil {
+            VideoPlayer.player.play()
+            UIView.animate(withDuration: 0.5, delay: 0) {
+                self.coverView.alpha = 0
+                self.videoShotView.alpha = 1
+                
+                self.titleLabel.textColor = UIColor.white
+                self.artistLabel.textColor = UIColor.white.withAlphaComponent(0.8)
+                self.menuButton.tintColor = UIColor.white
+                self.durationLabel.textColor = UIColor.white.withAlphaComponent(0.8)
+                self.currentTimeLabel.textColor = UIColor.white.withAlphaComponent(0.8)
+                self.nowPlayingOnLabel.textColor = UIColor.white.withAlphaComponent(0.8)
+            }
+        }
+    }
+    
+    private func pauseVideoShot() {
+        if VideoPlayer.player.currentItem != nil {
+            VideoPlayer.player.pause()
+            UIView.animate(withDuration: 0.5, delay: 0) {
+                self.coverView.alpha = 1
+                self.videoShotView.alpha = 0
+                
+                self.titleLabel.textColor = UIColor.label
+                self.artistLabel.textColor = UIColor.label.withAlphaComponent(0.8)
+                self.menuButton.tintColor = UIColor.label
+                self.durationLabel.textColor = UIColor.label.withAlphaComponent(0.8)
+                self.currentTimeLabel.textColor = UIColor.label.withAlphaComponent(0.8)
+                self.nowPlayingOnLabel.textColor = UIColor.label.withAlphaComponent(0.8)
+                
+            }
+        }
+    }
+    
+    private func makeCoverBigger() {
+        UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 1, options: .curveEaseInOut) {
+            self.coverView.transform = .identity
+        }
+    }
+    
+    private func makeCoverSmaller() {
+        UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 1, options: .curveEaseInOut) {
+            let scale = 0.8
+            self.coverView.transform = CGAffineTransform(scaleX: scale, y: scale)
+        }
     }
 }

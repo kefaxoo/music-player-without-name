@@ -38,6 +38,9 @@
 		704CD2B9299CEE5600FFEBBA /* LibraryPlaylistCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 704CD2B7299CEE5600FFEBBA /* LibraryPlaylistCell.xib */; };
 		7057BDB129B5285A00C8DE17 /* LibraryDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7057BDB029B5285A00C8DE17 /* LibraryDataManager.swift */; };
 		7057BDB329B52B1A00C8DE17 /* Bool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7057BDB229B52B1A00C8DE17 /* Bool.swift */; };
+		705BDE7C29BA9F2C006E2E0E /* YandexMusicTrackModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 705BDE7B29BA9F2C006E2E0E /* YandexMusicTrackModel.swift */; };
+		705BDE7F29BA9FC8006E2E0E /* YandexMusicAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 705BDE7E29BA9FC8006E2E0E /* YandexMusicAPI.swift */; };
+		705BDE8129BAA069006E2E0E /* YandexMusicProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 705BDE8029BAA069006E2E0E /* YandexMusicProvider.swift */; };
 		7068031C299F7A9700536187 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7068031E299F7A9700536187 /* Localizable.strings */; };
 		70680321299F7BC100536187 /* SearchBarEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70680320299F7BC100536187 /* SearchBarEnum.swift */; };
 		70680325299F7DD200536187 /* Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70680324299F7DD200536187 /* Bundle.swift */; };
@@ -65,11 +68,16 @@
 		709BA400299AD1FF00B4AD38 /* LibraryArtistCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 709BA3FE299AD1FF00B4AD38 /* LibraryArtistCell.xib */; };
 		70B028362993F0DA00BB9E01 /* SongLinkProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B028332993F0DA00BB9E01 /* SongLinkProvider.swift */; };
 		70B028372993F0DA00BB9E01 /* SongLinkAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B028342993F0DA00BB9E01 /* SongLinkAPI.swift */; };
-		70B028382993F0DA00BB9E01 /* SongLinkModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B028352993F0DA00BB9E01 /* SongLinkModel.swift */; };
 		70BAA3EB2995103F008E6BE4 /* LibraryAlbumsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70BAA3E92995103F008E6BE4 /* LibraryAlbumsController.swift */; };
 		70BAA3EC2995103F008E6BE4 /* LibraryAlbumsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70BAA3EA2995103F008E6BE4 /* LibraryAlbumsController.xib */; };
 		70C4124C29AA27DE0039AFE1 /* NowPlayingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70C4124B29AA27DE0039AFE1 /* NowPlayingView.swift */; };
 		70C4124E29AA27E40039AFE1 /* NowPlayingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70C4124D29AA27E40039AFE1 /* NowPlayingView.xib */; };
+		70C8B9FE29BA53AE0016696A /* LinkModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70C8B9FD29BA53AE0016696A /* LinkModel.swift */; };
+		70C8BA0129BA57030016696A /* SpotifyAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70C8BA0029BA57030016696A /* SpotifyAPI.swift */; };
+		70C8BA0329BA570A0016696A /* SpotifyProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70C8BA0229BA570A0016696A /* SpotifyProvider.swift */; };
+		70C8BA0629BA57160016696A /* CanvasModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70C8BA0529BA57160016696A /* CanvasModel.swift */; };
+		70C8BA0829BA584A0016696A /* VideoPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70C8BA0729BA584A0016696A /* VideoPlayer.swift */; };
+		70C8BA0A29BA58E50016696A /* VideoPlayerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70C8BA0929BA58E50016696A /* VideoPlayerDelegate.swift */; };
 		70D1A8AE2993F3C3003B3478 /* LibrarySongsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70D1A8AC2993F3C3003B3478 /* LibrarySongsController.swift */; };
 		70D1A8AF2993F3C3003B3478 /* LibrarySongsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70D1A8AD2993F3C3003B3478 /* LibrarySongsController.xib */; };
 		70D1A8B52993F8B5003B3478 /* LibraryTrackCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70D1A8B32993F8B5003B3478 /* LibraryTrackCell.swift */; };
@@ -157,6 +165,9 @@
 		704CD2B7299CEE5600FFEBBA /* LibraryPlaylistCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LibraryPlaylistCell.xib; sourceTree = "<group>"; };
 		7057BDB029B5285A00C8DE17 /* LibraryDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryDataManager.swift; sourceTree = "<group>"; };
 		7057BDB229B52B1A00C8DE17 /* Bool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bool.swift; sourceTree = "<group>"; };
+		705BDE7B29BA9F2C006E2E0E /* YandexMusicTrackModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YandexMusicTrackModel.swift; sourceTree = "<group>"; };
+		705BDE7E29BA9FC8006E2E0E /* YandexMusicAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YandexMusicAPI.swift; sourceTree = "<group>"; };
+		705BDE8029BAA069006E2E0E /* YandexMusicProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YandexMusicProvider.swift; sourceTree = "<group>"; };
 		7068031D299F7A9700536187 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7068031F299F7A9B00536187 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		70680320299F7BC100536187 /* SearchBarEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarEnum.swift; sourceTree = "<group>"; };
@@ -188,11 +199,16 @@
 		709BA3FE299AD1FF00B4AD38 /* LibraryArtistCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LibraryArtistCell.xib; sourceTree = "<group>"; };
 		70B028332993F0DA00BB9E01 /* SongLinkProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongLinkProvider.swift; sourceTree = "<group>"; };
 		70B028342993F0DA00BB9E01 /* SongLinkAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongLinkAPI.swift; sourceTree = "<group>"; };
-		70B028352993F0DA00BB9E01 /* SongLinkModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongLinkModel.swift; sourceTree = "<group>"; };
 		70BAA3E92995103F008E6BE4 /* LibraryAlbumsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryAlbumsController.swift; sourceTree = "<group>"; };
 		70BAA3EA2995103F008E6BE4 /* LibraryAlbumsController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LibraryAlbumsController.xib; sourceTree = "<group>"; };
 		70C4124B29AA27DE0039AFE1 /* NowPlayingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NowPlayingView.swift; sourceTree = "<group>"; };
 		70C4124D29AA27E40039AFE1 /* NowPlayingView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NowPlayingView.xib; sourceTree = "<group>"; };
+		70C8B9FD29BA53AE0016696A /* LinkModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkModel.swift; sourceTree = "<group>"; };
+		70C8BA0029BA57030016696A /* SpotifyAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyAPI.swift; sourceTree = "<group>"; };
+		70C8BA0229BA570A0016696A /* SpotifyProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyProvider.swift; sourceTree = "<group>"; };
+		70C8BA0529BA57160016696A /* CanvasModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasModel.swift; sourceTree = "<group>"; };
+		70C8BA0729BA584A0016696A /* VideoPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayer.swift; sourceTree = "<group>"; };
+		70C8BA0929BA58E50016696A /* VideoPlayerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerDelegate.swift; sourceTree = "<group>"; };
 		70D1A8AC2993F3C3003B3478 /* LibrarySongsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibrarySongsController.swift; sourceTree = "<group>"; };
 		70D1A8AD2993F3C3003B3478 /* LibrarySongsController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LibrarySongsController.xib; sourceTree = "<group>"; };
 		70D1A8B32993F8B5003B3478 /* LibraryTrackCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryTrackCell.swift; sourceTree = "<group>"; };
@@ -367,6 +383,24 @@
 			path = LibraryPlaylistCell;
 			sourceTree = "<group>";
 		};
+		705BDE7A29BA9F1C006E2E0E /* Yandex */ = {
+			isa = PBXGroup;
+			children = (
+				705BDE7D29BA9FB9006E2E0E /* Models */,
+				705BDE7E29BA9FC8006E2E0E /* YandexMusicAPI.swift */,
+				705BDE8029BAA069006E2E0E /* YandexMusicProvider.swift */,
+			);
+			path = Yandex;
+			sourceTree = "<group>";
+		};
+		705BDE7D29BA9FB9006E2E0E /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				705BDE7B29BA9F2C006E2E0E /* YandexMusicTrackModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		7068032C299F8AEB00536187 /* Localization */ = {
 			isa = PBXGroup;
 			children = (
@@ -519,6 +553,32 @@
 			path = NowPlayingView;
 			sourceTree = "<group>";
 		};
+		70C8B9FA29BA53930016696A /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				70C8B9FD29BA53AE0016696A /* LinkModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		70C8B9FF29BA56FC0016696A /* Spotify */ = {
+			isa = PBXGroup;
+			children = (
+				70C8BA0429BA570E0016696A /* Models */,
+				70C8BA0029BA57030016696A /* SpotifyAPI.swift */,
+				70C8BA0229BA570A0016696A /* SpotifyProvider.swift */,
+			);
+			path = Spotify;
+			sourceTree = "<group>";
+		};
+		70C8BA0429BA570E0016696A /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				70C8BA0529BA57160016696A /* CanvasModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		70D1A8AB2993F32A003B3478 /* LibrarySection */ = {
 			isa = PBXGroup;
 			children = (
@@ -566,6 +626,7 @@
 				70D1A8B82993FC77003B3478 /* MenuActionsDelegate.swift */,
 				70FCD0F329A13A4D00AEB719 /* ViewControllerDelegate.swift */,
 				7042E43F29A8C7770042B8C3 /* AudioPlayerDelegate.swift */,
+				70C8BA0929BA58E50016696A /* VideoPlayerDelegate.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -573,6 +634,8 @@
 		70E63CEB298EDD51003D6CBF /* API */ = {
 			isa = PBXGroup;
 			children = (
+				705BDE7A29BA9F1C006E2E0E /* Yandex */,
+				70C8B9FF29BA56FC0016696A /* Spotify */,
 				70E92EFE2993F0740087E16A /* SongLink */,
 				70E63CEC298EDD59003D6CBF /* Deezer */,
 			);
@@ -738,8 +801,8 @@
 		70E92EFE2993F0740087E16A /* SongLink */ = {
 			isa = PBXGroup;
 			children = (
+				70C8B9FA29BA53930016696A /* Models */,
 				70B028342993F0DA00BB9E01 /* SongLinkAPI.swift */,
-				70B028352993F0DA00BB9E01 /* SongLinkModel.swift */,
 				70B028332993F0DA00BB9E01 /* SongLinkProvider.swift */,
 			);
 			path = SongLink;
@@ -775,6 +838,7 @@
 				70E63CEB298EDD51003D6CBF /* API */,
 				70D1A8B12993F3FA003B3478 /* Managers */,
 				7042E43B29A8BB8E0042B8C3 /* AudioPlayer.swift */,
+				70C8BA0729BA584A0016696A /* VideoPlayer.swift */,
 				70F8AF45298EDC4A0002D1D0 /* AppDelegate.swift */,
 				70F8AF47298EDC4A0002D1D0 /* SceneDelegate.swift */,
 				70F8AF4B298EDC4A0002D1D0 /* Main.storyboard */,
@@ -1038,12 +1102,13 @@
 			files = (
 				70E63D16298EE398003D6CBF /* LibraryCell.swift in Sources */,
 				70FCD0F429A13A4D00AEB719 /* ViewControllerDelegate.swift in Sources */,
+				705BDE8129BAA069006E2E0E /* YandexMusicProvider.swift in Sources */,
 				70680327299F7E2A00536187 /* Localization.swift in Sources */,
 				70E63D0D298EDFB4003D6CBF /* SearchController.swift in Sources */,
 				70E92EFB2993DF370087E16A /* LibraryManager.swift in Sources */,
+				70C8BA0629BA57160016696A /* CanvasModel.swift in Sources */,
 				70FCD0E929A1103400AEB719 /* TextAlbumInfoCell.swift in Sources */,
 				704CD2A9299CE51600FFEBBA /* LibraryPlaylist.swift in Sources */,
-				70B028382993F0DA00BB9E01 /* SongLinkModel.swift in Sources */,
 				70680321299F7BC100536187 /* SearchBarEnum.swift in Sources */,
 				7042E44329A8FC5F0042B8C3 /* NowPlayingController.swift in Sources */,
 				70D1A8B92993FC77003B3478 /* MenuActionsDelegate.swift in Sources */,
@@ -1055,9 +1120,11 @@
 				70E63D05298EDE7E003D6CBF /* TabBarController.swift in Sources */,
 				70C4124C29AA27DE0039AFE1 /* NowPlayingView.swift in Sources */,
 				704CD2B1299CE80500FFEBBA /* AddPlaylistController.swift in Sources */,
+				705BDE7C29BA9F2C006E2E0E /* YandexMusicTrackModel.swift in Sources */,
 				70E63CFB298EDDF3003D6CBF /* DeezerData.swift in Sources */,
 				70D1A8AE2993F3C3003B3478 /* LibrarySongsController.swift in Sources */,
 				709BA3F6299A46E200B4AD38 /* String.swift in Sources */,
+				70C8BA0129BA57030016696A /* SpotifyAPI.swift in Sources */,
 				70E63CF7298EDDCD003D6CBF /* DeezerAlbum.swift in Sources */,
 				70F8AF46298EDC4A0002D1D0 /* AppDelegate.swift in Sources */,
 				704CD2B8299CEE5600FFEBBA /* LibraryPlaylistCell.swift in Sources */,
@@ -1067,6 +1134,7 @@
 				70FCD0DF29A0FB7900AEB719 /* AlbumInfoCell.swift in Sources */,
 				7026489629A295B80092E111 /* ArtistInfoCell.swift in Sources */,
 				70FCD0E429A1082500AEB719 /* AlbumTrackCell.swift in Sources */,
+				70C8BA0329BA570A0016696A /* SpotifyProvider.swift in Sources */,
 				70B028372993F0DA00BB9E01 /* SongLinkAPI.swift in Sources */,
 				704635E329B8A4F700A22C4D /* SettingsController.swift in Sources */,
 				7057BDB129B5285A00C8DE17 /* LibraryDataManager.swift in Sources */,
@@ -1076,10 +1144,12 @@
 				7009ACDA29A93C4E00D9B800 /* MPVolumeView.swift in Sources */,
 				708BE8D829B61AF800819935 /* PlaylistController.swift in Sources */,
 				70FCD0F729A15B5400AEB719 /* ArtistController.swift in Sources */,
+				70C8BA0829BA584A0016696A /* VideoPlayer.swift in Sources */,
 				709BA3F1299A200500B4AD38 /* LibraryAlbumCell.swift in Sources */,
 				703E24EC29A3F4DE00C6D957 /* TracksController.swift in Sources */,
 				7009ACD829A936D300D9B800 /* Double.swift in Sources */,
 				70BAA3EB2995103F008E6BE4 /* LibraryAlbumsController.swift in Sources */,
+				70C8BA0A29BA58E50016696A /* VideoPlayerDelegate.swift in Sources */,
 				7042E43C29A8BB8E0042B8C3 /* AudioPlayer.swift in Sources */,
 				704635E729B8A71D00A22C4D /* SettingsManager.swift in Sources */,
 				70450FCB2990DBF1008E4C1C /* RealmManager.swift in Sources */,
@@ -1087,6 +1157,7 @@
 				709BA3FA299ACE2100B4AD38 /* LibraryArtistsController.swift in Sources */,
 				708BE8DD29B61CE900819935 /* TrackInPlaylistCell.swift in Sources */,
 				70FCD0FF29A15C9000AEB719 /* MoreAlbumsController.swift in Sources */,
+				70C8B9FE29BA53AE0016696A /* LinkModel.swift in Sources */,
 				709BA3FF299AD1FF00B4AD38 /* LibraryArtistCell.swift in Sources */,
 				70E63CF5298EDDBD003D6CBF /* DeezerType.swift in Sources */,
 				708BE8E829B63FCE00819935 /* TextPlaylistInfoCell.swift in Sources */,
@@ -1097,6 +1168,7 @@
 				708BE8D529B60A7E00819935 /* ImageManager.swift in Sources */,
 				708BE8CD29B5CE3900819935 /* AddToPlaylistController.swift in Sources */,
 				704CD2B5299CEA1600FFEBBA /* LibraryTrackInPlaylist.swift in Sources */,
+				705BDE7F29BA9FC8006E2E0E /* YandexMusicAPI.swift in Sources */,
 				7042E44029A8C7770042B8C3 /* AudioPlayerDelegate.swift in Sources */,
 				70E63D09298EDFAA003D6CBF /* LibraryController.swift in Sources */,
 				704CD2AC299CE71200FFEBBA /* LibraryPlaylistsController.swift in Sources */,

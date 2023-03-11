@@ -16,6 +16,7 @@ class NowPlayingView: UIView {
     @IBOutlet weak var artistLabel: UILabel!
     @IBOutlet weak var playPauseButton: UIButton!
     @IBOutlet weak var durationProgressView: UIProgressView!
+    @IBOutlet weak var nextTrackButton: UIButton!
     
     private var track: DeezerTrack?
     
@@ -36,6 +37,13 @@ class NowPlayingView: UIView {
         contentView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
         AudioPlayer.nowPlayingViewDelegate = self
         set()
+        setInterface()
+    }
+    
+    private func setInterface() {
+        playPauseButton.tintColor = SettingsManager.getColor.color
+        nextTrackButton.tintColor = SettingsManager.getColor.color
+        durationProgressView.tintColor = SettingsManager.getColor.color
     }
     
     func set() {

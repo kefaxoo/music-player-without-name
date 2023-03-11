@@ -266,21 +266,23 @@ extension AudioPlayer {
                   let currentItem = player.currentItem
             else { return }
             
-            delegate.setupController()
-            delegate.trackDidLoad()
-            delegate.setupView()
-            setupNowPlaying()
-            setupTimeInNowPlaying()
-            setupRemoteControls()
-            //funnsss()
-            if player.rate == 0 {
-                delegate.playDidTap()
-            } else {
-                delegate.pauseDidTap()
-            }
-            
-            if round(currentItem.duration.seconds) == round(player.currentTime().seconds) {
-                playNextTrack()
+            if currentItem.status == .readyToPlay {
+                delegate.setupController()
+                delegate.trackDidLoad()
+                delegate.setupView()
+                setupNowPlaying()
+                setupTimeInNowPlaying()
+                setupRemoteControls()
+                //funnsss()
+                if player.rate == 0 {
+                    delegate.playDidTap()
+                } else {
+                    delegate.pauseDidTap()
+                }
+                
+                if round(currentItem.duration.seconds) == round(player.currentTime().seconds) {
+                    playNextTrack()
+                }
             }
         })
     }

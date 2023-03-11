@@ -11,7 +11,6 @@ class LibraryArtistCell: UITableViewCell {
 
     @IBOutlet weak var artistImageView: UIImageView!
     @IBOutlet weak var artistLabel: UILabel!
-    @IBOutlet weak var menuButton: UIButton!
     
     static let id = String(describing: LibraryArtistCell.self)
     
@@ -34,11 +33,6 @@ class LibraryArtistCell: UITableViewCell {
         artistImageView.clipsToBounds = true
         
         artistLabel.text = artist.name
-    }
-    
-    
-    @IBAction func menuButtonDidTap(_ sender: Any) {
-        
     }
     
 }
