@@ -10,6 +10,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PlaylistController" customModule="music_app" customModuleProvider="target">
             <connections>
+                <outlet property="nowPlayingView" destination="qEF-Gd-qca" id="v4g-76-eku"/>
                 <outlet property="tableView" destination="xR1-J2-SkN" id="BsM-R2-2LR"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -23,14 +24,24 @@
                     <rect key="frame" x="0.0" y="59" width="393" height="759"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </tableView>
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qEF-Gd-qca" customClass="NowPlayingView" customModule="music_app" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="763" width="393" height="55"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="55" id="UKl-XI-2qT"/>
+                    </constraints>
+                </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
+                <constraint firstItem="qEF-Gd-qca" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="18o-v7-n5o"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="qEF-Gd-qca" secondAttribute="bottom" id="BrW-ZK-gFI"/>
                 <constraint firstItem="xR1-J2-SkN" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="I3c-ZK-TPb"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="xR1-J2-SkN" secondAttribute="trailing" id="IJx-ve-tIm"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="xR1-J2-SkN" secondAttribute="bottom" id="eLz-26-F4e"/>
                 <constraint firstItem="xR1-J2-SkN" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="h9b-zd-HPb"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="qEF-Gd-qca" secondAttribute="trailing" id="kQH-rt-115"/>
             </constraints>
             <point key="canvasLocation" x="138" y="20"/>
         </view>

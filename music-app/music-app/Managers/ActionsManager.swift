@@ -7,6 +7,7 @@
 
 import UIKit
 import SPAlert
+import JDStatusBarNotification
 
 final class ActionsManager {
     private enum ActionsEnum {
@@ -20,6 +21,7 @@ final class ActionsManager {
         case addToPlaylist
         case removePlaylistFromLibrary
         case likeTrack
+        case removeTrackFromPlaylist
         
         enum ActionsWithoutImage {
             case addAnyway
@@ -54,6 +56,8 @@ final class ActionsManager {
                     return Localization.MenuActions.removePlaylistFromLibrary.rawValue.localized
                 case .likeTrack:
                     return Localization.MenuActions.addToLibrary.rawValue.localized
+                case .removeTrackFromPlaylist:
+                    return Localization.MenuActions.removeTrackFromPlaylist.rawValue.localized
             }
         }
         
@@ -69,7 +73,7 @@ final class ActionsManager {
                     return UIImage(systemName: "square.and.arrow.up")
                 case .downloadTrack:
                     return UIImage(systemName: "arrow.down.circle.fill")
-                case .removeTrackFromCache, .removePlaylistFromLibrary:
+                case .removeTrackFromCache, .removePlaylistFromLibrary, .removeTrackFromPlaylist:
                     return UIImage(systemName: "trash.slash.fill")
                 case .addToPlaylist:
                     return UIImage(systemName: "text.badge.plus")
@@ -124,7 +128,7 @@ final class ActionsManager {
                 let alert = SPAlertView(title: Localization.Alert.Title.error.rawValue.localized, preset: .error)
                 delegate.present(alert: alert, haptic: .error)
             }
-
+            
         }
         
         return action
@@ -167,7 +171,7 @@ final class ActionsManager {
                 let alert = SPAlertView(title: Localization.Alert.Title.error.rawValue.localized, preset: .error)
                 delegate.present(alert: alert, haptic: .error)
             }
-
+            
         }
         
         return action
@@ -191,7 +195,7 @@ final class ActionsManager {
                 let alert = SPAlertView(title: Localization.Alert.Title.error.rawValue.localized, preset: .error)
                 delegate.present(alert: alert, haptic: .error)
             }
-
+            
         }
         
         return action
@@ -278,22 +282,28 @@ final class ActionsManager {
     
     func shareLinkAction(id: Int, type: ShareEnum) -> UIAction? {
         guard let delegate else { return nil }
-        
+       
         if type == .track {
             let type = ActionsEnum.shareLink
             let action = UIAction(title: type.title, image: type.image) { _ in
+                let alert = SPAlertView(title: "", preset: .spinner)
+                alert.dismissByTap = false
+                delegate.present(alert: alert, haptic: .none)
                 DeezerProvider.getTrack(id) { track in
                     guard let artist = track.artist?.name else { return }
                     
                     SongLinkProvider().getShareLink(track.shareLink) { link in
                         let text = Localization.MenuActions.ShareLink.shareMessage.rawValue.localizedWithParameters(title: track.title, artist: artist, link: link)
                         let activityVC = UIActivityViewController(activityItems: [text], applicationActivities: nil)
+                        delegate.dismiss(alert)
                         delegate.present(activityVC)
                     } failure: { error in
+                        delegate.dismiss(alert)
                         let alert = SPAlertView(title: Localization.Alert.Title.error.rawValue.localized, preset: .error)
                         delegate.present(alert: alert, haptic: .error)
                     }
                 } failure: { error in
+                    delegate.dismiss(alert)
                     let alert = SPAlertView(title: Localization.Alert.Title.error.rawValue.localized, preset: .error)
                     delegate.present(alert: alert, haptic: .error)
                 }
@@ -305,12 +315,13 @@ final class ActionsManager {
         }
     }
     
-    func downloadTrackAction(_ track: LibraryTrack) -> UIAction? {
+    func downloadTrackAction(track: LibraryTrack, completion: ((String) -> Void)? = nil) -> UIAction? {
         guard let delegate else { return nil }
-        
         let type = ActionsEnum.downloadTrack
         let action = UIAction(title: type.title, image: type.image) { _ in
-            delegate.startDonwloadSpinner()
+            
+            NotificationPresenter.shared().present(text: "Downloading track")
+            NotificationPresenter.shared().displayActivityIndicator(true)
             let trackFilename = "\(track.artistName) - \(track.title) - \(track.albumTitle).mp3".toUnixFilename
             let filename = "Music/\(trackFilename)"
             if let directoryURL = LibraryManager.getAbsolutePath(filename: filename, path: .documentDirectory),
@@ -338,9 +349,11 @@ final class ActionsManager {
                                     }
                                 }
                                 
+                                NotificationPresenter.shared().dismiss(animated: true)
                                 let alert = SPAlertView(title: Localization.Alert.Title.success.rawValue.localized, preset: .done)
                                 delegate.present(alert: alert, haptic: .success)
                                 delegate.reloadData()
+                                completion?(filename)
                             }
                         } catch {
                             delegate.stopDownloadSpinner()
@@ -359,16 +372,37 @@ final class ActionsManager {
         return action
     }
     
-    func deleteTrackFromCacheAction(_ track: LibraryTrack) -> UIAction? {
+    func deleteTrackFromCacheAction(track: LibraryTrack, completion: (() -> Void)? = nil) -> UIAction? {
         guard let delegate else { return nil }
         
         let type = ActionsEnum.removeTrackFromCache
         let action = UIAction(title: type.title, image: type.image, attributes: .destructive) { _ in
             if let path = LibraryManager.getAbsolutePath(filename: track.cacheLink, path: .documentDirectory) {
                 try? FileManager.default.removeItem(at: path)
+                RealmManager<LibraryTrack>().read().forEach { trackInDb in
+                    if trackInDb.id == track.id {
+                        RealmManager<LibraryTrack>().update { realm in
+                            try? realm.write({
+                                trackInDb.cacheLink = ""
+                            })
+                        }
+                    }
+                }
+                
+                RealmManager<LibraryTrackInPlaylist>().read().forEach { trackInPlaylist in
+                    if trackInPlaylist.id == track.id {
+                        RealmManager<LibraryTrackInPlaylist>().update { realm in
+                            try? realm.write({
+                                trackInPlaylist.cacheLink = ""
+                            })
+                        }
+                    }
+                }
+                
                 let alert = SPAlertView(title: Localization.Alert.Title.success.rawValue, preset: .done)
                 delegate.present(alert: alert, haptic: .success)
                 delegate.reloadData()
+                completion?()
             } else {
                 let alert = SPAlertView(title: Localization.Alert.Title.error.rawValue, preset: .error)
                 delegate.present(alert: alert, haptic: .error)
@@ -471,6 +505,38 @@ final class ActionsManager {
                 let alert = SPAlertView(title: Localization.Alert.Title.error.rawValue.localized, preset: .error)
                 delegate.present(alert: alert, haptic: .error)
             }
+        }
+        
+        return action
+    }
+    
+    func removeTrackFromPlaylist(track trackInPlaylist: LibraryTrackInPlaylist, playlistID: String) -> UIAction? {
+        guard let delegate else { return nil }
+        
+        let type = ActionsEnum.removeTrackFromPlaylist
+        let action = UIAction(title: type.title, image: type.image, attributes: .destructive) { _ in
+            var alert = SPAlertView(title: "", preset: .spinner)
+            alert.dismissByTap = false
+            delegate.present(alert: alert, haptic: .none)
+            RealmManager<LibraryTrackInPlaylist>().delete(object: trackInPlaylist)
+            RealmManager<LibraryPlaylist>().update { realm in
+                var isExplicit = false
+                RealmManager<LibraryTrackInPlaylist>().read().filter({ $0.playlistID == playlistID}).forEach { track in
+                    if track.isExplicit {
+                        isExplicit = true
+                    }
+                }
+                
+                guard let playlist = RealmManager<LibraryPlaylist>().read().first(where: { $0.id == playlistID }) else { return }
+                try? realm.write {
+                    playlist.isExplicit = isExplicit
+                }
+            }
+            
+            delegate.dismiss(alert)
+            alert = SPAlertView(title: Localization.Alert.Title.success.rawValue.localized, preset: .done)
+            delegate.present(alert: alert, haptic: .success)
+            delegate.reloadData()
         }
         
         return action

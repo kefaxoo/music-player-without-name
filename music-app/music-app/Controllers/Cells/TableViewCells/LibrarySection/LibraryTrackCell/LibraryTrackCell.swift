@@ -66,11 +66,11 @@ class LibraryTrackCell: UITableViewCell {
         
         actions.append(removeFromLibraryAction)
         if LibraryManager.isTrackDownloaded(artist: track.artistName, title: track.title, album: track.albumTitle) {
-            guard let removeTrackFromCacheAction = actionsManager.deleteTrackFromCacheAction(track) else { return }
+            guard let removeTrackFromCacheAction = actionsManager.deleteTrackFromCacheAction(track: track) else { return }
             
             actions.append(removeTrackFromCacheAction)
         } else {
-            guard let downloadTrackAction = actionsManager.downloadTrackAction(track) else { return }
+            guard let downloadTrackAction = actionsManager.downloadTrackAction(track: track) else { return }
             
             actions.append(downloadTrackAction)
         }

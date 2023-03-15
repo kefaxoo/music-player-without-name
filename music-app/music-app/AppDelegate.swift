@@ -8,6 +8,7 @@
 import UIKit
 import RealmSwift
 import AVKit
+import JDStatusBarNotification
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -27,6 +28,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         _ = try! Realm()
         
         print("Realm DB here: \(config.fileURL!.path)")
+        
+        NotificationPresenter.shared().updateDefaultStyle { style in
+            style.backgroundStyle.backgroundType = .fullWidth
+            style.canSwipeToDismiss = false
+            style.canDismissDuringUserInteraction = false
+            style.canTapToHold = false
+            return style
+        }
         
         return true
     }

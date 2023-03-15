@@ -30,17 +30,8 @@ class RecentlyAddedCell: UICollectionViewCell {
     }
 
     func set(_ track: LibraryTrack) {
-        DeezerProvider.getAlbum(track.albumID) { album in
-            self.titleLabel.text = track.title
-            self.coverView.sd_setImage(with: URL(string: album.coverBig))
-        } failure: { error in
-            print(error)
-        }
-        
-        DeezerProvider.getArtist(track.artistID) { artist in
-            self.artistLabel.text = artist.name
-        } failure: { error in
-            print(error)
-        }
+        self.titleLabel.text = track.title
+        self.coverView.image = ImageManager.loadLocalImage(track.coverLink)
+        self.artistLabel.text = track.artistName
     }
 }

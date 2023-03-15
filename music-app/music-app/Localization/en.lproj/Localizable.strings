@@ -24,6 +24,7 @@
 "menuActions.deleteDownload" = "Delete download";
 "menuActions.showArtist" = "Show artist";
 "menuActions.addToPlaylist" = "Add to playlist";
+"menuActions.removeTrackFromPlaylist" = "Remove from playlist";
 
 // Menu Actions Share Link Section
 "menuActions.shareLink.shareSong" = "Listen %@ by %@\n%@";

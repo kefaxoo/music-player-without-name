@@ -43,12 +43,12 @@ class LibraryController: UIViewController {
     }
     
     private func setupNowPlayingView() {
-        if AudioPlayer.currentTrack != nil {
-            nowPlayingView.isHidden = false
-            nowPlayingView.set()
-        } else {
-            nowPlayingView.isHidden = true
-        }
+//        if AudioPlayer.currentTrack != nil {
+//            nowPlayingView.isHidden = false
+//            nowPlayingView.set()
+//        } else {
+//            nowPlayingView.isHidden = true
+//        }
     }
     
     private func setLocale() {

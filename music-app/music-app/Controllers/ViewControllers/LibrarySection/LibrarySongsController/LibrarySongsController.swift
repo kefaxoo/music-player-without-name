@@ -160,18 +160,9 @@ extension LibrarySongsController: UISearchBarDelegate {
 
 extension LibrarySongsController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        DeezerProvider.getTrack(tracks[indexPath.row].id) { track in
-            let nowPlayingVC = NowPlayingController()
-            nowPlayingVC.modalPresentationStyle = .fullScreen
-            track.localLink = self.tracks[indexPath.row].cacheLink
-            nowPlayingVC.set(track: track)
-            nowPlayingVC.delegate = self
-            
-            self.present(nowPlayingVC, animated: true)
-        } failure: { error in
-            let alert = SPAlertView(title: Localization.Alert.Title.error.rawValue, message: error, preset: .error)
-            alert.present(haptic: .error)
-        }
+        let nowPlayingVC = NowPlayingController()
+       // nowPlayingVC.set(track: tracks[indexPath.row], playlist: tracks, indexInPlaylist: indexPath.row)
+        nowPlayingVC.delegate = self
     }
 }
 

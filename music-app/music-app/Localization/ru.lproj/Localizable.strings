@@ -135,6 +135,9 @@
 "menuActions.removePlaylistFromLibrary" = "Удалить плейлист из библиотеки";
 
 /*  */
+"menuActions.removeTrackFromPlaylist" = "Удалить из плейлиста";
+
+/*  */
 "menuActions.shareLink" = "Поделиться ссылкой";
 
 /*  */

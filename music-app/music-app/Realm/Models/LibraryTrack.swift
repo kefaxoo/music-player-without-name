@@ -40,4 +40,7 @@ class LibraryTrack: Object {
         self.coverLink = coverLink
     }
     
+    static func getLibraryTrack(_ track: LibraryTrackInPlaylist) -> LibraryTrack {
+        return LibraryTrack(id: track.id, title: track.title, duration: track.duration, trackPosition: track.trackPosition, diskNumber: track.diskNumber, isExplicit: track.isExplicit, artistID: track.artistID, artistName: track.artistName, albumID: track.albumID, albumName: track.albumTitle, onlineLink: track.onlineLink, cacheLink: track.cacheLink, coverLink: track.coverLink)
+    }
 }

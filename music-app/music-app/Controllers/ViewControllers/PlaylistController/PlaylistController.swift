@@ -7,10 +7,12 @@
 
 import UIKit
 import SPAlert
+import JDStatusBarNotification
 
 class PlaylistController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var nowPlayingView: NowPlayingView!
     
     private var playlist: LibraryPlaylist?
     private var tracks = [LibraryTrackInPlaylist]()
@@ -28,18 +30,27 @@ class PlaylistController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
+        tableView.delegate = self
         tableView.register(TrackInPlaylistCell.self, PlaylistInfoCell.self, TextPlaylistInfoCell.self)
-        setupNavBar()
+        setInterface()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setInterface()
-        
+    }
+    
+    private func setupNowPlayingView() {
+        AudioPlayer.nowPlayingViewDelegate = self
+        nowPlayingView.isHidden = !(AudioPlayer.currentTrack != nil)
+        nowPlayingView.setInterface()
+        let interaction = UIContextMenuInteraction(delegate: self)
+        nowPlayingView.addInteraction(interaction)
     }
     
     private func setInterface() {
         setupNavBar()
+        setupNowPlayingView()
         self.tableView.reloadData()
     }
     
@@ -83,6 +94,7 @@ extension PlaylistController: UITableViewDataSource {
             else { return cell }
             
             playlistInfoCell.set(playlist)
+            playlistInfoCell.audioPlayerDelegate = self
             return playlistInfoCell
         } else if indexPath.row > 0, indexPath.row < tracks.count + 1 {
             guard let trackCell = cell as? TrackInPlaylistCell else { return cell }
@@ -111,10 +123,180 @@ extension PlaylistController: MenuActionsDelegate {
     }
     
     func reloadData() {
+        guard let playlist else { return }
+        
+        self.tracks = RealmManager<LibraryTrackInPlaylist>().read().filter({ $0.playlistID == playlist.id })
         self.tableView.reloadData()
     }
     
     func dismiss(_ alert: SPAlertView) {
         alert.dismiss()
+    }
+    
+    func present(_ vc: UIViewController) {
+        self.present(vc, animated: true)
+    }
+    
+    func present(_ vc: UIActivityViewController) {
+        self.present(vc, animated: true)
+    }
+    
+    func pushViewController(_ vc: UIViewController) {
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+}
+
+extension PlaylistController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.row > 0, indexPath.row < tracks.count + 1 {
+            var playlist = [LibraryTrack]()
+            tracks.forEach { track in
+                playlist.append(LibraryTrack.getLibraryTrack(track))
+            }
+            
+            AudioPlayer.set(track: playlist[indexPath.row - 1], playlist: playlist, indexInPlaylist: indexPath.row - 1)
+            AudioPlayer.nowPlayingViewDelegate = self
+        }
+        
+        tableView.deselectRow(at: indexPath, animated: false)
+    }
+    
+    func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        if indexPath.row == 0 || indexPath.row > tracks.count {
+            return nil
+        }
+        
+        return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { suggestedActions in
+            let track = self.tracks[indexPath.row - 1]
+            let actionsManager = ActionsManager()
+            actionsManager.delegate = self
+            var playlistSection = [UIAction]()
+            guard let playlist = self.playlist,
+                  let removeFromPlaylistAction = actionsManager.removeTrackFromPlaylist(track: track, playlistID: playlist.id)
+            else { return nil }
+            
+            playlistSection.append(removeFromPlaylistAction)
+            let playlistMenu = UIMenu(options: .displayInline, children: playlistSection)
+            var librarySection = [UIAction]()
+            if LibraryManager.isTrackInLibrary(track.id) {
+                guard let removeFromLibraryAction = actionsManager.removeFromLibrary(track.id) else { return nil }
+                
+                librarySection.append(removeFromLibraryAction)
+                if LibraryManager.isTrackDownloaded(artist: track.artistName, title: track.title, album: track.albumTitle) {
+                    let completion: () -> Void = {
+                        self.tracks[indexPath.row - 1].cacheLink = ""
+                    }
+                    
+                    guard let removeTrackFromCacheAction = actionsManager.deleteTrackFromCacheAction(track: LibraryTrack.getLibraryTrack(track), completion: completion) else { return nil }
+                    
+                    librarySection.append(removeTrackFromCacheAction)
+                } else {
+                    let completion: (String) -> Void = { cacheLink in
+                        self.tracks[indexPath.row - 1].cacheLink = cacheLink
+                    }
+                    
+                    guard let downloadTrackAction = actionsManager.downloadTrackAction(track: LibraryTrack.getLibraryTrack(track), completion: completion) else { return nil }
+                    
+                    librarySection.append(downloadTrackAction)
+                }
+            } else {
+                guard let addToLibraryAction = actionsManager.likeTrackAction(track.id) else { return nil }
+                
+                librarySection.append(addToLibraryAction)
+            }
+            
+            guard let addToPlaylistAction = actionsManager.addToPlaylistAction(LibraryTrack.getLibraryTrack(track)) else { return nil }
+            
+            librarySection.append(addToPlaylistAction)
+            let libraryMenu = UIMenu(options: .displayInline, children: librarySection)
+            guard let shareLinkAction = actionsManager.shareLinkAction(id: track.id, type: .track),
+                  let shareSongAction = actionsManager.shareSongAction(track.id)
+            else { return nil }
+            
+            let shareMenu = UIMenu(options: .displayInline, children: [shareLinkAction, shareSongAction])
+            
+            guard let showArtistAction = actionsManager.showArtistAction(track.artistID),
+                  let showAlbumAction = actionsManager.showAlbumAction(id: track.albumID, title: track.albumTitle)
+            else { return nil }
+            
+            let showMenu = UIMenu(options: .displayInline, children: [showArtistAction, showAlbumAction])
+            
+            return UIMenu(options: .displayInline, children: [playlistMenu, libraryMenu, shareMenu, showMenu])
+        }
+    }
+}
+
+extension PlaylistController: AudioPlayerDelegate {
+    func setupView() {
+        guard let currentTrack = AudioPlayer.currentTrack else { return }
+        
+        nowPlayingView.isHidden = false
+        nowPlayingView.coverImageView.image = AudioPlayer.currentCover
+        nowPlayingView.titleLabel.text = currentTrack.title
+        nowPlayingView.artistLabel.text = currentTrack.artistName
+        nowPlayingView.durationProgressView.progress = AudioPlayer.getDurationInFloat()
+        if AudioPlayer.player.rate == 0 {
+            nowPlayingView.playPauseButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
+        } else {
+            nowPlayingView.playPauseButton.setImage(UIImage(systemName: "pause.fill"), for: .normal)
+        }
+    }
+}
+
+extension PlaylistController: UIContextMenuInteractionDelegate {
+    func contextMenuInteraction(_ interaction: UIContextMenuInteraction, configurationForMenuAtLocation location: CGPoint) -> UIContextMenuConfiguration? {
+        return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { suggestedActions in
+            guard let track = AudioPlayer.currentTrack,
+                  let playlist = self.playlist
+            else { return UIMenu() }
+            
+            let actionsManager = ActionsManager()
+            actionsManager.delegate = self
+            var playlistSection = [UIAction]()
+            if let trackInPlaylist = RealmManager<LibraryTrackInPlaylist>().read().first(where: { $0.id == track.id }) {
+                guard let removeFromPlaylistAction = actionsManager.removeTrackFromPlaylist(track: trackInPlaylist, playlistID: playlist.id) else { return UIMenu() }
+                
+                playlistSection.append(removeFromPlaylistAction)
+            }
+            
+            let playlistMenu = UIMenu(options: .displayInline, children: playlistSection)
+            var librarySection = [UIAction]()
+            if LibraryManager.isTrackInLibrary(track.id) {
+                guard let removeFromLibraryAction = actionsManager.removeFromLibrary(track.id) else { return UIMenu() }
+                
+                librarySection.append(removeFromLibraryAction)
+                if LibraryManager.isTrackDownloaded(artist: track.artistName, title: track.title, album: track.albumTitle) {
+                    guard let removeTrackFromCacheAction = actionsManager.deleteTrackFromCacheAction(track: track) else { return UIMenu() }
+                    
+                    librarySection.append(removeTrackFromCacheAction)
+                } else {
+                    guard let downloadTrackAction = actionsManager.downloadTrackAction(track: track) else { return UIMenu() }
+                    
+                    librarySection.append(downloadTrackAction)
+                }
+            } else {
+                guard let addToLibraryAction = actionsManager.likeTrackAction(track.id) else { return UIMenu() }
+                
+                librarySection.append(addToLibraryAction)
+            }
+            
+            guard let addToPlaylistAction = actionsManager.addToPlaylistAction(track) else { return UIMenu() }
+            
+            librarySection.append(addToPlaylistAction)
+            let libraryMenu = UIMenu(options: .displayInline, children: librarySection)
+            guard let shareLinkAction = actionsManager.shareLinkAction(id: track.id, type: .track),
+                  let shareSongAction = actionsManager.shareSongAction(track.id)
+            else { return UIMenu() }
+            
+            let shareMenu = UIMenu(options: .displayInline, children: [shareLinkAction, shareSongAction])
+            
+            guard let showArtistAction = actionsManager.showArtistAction(track.artistID),
+                  let showAlbumAction = actionsManager.showAlbumAction(id: track.albumID, title: track.albumTitle)
+            else { return UIMenu() }
+            
+            let showMenu = UIMenu(options: .displayInline, children: [showArtistAction, showAlbumAction])
+            
+            return UIMenu(options: .displayInline, children: [playlistMenu, libraryMenu, shareMenu, showMenu])
+        }
     }
 }

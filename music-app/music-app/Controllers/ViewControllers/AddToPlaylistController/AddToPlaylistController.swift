@@ -107,6 +107,7 @@ extension AddToPlaylistController: UITableViewDelegate {
                 playlists[indexPath.row].updateIsExplicit()
                 let alert = SPAlertView(title: Localization.Alert.Title.success.rawValue.localized, preset: .done)
                 alert.present(haptic: .success)
+                delegate.reloadData()
                 self.dismiss()
             }
         } else if let track = onlineTrack {

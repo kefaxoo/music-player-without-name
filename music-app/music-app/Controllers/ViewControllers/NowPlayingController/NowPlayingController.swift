@@ -70,22 +70,22 @@ class NowPlayingController: UIViewController {
     }
     
     @objc private func volumeWillChange() {
-        AudioPlayer.editVolumeOnController = false
+        //AudioPlayer.editVolumeOnController = false
     }
     
     @objc private func volumeDidChange() {
         MPVolumeView.setVolume(volumeSlider.value)
-        AudioPlayer.editVolumeOnController = true
+        //AudioPlayer.editVolumeOnController = true
     }
     
     @objc private func durationWillChange() {
-        AudioPlayer.editTimeOnController = false
+        //AudioPlayer.editTimeOnController = false
     }
     
     @objc private func durationDidChange() {
         let time = CMTime(seconds: Double(durationSlider.value), preferredTimescale: 600)
-        AudioPlayer.player.seek(to: time)
-        AudioPlayer.editTimeOnController = true
+        //AudioPlayer.player.seek(to: time)
+        //AudioPlayer.editTimeOnController = true
     }
     
     private func setInterface() {
@@ -120,9 +120,9 @@ class NowPlayingController: UIViewController {
     }
     
     func set() {
-        guard let track = AudioPlayer.currentTrack else { return }
-        self.track = track
-        AudioPlayer.delegate = self
+        //guard let track = AudioPlayer.currentTrack else { return }
+        //self.track = track
+        //AudioPlayer.delegate = self
         VideoPlayer.delegate = self
         loadVideoShot()
     }
@@ -144,7 +144,7 @@ class NowPlayingController: UIViewController {
             currentPlaylist = [track]
         }
         
-        AudioPlayer.set(track: track, playlist: currentPlaylist, indexInPlaylist: indexInPlaylist)
+        //AudioPlayer.set(track: track, playlist: currentPlaylist, indexInPlaylist: indexInPlaylist)
         currentPlaylist = [DeezerTrack]()
         let tracks = RealmManager<LibraryTrack>().read()
         tracks.forEach { track in
@@ -157,7 +157,7 @@ class NowPlayingController: UIViewController {
                     
                     guard let index = currentPlaylist.firstIndex(where: { $0.id == track.id }) else { return }
                     
-                    AudioPlayer.setPlaylistAndIndex(playlist: currentPlaylist, indexInPlaylist: index)
+                    //AudioPlayer.setPlaylistAndIndex(playlist: currentPlaylist, indexInPlaylist: index)
                 }
             } failure: { error in
                 let alert = SPAlertView(title: Localization.Alert.Title.error.rawValue, message: error, preset: .error)
@@ -165,7 +165,7 @@ class NowPlayingController: UIViewController {
             }
             
         }
-        AudioPlayer.delegate = self
+        //AudioPlayer.delegate = self
         VideoPlayer.delegate = self
         loadVideoShot()
     }
@@ -434,19 +434,19 @@ class NowPlayingController: UIViewController {
     }
     
     @IBAction func playPauseDidTap(_ sender: Any) {
-        if AudioPlayer.player.rate == 0 {
-            AudioPlayer.pauseDidTap()
-        } else {
-            AudioPlayer.playDidTap()
-        }
+//        if AudioPlayer.player.rate == 0 {
+//            AudioPlayer.pauseDidTap()
+//        } else {
+//            AudioPlayer.playDidTap()
+//        }
     }
     
     @IBAction func nextTrackDidTap(_ sender: Any) {
-        AudioPlayer.playNextTrack()
+        //AudioPlayer.playNextTrack()
     }
     
     @IBAction func previousTrackDidTap(_ sender: Any) {
-        AudioPlayer.playFromBegin()
+        //AudioPlayer.playFromBegin()
     }
 }
 
@@ -462,13 +462,13 @@ extension NowPlayingController: AudioPlayerDelegate {
     }
     
     func previousTrackDidTap() {
-        track = AudioPlayer.currentTrack
+        //track = AudioPlayer.currentTrack
         pauseVideoShot()
         set()
     }
     
     func nextTrackDidTap() {
-        track = AudioPlayer.currentTrack
+        //track = AudioPlayer.currentTrack
         pauseVideoShot()
         set()
     }
@@ -478,29 +478,29 @@ extension NowPlayingController: AudioPlayerDelegate {
               let duration = AudioPlayer.player.currentItem?.duration.seconds
         else { return }
         
-        if AudioPlayer.editTimeOnController {
-            durationSlider.setValue(Float(currentTime), animated: false)
-            currentTimeLabel.text = currentTime.time
-            durationLabel.text = "-\((duration - currentTime).time)"
-        }
-        
-        if AudioPlayer.player.rate == 0 {
-            playPauseButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
-        } else {
-            playPauseButton.setImage(UIImage(systemName: "pause.fill"), for: .normal)
-        }
-        
-        nowPlayingOnLabel.isHidden = !AudioPlayer.isShowNowPlayingOnLabel()
-        
-        if AudioPlayer.isShowNowPlayingOnLabel() {
-            guard let nameOfDevice = AudioPlayer.getNameOfOutputDevice() else { return }
-            
-            nowPlayingOnLabel.text = nameOfDevice
-        }
-        
-        if volumeSlider.value != AVAudioSession.sharedInstance().outputVolume, AudioPlayer.editVolumeOnController {
-            volumeSlider.setValue(AVAudioSession.sharedInstance().outputVolume, animated: true)
-        }
+//        if AudioPlayer.editTimeOnController {
+//            durationSlider.setValue(Float(currentTime), animated: false)
+//            currentTimeLabel.text = currentTime.time
+//            durationLabel.text = "-\((duration - currentTime).time)"
+//        }
+//        
+//        if AudioPlayer.player.rate == 0 {
+//            playPauseButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
+//        } else {
+//            playPauseButton.setImage(UIImage(systemName: "pause.fill"), for: .normal)
+//        }
+//        
+//        nowPlayingOnLabel.isHidden = !AudioPlayer.isShowNowPlayingOnLabel()
+//        
+//        if AudioPlayer.isShowNowPlayingOnLabel() {
+//            guard let nameOfDevice = AudioPlayer.getNameOfOutputDevice() else { return }
+//            
+//            nowPlayingOnLabel.text = nameOfDevice
+//        }
+//        
+//        if volumeSlider.value != AVAudioSession.sharedInstance().outputVolume, AudioPlayer.editVolumeOnController {
+//            volumeSlider.setValue(AVAudioSession.sharedInstance().outputVolume, animated: true)
+//        }
     }
     
     func trackDidLoad() {

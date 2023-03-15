@@ -24,4 +24,5 @@ extension AudioPlayerDelegate {
     func setupController() {}
     func setupView() {}
     func trackDidLoad() {}
+    func nextTrackDidTap() {}
 }

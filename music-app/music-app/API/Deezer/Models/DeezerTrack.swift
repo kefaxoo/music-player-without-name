@@ -35,8 +35,6 @@ class DeezerTrack: Mappable {
         return "https://deezer.com/track/\(id)"
     }()
     
-    var localLink: String = ""
-    
     required init?(map: Map) {
         mapping(map: map)
     }

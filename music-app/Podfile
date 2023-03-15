@@ -12,5 +12,6 @@ target 'music-app' do
   pod 'SPAlert'
   pod 'RealmSwift'
   pod 'TactileSlider'
+  pod 'JDStatusBarNotification'
 
 end

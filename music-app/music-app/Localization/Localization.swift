@@ -29,6 +29,7 @@ extension Localization {
         case deleteDownload = "menuActions.deleteDownload"
         case showArtist = "menuActions.showArtist"
         case addToPlaylist = "menuActions.addToPlaylist"
+        case removeTrackFromPlaylist = "menuActions.removeTrackFromPlaylist"
     }
     
     enum TabBar: String {

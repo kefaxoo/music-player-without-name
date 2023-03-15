@@ -30,6 +30,7 @@ class TrackInPlaylistCell: UITableViewCell {
     func set(_ track: LibraryTrackInPlaylist) {
         self.track = track
         coverView.image = ImageManager.loadLocalImage(track.coverLink)
+        coverView.layer.cornerRadius = 5
         titleLabel.text = track.title
         artistLabel.text = track.artistName
         explicitImageView.isHidden = !track.isExplicit
@@ -47,38 +48,54 @@ class TrackInPlaylistCell: UITableViewCell {
     }
     
     @IBAction func menuButtonDidTap(_ sender: Any) {
-        guard let delegate,
-              let track
-        else { return }
+        guard let track else { return }
         
         let actionsManager = ActionsManager()
         actionsManager.delegate = self
+        var playlistSection = [UIAction]()
+        guard let removeFromPlaylistAction = actionsManager.removeTrackFromPlaylist(track: track, playlistID: track.playlistID)
+        else { return }
         
-        var libraryActions = [UIAction]()
-        
+        playlistSection.append(removeFromPlaylistAction)
+        let playlistMenu = UIMenu(options: .displayInline, children: playlistSection)
+        var librarySection = [UIAction]()
         if LibraryManager.isTrackInLibrary(track.id) {
-            guard let deleteFromLibrary = actionsManager.removeFromLibrary(track.id) else { return }
+            guard let removeFromLibraryAction = actionsManager.removeFromLibrary(track.id) else { return }
             
-            libraryActions.append(deleteFromLibrary)
+            librarySection.append(removeFromLibraryAction)
             if LibraryManager.isTrackDownloaded(artist: track.artistName, title: track.title, album: track.albumTitle) {
-                guard let deleteCacheFromLibrary = actionsManager.deleteTrackFromCacheAction(track.libraryTrack) else { return }
+                guard let removeTrackFromCacheAction = actionsManager.deleteTrackFromCacheAction(track: LibraryTrack.getLibraryTrack(track)) else { return }
                 
-                libraryActions.append(deleteCacheFromLibrary)
+                librarySection.append(removeTrackFromCacheAction)
             } else {
-                guard let downloadTrackAction = actionsManager.downloadTrackAction(track.libraryTrack) else { return }
+                guard let downloadTrackAction = actionsManager.downloadTrackAction(track: LibraryTrack.getLibraryTrack(track)) else { return }
                 
-                libraryActions.append(downloadTrackAction)
+                librarySection.append(downloadTrackAction)
             }
         } else {
-            guard let likeTrack = actionsManager.likeTrackAction(track.id) else { return }
+            guard let addToLibraryAction = actionsManager.likeTrackAction(track.id) else { return }
             
-            libraryActions.append(likeTrack)
+            librarySection.append(addToLibraryAction)
         }
         
-        let librarySection = UIMenu(options: .displayInline, children: libraryActions)
+        guard let addToPlaylistAction = actionsManager.addToPlaylistAction(LibraryTrack.getLibraryTrack(track)) else { return }
+        
+        librarySection.append(addToPlaylistAction)
+        let libraryMenu = UIMenu(options: .displayInline, children: librarySection)
+        guard let shareLinkAction = actionsManager.shareLinkAction(id: track.id, type: .track),
+              let shareSongAction = actionsManager.shareSongAction(track.id)
+        else { return }
+        
+        let shareMenu = UIMenu(options: .displayInline, children: [shareLinkAction, shareSongAction])
+        
+        guard let showArtistAction = actionsManager.showArtistAction(track.artistID),
+              let showAlbumAction = actionsManager.showAlbumAction(id: track.albumID, title: track.albumTitle)
+        else { return }
+        
+        let showMenu = UIMenu(options: .displayInline, children: [showArtistAction, showAlbumAction])
         
         menuButton.showsMenuAsPrimaryAction = true
-        menuButton.menu = UIMenu(options: .displayInline, children: [librarySection])
+        menuButton.menu = UIMenu(options: .displayInline, children: [playlistMenu, libraryMenu, shareMenu, showMenu])
     }
     
 }
@@ -99,6 +116,24 @@ extension TrackInPlaylistCell: MenuActionsDelegate {
     func reloadData() {
         if let delegate {
             delegate.reloadData()
+        }
+    }
+    
+    func present(_ vc: UIViewController) {
+        if let delegate {
+            delegate.present(vc)
+        }
+    }
+    
+    func present(_ vc: UIActivityViewController) {
+        if let delegate {
+            delegate.present(vc)
+        }
+    }
+    
+    func pushViewController(_ vc: UIViewController) {
+        if let delegate {
+            delegate.pushViewController(vc)
         }
     }
 }

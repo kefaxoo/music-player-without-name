@@ -70,7 +70,7 @@ final class LibraryManager {
         var isTrackInPlaylist = false
         
         RealmManager<LibraryTrackInPlaylist>().read().forEach { track in
-            if track.id == trackID {
+            if track.id == trackID, track.playlistID == playlistID {
                 isTrackInPlaylist = true
             }
         }
