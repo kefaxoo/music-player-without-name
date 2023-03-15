@@ -10,7 +10,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NowPlayingView" customModule="music_app" customModuleProvider="target">
             <connections>
                 <outlet property="artistLabel" destination="KFx-xH-0Oq" id="cgM-Qh-S5f"/>
-                <outlet property="contentView" destination="iN0-l3-epB" id="FUI-Co-Fqx"/>
+                <outlet property="contentView" destination="iN0-l3-epB" id="RoS-uf-hNP"/>
                 <outlet property="coverImageView" destination="Izf-rT-W2n" id="3h1-Hw-YH8"/>
                 <outlet property="durationProgressView" destination="c8E-Qu-Y04" id="797-vw-Xff"/>
                 <outlet property="nextTrackButton" destination="o5U-04-3vh" id="NtX-n6-er3"/>

@@ -11,7 +11,7 @@ import SPAlert
 
 class NowPlayingView: UIView {
 
-    @IBOutlet var contentView: NowPlayingView!
+    @IBOutlet var contentView: UIView!
     @IBOutlet weak var coverImageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var artistLabel: UILabel!
@@ -21,7 +21,10 @@ class NowPlayingView: UIView {
     
     private var track: DeezerTrack?
     
-    weak var delegate: MenuActionsDelegate?
+    deinit {
+        print("deinit")
+        print(contentView)
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
