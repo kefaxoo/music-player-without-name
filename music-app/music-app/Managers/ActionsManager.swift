@@ -311,7 +311,32 @@ final class ActionsManager {
             
             return action
         } else {
-            return nil
+            let type = ActionsEnum.shareLink
+            let action = UIAction(title: type.title, image: type.image) { _ in
+                let alert = SPAlertView(title: "", preset: .spinner)
+                alert.dismissByTap = false
+                delegate.present(alert: alert, haptic: .none)
+                DeezerProvider.getAlbum(id) { album in
+                    guard let artist = album.artist?.name else { return }
+                    
+                    SongLinkProvider().getShareLink(album.shareLink) { link in
+                        let text = Localization.MenuActions.ShareLink.shareMessage.rawValue.localizedWithParameters(title: album.title, artist: artist, link: link)
+                        let activityVC = UIActivityViewController(activityItems: [text], applicationActivities: nil)
+                        delegate.dismiss(alert)
+                        delegate.present(activityVC)
+                    } failure: { error in
+                        delegate.dismiss(alert)
+                        let alert = SPAlertView(title: Localization.Alert.Title.error.rawValue.localized, preset: .error)
+                        delegate.present(alert: alert, haptic: .error)
+                    }
+                } failure: { error in
+                    delegate.dismiss(alert)
+                    let alert = SPAlertView(title: Localization.Alert.Title.error.rawValue.localized, preset: .error)
+                    delegate.present(alert: alert, haptic: .error)
+                }
+            }
+            
+            return action
         }
     }
     

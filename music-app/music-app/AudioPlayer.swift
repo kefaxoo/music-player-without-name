@@ -76,12 +76,33 @@ extension AudioPlayer {
         return link
     }
     
+    static func loadAsync(url: URL) async throws -> UIImage? {
+        do {
+            let (data, response) = try await URLSession.shared.data(from: url)
+            guard let gResponse = response as? HTTPURLResponse,
+                  gResponse.statusCode >= 200, gResponse.statusCode < 300,
+                  let image = UIImage(data: data) else { return nil }
+            
+            return image
+        } catch {
+            throw error
+        }
+    }
+    
     private static func getImage() {
         guard let currentTrack else { return }
         
         if currentTrack.coverLink.isEmpty {
-            UIImageView().sd_setImage(with: URL(string: currentTrack.coverLink)) { cover, _, _, _ in
-                self.currentCover = cover
+            DeezerProvider.getTrack(currentTrack.id) { track in
+                guard let coverLink = track.album?.coverBig,
+                      let url = URL(string: coverLink)
+                else { return }
+                
+                Task { @MainActor in
+                    currentCover = try await loadAsync(url: url)
+                }
+            } failure: { error in
+                print(error)
             }
         } else {
             currentCover = ImageManager.loadLocalImage(currentTrack.coverLink)

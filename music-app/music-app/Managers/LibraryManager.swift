@@ -20,6 +20,14 @@ final class LibraryManager {
         return FileManager.default.fileExists(atPath: path)
     }
     
+    static func isCoverDownloaded(artist: String, album albumTitle: String) -> Bool {
+        let filename = "Artworks/\("\(artist) - \(albumTitle).jpg".toUnixFilename)"
+        
+        guard let path = getAbsolutePath(filename: filename, path: .documentDirectory)?.path else { return false }
+        
+        return FileManager.default.fileExists(atPath: path)
+    }
+    
     static func trackInLibrary(_ trackID: Int) -> LibraryTrack? {
         return RealmManager<LibraryTrack>().read().first(where: {$0.id == trackID })
     }

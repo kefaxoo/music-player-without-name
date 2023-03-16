@@ -100,7 +100,7 @@ extension SearchController: UITableViewDataSource {
                 guard let trackCell = cell as? SongCell,
                       let result = result[indexPath.row] as? DeezerTrack else { return cell }
                 
-                trackCell.set(result)
+                trackCell.set(track: result)
                 trackCell.delegate = self
                 return trackCell
             case 1:
@@ -123,7 +123,6 @@ extension SearchController: UITableViewDataSource {
 }
 
 // MARK: Requests extension
-
 extension SearchController {
     private func showTop() {
         DeezerProvider.getTopTracks { tracks in

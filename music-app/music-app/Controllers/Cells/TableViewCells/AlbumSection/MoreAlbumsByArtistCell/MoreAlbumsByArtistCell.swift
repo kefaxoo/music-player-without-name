@@ -18,7 +18,7 @@ class MoreAlbumsByArtistCell: UITableViewCell {
     private var artist: DeezerArtist?
     private var albums = [DeezerAlbum]()
     
-    weak var delegate: ViewControllerDelegate?
+    weak var delegate: MenuActionsDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -49,7 +49,7 @@ class MoreAlbumsByArtistCell: UITableViewCell {
             let moreAlbumsVC = MoreAlbumsController()
             moreAlbumsVC.navigationItem.title = title
             moreAlbumsVC.set(albums)
-            delegate.pushVC(moreAlbumsVC)
+            delegate.pushViewController(moreAlbumsVC)
         } failure: { error in
             let alert = SPAlertView(title: Localization.Alert.Title.error.rawValue, message: error, preset: .error)
             alert.present(haptic: .error)
@@ -73,12 +73,69 @@ extension MoreAlbumsByArtistCell: UICollectionViewDataSource {
     }
 }
 
+extension MoreAlbumsByArtistCell: MenuActionsDelegate {
+    func present(alert: SPAlertView, haptic: SPAlertHaptic) {
+        if let delegate {
+            delegate.present(alert: alert, haptic: haptic)
+        }
+    }
+    
+    func popVC() {
+        if let delegate {
+            delegate.popVC()
+        }
+    }
+    
+    func reloadData() {
+        if let delegate {
+            delegate.reloadData()
+        }
+    }
+    
+    func dismiss(_ alert: SPAlertView) {
+        if let delegate {
+            delegate.dismiss(alert)
+        }
+    }
+    
+    func present(_ vc: UIViewController) {
+        if let delegate {
+            delegate.present(vc)
+        }
+    }
+    
+    func present(_ vc: UIActivityViewController) {
+        if let delegate {
+            delegate.present(vc)
+        }
+    }
+    
+    func pushViewController(_ vc: UIViewController) {
+        if let delegate {
+            delegate.pushViewController(vc)
+        }
+    }
+}
+
 extension MoreAlbumsByArtistCell: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let delegate else { return }
         
         let albumVC = AlbumController()
         albumVC.set(albums[indexPath.row])
-        delegate.pushVC(albumVC)
+        delegate.pushViewController(albumVC)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemsAt indexPaths: [IndexPath], point: CGPoint) -> UIContextMenuConfiguration? {
+        return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { suggestedActions in
+            let actionsManager = ActionsManager()
+            actionsManager.delegate = self
+            
+            guard let indexPath = collectionView.indexPathForItem(at: point),
+                  let shareAlbumAction = actionsManager.shareLinkAction(id: self.albums[indexPath.row].id, type: .album)
+            else { return nil }
+            
+            return UIMenu(options: .displayInline, children: [shareAlbumAction])
+        }
     }
 }

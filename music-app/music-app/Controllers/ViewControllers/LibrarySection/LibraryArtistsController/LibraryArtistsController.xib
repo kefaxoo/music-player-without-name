@@ -11,6 +11,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LibraryArtistsController" customModule="music_app" customModuleProvider="target">
             <connections>
                 <outlet property="artistsTableView" destination="W4w-zt-reA" id="Vqt-iU-9sJ"/>
+                <outlet property="nowPlayingView" destination="9cZ-9s-rce" id="Wwc-z3-Yfi"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -23,13 +24,23 @@
                     <rect key="frame" x="0.0" y="59" width="393" height="759"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </tableView>
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9cZ-9s-rce" customClass="NowPlayingView" customModule="music_app" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="763" width="393" height="55"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="55" id="Rap-iR-BPf"/>
+                    </constraints>
+                </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="W4w-zt-reA" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="3pH-3c-okV"/>
+                <constraint firstItem="9cZ-9s-rce" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="EX4-lK-u8P"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="9cZ-9s-rce" secondAttribute="trailing" id="XAI-25-4CF"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="W4w-zt-reA" secondAttribute="bottom" id="cJv-cW-8Lc"/>
                 <constraint firstItem="W4w-zt-reA" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="h8o-Jl-1MN"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="9cZ-9s-rce" secondAttribute="bottom" id="lSc-Ih-blY"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="W4w-zt-reA" secondAttribute="trailing" id="lpl-ct-uXm"/>
             </constraints>
             <point key="canvasLocation" x="138" y="20"/>

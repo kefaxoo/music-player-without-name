@@ -11,6 +11,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ArtistController" customModule="music_app" customModuleProvider="target">
             <connections>
                 <outlet property="artistTableView" destination="Gde-T7-GYH" id="oPD-VU-Yh2"/>
+                <outlet property="nowPlayingView" destination="8cL-aF-H1a" id="YiU-Gl-8mu"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -23,14 +24,24 @@
                     <rect key="frame" x="0.0" y="59" width="393" height="759"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </tableView>
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8cL-aF-H1a" customClass="NowPlayingView" customModule="music_app" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="763" width="393" height="55"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="55" id="Ynb-OH-eTT"/>
+                    </constraints>
+                </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="Gde-T7-GYH" secondAttribute="bottom" id="50O-Bi-I1p"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="8cL-aF-H1a" secondAttribute="trailing" id="AWp-Nw-DBE"/>
                 <constraint firstItem="Gde-T7-GYH" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="GPB-O9-1u8"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Gde-T7-GYH" secondAttribute="trailing" id="Re9-fw-jJt"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="8cL-aF-H1a" secondAttribute="bottom" id="o3h-xc-yac"/>
                 <constraint firstItem="Gde-T7-GYH" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="pDV-uo-h6i"/>
+                <constraint firstItem="8cL-aF-H1a" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="qgO-Hz-gkU"/>
             </constraints>
             <point key="canvasLocation" x="138" y="20"/>
         </view>

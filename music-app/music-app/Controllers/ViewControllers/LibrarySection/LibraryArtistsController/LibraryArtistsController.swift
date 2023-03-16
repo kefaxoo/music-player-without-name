@@ -11,6 +11,7 @@ import SPAlert
 class LibraryArtistsController: UIViewController {
 
     @IBOutlet weak var artistsTableView: UITableView!
+    @IBOutlet weak var nowPlayingView: NowPlayingView!
     
     private let searchController = UISearchController()
     private var artists = [DeezerArtist]()
@@ -25,9 +26,18 @@ class LibraryArtistsController: UIViewController {
         setupNavBar()
     }
     
+    private func setupNowPlayingView() {
+        AudioPlayer.nowPlayingViewDelegate = self
+        nowPlayingView.isHidden = !(AudioPlayer.currentTrack != nil)
+        nowPlayingView.setInterface()
+        nowPlayingView.delegate = self
+        
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.tintColor = SettingsManager.getColor.color
+        setupNowPlayingView()
     }
     
     private func setupNavBar() {
@@ -83,8 +93,33 @@ extension LibraryArtistsController: UITableViewDataSource {
 }
 
 extension LibraryArtistsController: MenuActionsDelegate {
-    func presentActivityController(_ vc: UIActivityViewController) {
-        present(vc, animated: true)
+    func present(alert: SPAlertView, haptic: SPAlertHaptic) {
+        alert.present(haptic: haptic)
+    }
+    
+    func popVC() {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    func dismiss(_ alert: SPAlertView) {
+        alert.dismiss()
+    }
+    
+    func present(_ vc: UIViewController) {
+        self.present(vc, animated: true)
+    }
+    
+    func present(_ vc: UIActivityViewController) {
+        self.present(vc, animated: true)
+    }
+    
+    func pushViewController(_ vc: UIViewController) {
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func reloadData() {
+        getArtists()
+        artistsTableView.reloadData()
     }
 }
 
@@ -109,5 +144,22 @@ extension LibraryArtistsController: UITableViewDelegate {
         let artistVC = ArtistController()
         artistVC.set(artists[indexPath.row])
         navigationController?.pushViewController(artistVC, animated: true)
+    }
+}
+
+extension LibraryArtistsController: AudioPlayerDelegate {
+    func setupView() {
+        guard let currentTrack = AudioPlayer.currentTrack else { return }
+        
+        nowPlayingView.isHidden = false
+        nowPlayingView.coverImageView.image = AudioPlayer.currentCover
+        nowPlayingView.titleLabel.text = currentTrack.title
+        nowPlayingView.artistLabel.text = currentTrack.artistName
+        nowPlayingView.durationProgressView.progress = AudioPlayer.getDurationInFloat()
+        if AudioPlayer.player.rate == 0 {
+            nowPlayingView.playPauseButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
+        } else {
+            nowPlayingView.playPauseButton.setImage(UIImage(systemName: "pause.fill"), for: .normal)
+        }
     }
 }

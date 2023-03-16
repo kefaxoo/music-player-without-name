@@ -34,6 +34,10 @@ class DeezerAlbum: Mappable {
     var type: String?
     var tracks: DeezerData<DeezerTrack>?
     
+    lazy var shareLink: String = {
+       return "https://deezer.com/album/\(id)"
+    }()
+    
     required init?(map: Map) {
         mapping(map: map)
     }

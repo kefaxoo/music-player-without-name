@@ -46,8 +46,6 @@ class LibraryController: UIViewController {
         AudioPlayer.nowPlayingViewDelegate = self
         nowPlayingView.isHidden = !(AudioPlayer.currentTrack != nil)
         nowPlayingView.setInterface()
-        let interaction = UIContextMenuInteraction(delegate: self)
-        nowPlayingView.addInteraction(interaction)
     }
     private func setLocale() {
         recentlyAddedLabel.text = Localization.Controller.Library.recentlyAddedLabel.rawValue.localized
@@ -96,18 +94,73 @@ extension LibraryController: UITableViewDelegate {
         let vc = LibraryEnum.allCases[indexPath.row].vc
         vc.navigationItem.title = LibraryEnum.allCases[indexPath.row].name
         navigationController?.pushViewController(vc, animated: true)
+        tableView.deselectRow(at: indexPath, animated: false)
     }
 }
 
 extension LibraryController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let alert = SPAlertView(title: "", preset: .spinner)
+        alert.dismissByTap = false
+        alert.present()
+        
         DeezerProvider.getAlbum(tracks[indexPath.row].albumID) { album in
+            alert.dismiss()
             let albumVC = AlbumController()
             albumVC.set(album)
             self.navigationController?.pushViewController(albumVC, animated: true)
         } failure: { error in
+            alert.dismiss()
             let alert = SPAlertView(title: Localization.Alert.Title.error.rawValue, message: error, preset: .error)
             alert.present(haptic: .error)
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemsAt indexPaths: [IndexPath], point: CGPoint) -> UIContextMenuConfiguration? {
+        return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { (suggestedActions) -> UIMenu? in
+            guard let indexPath = collectionView.indexPathForItem(at: point) else { return nil }
+            
+            let track = self.tracks[indexPath.row]
+            let actionsManager = ActionsManager()
+            actionsManager.delegate = self
+            
+            var librarySection = [UIAction]()
+            if LibraryManager.isTrackInLibrary(track.id) {
+                guard let removeFromLibraryAction = actionsManager.removeFromLibrary(track.id) else { return nil }
+                
+                librarySection.append(removeFromLibraryAction)
+                if LibraryManager.isTrackDownloaded(artist: track.artistName, title: track.title, album: track.albumTitle) {
+                    guard let removeTrackFromCacheAction = actionsManager.deleteTrackFromCacheAction(track: track) else { return nil }
+                    
+                    librarySection.append(removeTrackFromCacheAction)
+                } else {
+                    guard let downloadTrackAction = actionsManager.downloadTrackAction(track: track) else { return nil }
+                    
+                    librarySection.append(downloadTrackAction)
+                }
+            } else {
+                guard let addToLibraryAction = actionsManager.likeTrackAction(track.id) else { return nil }
+                
+                librarySection.append(addToLibraryAction)
+            }
+            
+            guard let addToPlaylistAction = actionsManager.addToPlaylistAction(track) else { return nil }
+            
+            librarySection.append(addToPlaylistAction)
+            let libraryMenu = UIMenu(options: .displayInline, children: librarySection)
+            guard let shareLinkAction = actionsManager.shareLinkAction(id: track.id, type: .track),
+                  let shareSongAction = actionsManager.shareSongAction(track.id)
+            else { return nil }
+            
+            let shareMenu = UIMenu(options: .displayInline, children: [shareLinkAction, shareSongAction])
+            
+            guard let showArtistAction = actionsManager.showArtistAction(track.artistID),
+                  let showAlbumAction = actionsManager.showAlbumAction(id: track.albumID, title: track.albumTitle)
+            else { return nil }
+            
+            let showMenu = UIMenu(options: .displayInline, children: [showArtistAction, showAlbumAction])
+            
+            return UIMenu(options: .displayInline, children: [libraryMenu, shareMenu, showMenu])
         }
     }
 }
@@ -142,6 +195,7 @@ extension LibraryController: MenuActionsDelegate {
     
     func reloadData() {
         tracks = RealmManager<LibraryTrack>().read().suffix(5).reversed()
+        LibraryManager.downloadArtworks()
         recentlyAddedCollectionView.reloadData()
     }
     
@@ -159,53 +213,5 @@ extension LibraryController: MenuActionsDelegate {
     
     func pushViewController(_ vc: UIViewController) {
         self.navigationController?.pushViewController(vc, animated: true)
-    }
-}
-
-extension LibraryController: UIContextMenuInteractionDelegate {
-    func contextMenuInteraction(_ interaction: UIContextMenuInteraction, configurationForMenuAtLocation location: CGPoint) -> UIContextMenuConfiguration? {
-        return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { suggestedActions in
-            guard let track = AudioPlayer.currentTrack else { return UIMenu() }
-            
-            let actionsManager = ActionsManager()
-            actionsManager.delegate = self
-            var librarySection = [UIAction]()
-            if LibraryManager.isTrackInLibrary(track.id) {
-                guard let removeFromLibraryAction = actionsManager.removeFromLibrary(track.id) else { return UIMenu() }
-                
-                librarySection.append(removeFromLibraryAction)
-                if LibraryManager.isTrackDownloaded(artist: track.artistName, title: track.title, album: track.albumTitle) {
-                    guard let removeTrackFromCacheAction = actionsManager.deleteTrackFromCacheAction(track: track) else { return UIMenu() }
-                    
-                    librarySection.append(removeTrackFromCacheAction)
-                } else {
-                    guard let downloadTrackAction = actionsManager.downloadTrackAction(track: track) else { return UIMenu() }
-                    
-                    librarySection.append(downloadTrackAction)
-                }
-            } else {
-                guard let addToLibraryAction = actionsManager.likeTrackAction(track.id) else { return UIMenu() }
-                
-                librarySection.append(addToLibraryAction)
-            }
-            
-            guard let addToPlaylistAction = actionsManager.addToPlaylistAction(track) else { return UIMenu() }
-            
-            librarySection.append(addToPlaylistAction)
-            let libraryMenu = UIMenu(options: .displayInline, children: librarySection)
-            guard let shareLinkAction = actionsManager.shareLinkAction(id: track.id, type: .track),
-                  let shareSongAction = actionsManager.shareSongAction(track.id)
-            else { return UIMenu() }
-            
-            let shareMenu = UIMenu(options: .displayInline, children: [shareLinkAction, shareSongAction])
-            
-            guard let showArtistAction = actionsManager.showArtistAction(track.artistID),
-                  let showAlbumAction = actionsManager.showAlbumAction(id: track.albumID, title: track.albumTitle)
-            else { return UIMenu() }
-            
-            let showMenu = UIMenu(options: .displayInline, children: [showArtistAction, showAlbumAction])
-            
-            return UIMenu(options: .displayInline, children: [libraryMenu, shareMenu, showMenu])
-        }
     }
 }

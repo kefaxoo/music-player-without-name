@@ -43,4 +43,25 @@ class LibraryTrack: Object {
     static func getLibraryTrack(_ track: LibraryTrackInPlaylist) -> LibraryTrack {
         return LibraryTrack(id: track.id, title: track.title, duration: track.duration, trackPosition: track.trackPosition, diskNumber: track.diskNumber, isExplicit: track.isExplicit, artistID: track.artistID, artistName: track.artistName, albumID: track.albumID, albumName: track.albumTitle, onlineLink: track.onlineLink, cacheLink: track.cacheLink, coverLink: track.coverLink)
     }
+    
+    static func getLibraryTrack(_ track: DeezerTrack) -> LibraryTrack? {
+        guard let artist = track.artist,
+              let album = track.album
+        else { return nil }
+        
+        let trackPosition = track.trackPosition ?? 0
+        let diskNumber = track.diskNumber ?? 0
+        
+        var cacheLink = ""
+        if LibraryManager.isTrackDownloaded(artist: artist.name, title: track.title, album: album.title) {
+            cacheLink = "Music/\("\(artist.name) - \(track.title) - \(album.title)".toUnixFilename).mp3"
+        }
+        
+        var coverLink = ""
+        if LibraryManager.isCoverDownloaded(artist: artist.name, album: album.title) {
+            coverLink = "Artworks/\("\(artist.name) - \(album.title).jpg".toUnixFilename)"
+        }
+        
+        return LibraryTrack(id: track.id, title: track.title, duration: track.duration, trackPosition: trackPosition, diskNumber: diskNumber, isExplicit: track.isExplicit, artistID: artist.id, artistName: artist.name, albumID: album.id, albumName: album.title, onlineLink: track.downloadLink, cacheLink: cacheLink, coverLink: coverLink)
+    }
 }

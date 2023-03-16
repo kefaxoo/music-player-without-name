@@ -36,7 +36,7 @@ extension TracksController: UITableViewDataSource {
         let cell = tracksTableView.dequeueReusableCell(withIdentifier: SongCell.id, for: indexPath)
         guard let songCell = cell as? SongCell else { return cell }
         
-        songCell.set(tracks[indexPath.row])
+        songCell.set(track: tracks[indexPath.row])
         songCell.delegate = self
         return songCell
     }
