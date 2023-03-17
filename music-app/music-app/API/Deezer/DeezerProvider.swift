@@ -191,4 +191,17 @@ final class DeezerProvider {
             }
         }
     }
+    
+    static func getTrackResponseCode(_ id: Int, responseCode: @escaping((Int) -> Void)) {
+        provider.request(.getTrackResponseCode(id)) { result in
+            switch result {
+                case .success(let response):
+                    responseCode(response.statusCode)
+                case .failure(let error):
+                    guard let errorDescription = error.errorDescription else { return }
+                    
+                    responseCode(error.errorCode)
+            }
+        }
+    }
 }

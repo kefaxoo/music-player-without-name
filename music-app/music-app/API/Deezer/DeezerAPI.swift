@@ -19,11 +19,19 @@ enum DeezerAPI {
     case getTrack(_ id: Int)
     case getArtistAlbums(_ id: Int)
     case getArtistTracks(_ id: Int, _ limitTracks: Int)
+    case getTrackResponseCode(_ id: Int)
 }
 
 extension DeezerAPI: TargetType {
     var baseURL: URL {
-        return URL(string: "https://api.deezer.com")!
+        switch self {
+            case .getTrackResponseCode(_):
+                return URL(string: "https://dz.loaderapp.info/deezer/128/https://deezer.com/track")!
+            default:
+                return URL(string: "https://api.deezer.com")!
+        }
+        
+        
     }
     
     var path: String {
@@ -58,6 +66,8 @@ extension DeezerAPI: TargetType {
                 return "/artist/\(id)/albums"
             case .getArtistTracks(let id, _):
                 return "/artist/\(id)/top"
+            case .getTrackResponseCode(let id):
+                return "/\(id)"
         }
     }
     

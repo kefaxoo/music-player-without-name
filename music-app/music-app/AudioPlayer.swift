@@ -40,6 +40,32 @@ extension AudioPlayer {
         currentPlaylist = playlist
         currentIndex = indexInPlaylist
         getImage()
+        player.replaceCurrentItem(with: nil)
+        if LibraryManager.isTrackDownloaded(artist: track.artistName, title: track.title, album: track.albumTitle) {
+            setPlayer()
+        } else {
+            DeezerProvider.getTrackResponseCode(track.id) { responseCode in
+                if responseCode == 200 {
+                    setPlayer()
+                } else {
+                    if isNotificationPresenterPresented {
+                        NotificationPresenter.shared().dismiss(animated: true)
+                        isNotificationPresenterPresented = false
+                    }
+                    
+                    NotificationPresenter.shared().present(text: "Error (\(responseCode))")
+                    NotificationPresenter.shared().displayActivityIndicator(false)
+                    NotificationPresenter.shared().dismiss(afterDelay: 5) { notificationPresenter in
+                        notificationPresenter.displayActivityIndicator(true)
+                    }
+                    
+                    print(responseCode)
+                }
+            }
+        }
+    }
+    
+    private static func setPlayer() {
         let link = getLink()
         guard let url = URL(string: link) else { return }
         

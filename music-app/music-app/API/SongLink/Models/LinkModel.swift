@@ -12,6 +12,7 @@ class LinkModel: Mappable {
     var deezerLink = ""
     var yandexMusicLink: String?
     var spotifyLink: String?
+    var youtubeLink: String?
     var link = ""
     lazy var deezerID: Int? = {
         return Int(deezerLink.replacingOccurrences(of: "https://www.deezer.com/track/", with: ""))
@@ -29,6 +30,12 @@ class LinkModel: Mappable {
         return spotifyLink.replacingOccurrences(of: "https://open.spotify.com/track/", with: "")
     }()
     
+    lazy var youtubeID: String? = {
+        guard let youtubeLink else { return nil }
+        
+        return youtubeLink.replacingOccurrences(of: "https://music.youtube.com/watch?v=", with: "")
+    }()
+    
     required init?(map: Map) {
         mapping(map: map)
     }
@@ -37,6 +44,7 @@ class LinkModel: Mappable {
         deezerLink      <- map["linksByPlatform.deezer.url"]
         yandexMusicLink <- map["linksByPlatform.yandex.url"]
         spotifyLink     <- map["linksByPlatform.spotify.url"]
+        youtubeLink     <- map["linksByPlatform.youtubeMusic.url"]
         link            <- map["pageUrl"]
     }
 }
