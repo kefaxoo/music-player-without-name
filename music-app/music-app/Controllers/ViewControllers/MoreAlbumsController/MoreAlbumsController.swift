@@ -10,6 +10,7 @@ import UIKit
 class MoreAlbumsController: UIViewController {
 
     @IBOutlet weak var albumsTableView: UITableView!
+    @IBOutlet weak var nowPlayingView: NowPlayingView!
     
     private var albums = [DeezerAlbum]()
     private var artist = ""
@@ -19,6 +20,19 @@ class MoreAlbumsController: UIViewController {
         albumsTableView.dataSource = self
         albumsTableView.delegate = self
         albumsTableView.register(LibraryAlbumCell.self)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setupNowPlayingView()
+        navigationController?.navigationBar.tintColor = SettingsManager.getColor.color
+    }
+    
+    private func setupNowPlayingView() {
+        AudioPlayer.nowPlayingViewDelegate = self
+        nowPlayingView.isHidden = !(AudioPlayer.currentTrack != nil)
+        nowPlayingView.setInterface()
+        nowPlayingView.delegate = self
     }
     
     func set(_ albums: [DeezerAlbum]) {
@@ -49,10 +63,27 @@ extension MoreAlbumsController: UITableViewDelegate {
         albumVC.set(albums[indexPath.row])
         navigationController?.pushViewController(albumVC, animated: true)
     }
+    
+    func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { suggestedActions in
+            let actionsManager = ActionsManager()
+            actionsManager.delegate = self
+            
+            guard let shareAlbumAction = actionsManager.shareLinkAction(id: self.albums[indexPath.row].id, type: .album) else { return nil }
+            
+            return UIMenu(options: .displayInline, children: [shareAlbumAction])
+        }
+    }
 }
 
 extension MoreAlbumsController: MenuActionsDelegate {
     func presentActivityController(_ vc: UIActivityViewController) {
         present(vc, animated: true)
+    }
+}
+
+extension MoreAlbumsController: AudioPlayerDelegate {
+    func setupView() {
+        setupNowPlayingView()
     }
 }

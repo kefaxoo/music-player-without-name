@@ -39,6 +39,7 @@ class SongCell: UITableViewCell {
         
         self.track = track
         coverImageView.sd_setImage(with: url)
+        coverImageView.layer.cornerRadius = 5
         titleLabel.text = track.title
         explicitImageView.isHidden = !track.isExplicit
         explicitImageView.tintColor = SettingsManager.getColor.color

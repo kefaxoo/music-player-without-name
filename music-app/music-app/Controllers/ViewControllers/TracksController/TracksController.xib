@@ -10,6 +10,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TracksController" customModule="music_app" customModuleProvider="target">
             <connections>
+                <outlet property="nowPlayingView" destination="qp4-dE-6ft" id="Nec-of-7Q8"/>
                 <outlet property="tracksTableView" destination="XIi-Ci-OsS" id="GBc-XL-SBc"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -20,14 +21,24 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="XIi-Ci-OsS">
-                    <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                    <rect key="frame" x="0.0" y="59" width="393" height="759"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </tableView>
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qp4-dE-6ft" customClass="NowPlayingView" customModule="music_app" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="763" width="393" height="55"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="55" id="k0d-Sg-mzz"/>
+                    </constraints>
+                </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="qp4-dE-6ft" secondAttribute="trailing" id="3z6-T2-QVa"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="XIi-Ci-OsS" secondAttribute="bottom" id="PQt-C4-Y0L"/>
+                <constraint firstItem="qp4-dE-6ft" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="TUE-Fe-lgr"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="qp4-dE-6ft" secondAttribute="bottom" id="Wd8-q6-O7h"/>
                 <constraint firstItem="XIi-Ci-OsS" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Yb3-po-Wrq"/>
                 <constraint firstItem="XIi-Ci-OsS" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="tXo-ef-4MN"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="XIi-Ci-OsS" secondAttribute="trailing" id="xoH-m5-ZhL"/>

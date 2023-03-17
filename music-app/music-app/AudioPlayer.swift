@@ -55,11 +55,9 @@ extension AudioPlayer {
                     
                     NotificationPresenter.shared().present(text: "Error (\(responseCode))")
                     NotificationPresenter.shared().displayActivityIndicator(false)
-                    NotificationPresenter.shared().dismiss(afterDelay: 5) { notificationPresenter in
-                        notificationPresenter.displayActivityIndicator(true)
-                    }
+                    NotificationPresenter.shared().dismiss(afterDelay: 5)
                     
-                    print(responseCode)
+                    playNextTrack()
                 }
             }
         }
@@ -79,12 +77,28 @@ extension AudioPlayer {
         currentCover = nil
         currentTrack = currentPlaylist[currentIndex]
         getImage()
-        let link = getLink()
-        guard let url = URL(string: link) else { return }
-        
-        player.replaceCurrentItem(with: AVPlayerItem(url: url))
-        player.play()
-        observeCurrentItem()
+        if LibraryManager.isTrackDownloaded(artist: currentPlaylist[currentIndex].artistName, title: currentPlaylist[currentIndex].title, album: currentPlaylist[currentIndex].albumTitle) {
+            setPlayer()
+        } else {
+            DeezerProvider.getTrackResponseCode(currentPlaylist[currentIndex].id) { responseCode in
+                if responseCode == 200 {
+                    setPlayer()
+                } else {
+                    if isNotificationPresenterPresented {
+                        NotificationPresenter.shared().dismiss(animated: true)
+                        isNotificationPresenterPresented = false
+                    }
+                    
+                    NotificationPresenter.shared().present(text: "Error (\(responseCode))")
+                    NotificationPresenter.shared().displayActivityIndicator(false)
+                    NotificationPresenter.shared().dismiss(afterDelay: 5) { notificationPresenter in
+                        notificationPresenter.displayActivityIndicator(true)
+                    }
+                    
+                    playNextTrack()
+                }
+            }
+        }
     }
     
     private static func getLink() -> String {

@@ -11,6 +11,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MoreAlbumsController" customModule="music_app" customModuleProvider="target">
             <connections>
                 <outlet property="albumsTableView" destination="ish-c6-k8g" id="ZHd-77-Xpg"/>
+                <outlet property="nowPlayingView" destination="tSL-tM-c01" id="rHf-L2-vX4"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -23,12 +24,22 @@
                     <rect key="frame" x="0.0" y="59" width="393" height="759"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </tableView>
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tSL-tM-c01" customClass="NowPlayingView" customModule="music_app" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="763" width="393" height="55"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="55" id="A1A-dx-O9h"/>
+                    </constraints>
+                </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="tSL-tM-c01" secondAttribute="trailing" id="5G9-Sg-Yeo"/>
                 <constraint firstItem="ish-c6-k8g" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="IbX-ML-Kx4"/>
+                <constraint firstItem="tSL-tM-c01" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="LBf-BM-dMM"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="ish-c6-k8g" secondAttribute="bottom" id="N90-VA-Brj"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="tSL-tM-c01" secondAttribute="bottom" id="Osv-yd-fAa"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="ish-c6-k8g" secondAttribute="trailing" id="XUy-e5-xld"/>
                 <constraint firstItem="ish-c6-k8g" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="puX-il-3Ar"/>
             </constraints>

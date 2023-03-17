@@ -47,6 +47,18 @@ class NowPlayingView: UIView {
         playPauseButton.tintColor = SettingsManager.getColor.color
         nextTrackButton.tintColor = SettingsManager.getColor.color
         durationProgressView.tintColor = SettingsManager.getColor.color
+        
+        guard let currentTrack = AudioPlayer.currentTrack else { return }
+        
+        coverImageView.image = AudioPlayer.currentCover
+        titleLabel.text = currentTrack.title
+        artistLabel.text = currentTrack.artistName
+        durationProgressView.progress = AudioPlayer.getDurationInFloat()
+        if AudioPlayer.player.rate == 0 {
+            playPauseButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
+        } else {
+            playPauseButton.setImage(UIImage(systemName: "pause.fill"), for: .normal)
+        }
     }
     
 

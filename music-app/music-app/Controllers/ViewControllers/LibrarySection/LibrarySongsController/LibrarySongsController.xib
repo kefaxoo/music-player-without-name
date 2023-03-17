@@ -10,6 +10,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LibrarySongsController" customModule="music_app" customModuleProvider="target">
             <connections>
+                <outlet property="nowPlayingView" destination="lk8-8f-2QM" id="18h-3M-nVZ"/>
                 <outlet property="tracksTableView" destination="Rsh-fX-Mdv" id="rl9-uO-b3p"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -23,11 +24,21 @@
                     <rect key="frame" x="10" y="59" width="373" height="759"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </tableView>
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lk8-8f-2QM" customClass="NowPlayingView" customModule="music_app" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="763" width="393" height="55"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="55" id="Fey-tG-9tU"/>
+                    </constraints>
+                </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="lk8-8f-2QM" secondAttribute="trailing" id="6Ue-Iq-afM"/>
+                <constraint firstItem="lk8-8f-2QM" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="8QA-pq-alT"/>
                 <constraint firstItem="Rsh-fX-Mdv" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="BwK-9D-hnX"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="lk8-8f-2QM" secondAttribute="bottom" id="QJ3-kM-0mq"/>
                 <constraint firstItem="Rsh-fX-Mdv" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="10" id="ebh-Rt-Qs3"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Rsh-fX-Mdv" secondAttribute="trailing" constant="10" id="huv-hi-qmq"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="Rsh-fX-Mdv" secondAttribute="bottom" id="oau-Qd-QgA"/>

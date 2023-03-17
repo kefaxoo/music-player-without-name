@@ -11,6 +11,7 @@ import SPAlert
 class TracksController: UIViewController {
 
     @IBOutlet weak var tracksTableView: UITableView!
+    @IBOutlet weak var nowPlayingView: NowPlayingView!
     
     private var tracks = [DeezerTrack]()
     
@@ -19,6 +20,19 @@ class TracksController: UIViewController {
         tracksTableView.dataSource = self
         tracksTableView.delegate = self
         tracksTableView.register(SongCell.self)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.tintColor = SettingsManager.getColor.color
+        setupNowPlayingView()
+    }
+    
+    private func setupNowPlayingView() {
+        AudioPlayer.nowPlayingViewDelegate = self
+        nowPlayingView.isHidden = !(AudioPlayer.currentTrack != nil)
+        nowPlayingView.setInterface()
+        nowPlayingView.delegate = self
     }
 
     func set(_ tracks: [DeezerTrack]) {
@@ -43,18 +57,49 @@ extension TracksController: UITableViewDataSource {
 }
 
 extension TracksController: MenuActionsDelegate {
-    func presentActivityController(_ vc: UIActivityViewController) {
-        self.present(vc, animated: true)
+    func present(_ vc: UIActivityViewController) {
+        present(vc, animated: true)
+    }
+    
+    func reloadData() {
+        tracksTableView.reloadData()
+    }
+    
+    func present(alert: SPAlertView, haptic: SPAlertHaptic) {
+        alert.present(haptic: haptic)
+    }
+    
+    func dismiss(_ alert: SPAlertView) {
+        alert.dismiss()
+    }
+    
+    func present(_ vc: UIViewController) {
+        present(vc, animated: true)
+    }
+    
+    func pushViewController(_ vc: UIViewController) {
+        navigationController?.pushViewController(vc, animated: true)
+    }
+}
+
+
+extension TracksController: AudioPlayerDelegate {
+    func setupView() {
+        setupNowPlayingView()
     }
 }
 
 extension TracksController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let nowPlayingVC = NowPlayingController()
-        nowPlayingVC.modalPresentationStyle = .fullScreen
-        nowPlayingVC.set(track: tracks[indexPath.row], playlist: tracks, indexInPlaylist: indexPath.row)
-        nowPlayingVC.delegate = self
-        present(nowPlayingVC, animated: true)
+        var tracksForPlayer = [LibraryTrack]()
+        tracks.forEach { trackInTable in
+            guard let track = LibraryTrack.getLibraryTrack(trackInTable) else { return }
+            
+            tracksForPlayer.append(track)
+        }
+        
+        AudioPlayer.set(track: tracksForPlayer[indexPath.row], playlist: tracksForPlayer, indexInPlaylist: indexPath.row)
+        tableView.deselectRow(at: indexPath, animated: false)
     }
     
     func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {

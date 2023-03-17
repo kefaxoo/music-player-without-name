@@ -15,7 +15,6 @@ class LibraryTrackCell: UITableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var explicitImageView: UIImageView!
     @IBOutlet weak var artistLabel: UILabel!
-    @IBOutlet weak var downloadIndicator: UIActivityIndicatorView!
     @IBOutlet weak var downloadImageView: UIImageView!
     @IBOutlet weak var menuButton: UIButton!
     
@@ -31,9 +30,8 @@ class LibraryTrackCell: UITableViewCell {
     
     func set(_ track: LibraryTrack) {
         self.track = track
-        if let path = LibraryManager.getAbsolutePath(filename: track.coverLink, path: .documentDirectory),
-           let imageData = try? Data(contentsOf: path) {
-            coverView.image = UIImage(data: imageData)
+        if LibraryManager.isCoverDownloaded(artist: track.artistName, album: track.albumTitle) {
+            coverView.image = ImageManager.loadLocalImage(track.coverLink)
         } else {
             DeezerProvider.getAlbum(track.albumID) { album in
                 self.coverView.sd_setImage(with: URL(string: album.coverSmall))
@@ -42,14 +40,13 @@ class LibraryTrackCell: UITableViewCell {
             }
         }
         
+        coverView.layer.cornerRadius = 5
         self.artistLabel.text = track.artistName
         titleLabel.text = track.title
         explicitImageView.isHidden = !track.isExplicit
         explicitImageView.tintColor = SettingsManager.getColor.color
         self.downloadImageView.isHidden = !LibraryManager.isTrackDownloaded(artist: track.artistName, title: track.title, album: track.albumTitle)
         self.downloadImageView.tintColor = SettingsManager.getColor.color
-        self.downloadIndicator.isHidden = true
-        self.downloadIndicator.color = SettingsManager.getColor.color
     }
     
     @IBAction func menuButtonDidTap(_ sender: Any) {
@@ -58,41 +55,47 @@ class LibraryTrackCell: UITableViewCell {
         let actionsManager = ActionsManager()
         actionsManager.delegate = self
         
-        var actions = [UIAction]()
-        
-        guard let removeFromLibraryAction = actionsManager.removeFromLibrary(track.id),
-              let addToPlaylistAction = actionsManager.addToPlaylistAction(track)
-        else { return }
-        
-        actions.append(removeFromLibraryAction)
-        if LibraryManager.isTrackDownloaded(artist: track.artistName, title: track.title, album: track.albumTitle) {
-            guard let removeTrackFromCacheAction = actionsManager.deleteTrackFromCacheAction(track: track) else { return }
+        var librarySection = [UIAction]()
+        if LibraryManager.isTrackInLibrary(track.id) {
+            guard let removeFromLibraryAction = actionsManager.removeFromLibrary(track.id) else { return }
             
-            actions.append(removeTrackFromCacheAction)
+            librarySection.append(removeFromLibraryAction)
+            if LibraryManager.isTrackDownloaded(artist: track.artistName, title: track.title, album: track.albumTitle) {
+                guard let removeTrackFromCacheAction = actionsManager.deleteTrackFromCacheAction(track: track) else { return }
+                
+                librarySection.append(removeTrackFromCacheAction)
+            } else {
+                guard let downloadTrackAction = actionsManager.downloadTrackAction(track: track) else { return }
+                
+                librarySection.append(downloadTrackAction)
+            }
         } else {
-            guard let downloadTrackAction = actionsManager.downloadTrackAction(track: track) else { return }
+            guard let addToLibraryAction = actionsManager.likeTrackAction(track.id) else { return }
             
-            actions.append(downloadTrackAction)
+            librarySection.append(addToLibraryAction)
         }
         
-        actions.append(addToPlaylistAction)
+        guard let addToPlaylistAction = actionsManager.addToPlaylistAction(track) else { return }
         
-        let libraryActionsMenu = UIMenu(options: .displayInline, children: actions)
-        
-        guard let shareSongAction = actionsManager.shareSongAction(track.id),
-              let shareLinkAction = actionsManager.shareLinkAction(id: track.id, type: .track)
+        librarySection.append(addToPlaylistAction)
+        let libraryMenu = UIMenu(options: .displayInline, children: librarySection)
+        guard let shareLinkAction = actionsManager.shareLinkAction(id: track.id, type: .track),
+              let shareSongAction = actionsManager.shareSongAction(track.id)
         else { return }
         
-        let shareActionsMenu = UIMenu(options: .displayInline, children: [shareSongAction, shareLinkAction])
+        let shareMenu = UIMenu(options: .displayInline, children: [shareLinkAction, shareSongAction])
         
-        guard let showAlbumAction = actionsManager.showAlbumAction(id: track.albumID, title: track.albumTitle),
-              let showArtistAction = actionsManager.showArtistAction(track.artistID)
-        else { return }
+        var showActions = [UIAction]()
+        guard let showArtistAction = actionsManager.showArtistAction(track.artistID) else { return }
         
-        let showActionsMenu = UIMenu(options: .displayInline, children: [showAlbumAction, showArtistAction])
+        showActions.append(showArtistAction)
+        guard let showAlbumAction = actionsManager.showAlbumAction(track.albumID) else { return }
+        
+        showActions.append(showAlbumAction)
+        let showMenu = UIMenu(options: .displayInline, children: showActions)
         
         menuButton.showsMenuAsPrimaryAction = true
-        menuButton.menu = UIMenu(children: [libraryActionsMenu, shareActionsMenu, showActionsMenu])
+        menuButton.menu = UIMenu(options: .displayInline, children: [libraryMenu, shareMenu, showMenu])
     }
 }
 
@@ -120,19 +123,6 @@ extension LibraryTrackCell: MenuActionsDelegate {
     func pushViewController(_ vc: UIViewController) {
         if let delegate {
             delegate.pushViewController(vc)
-        }
-    }
-    
-    func startDonwloadSpinner() {
-        downloadIndicator.startAnimating()
-        downloadIndicator.isHidden = false
-    }
-    
-    func stopDownloadSpinner() {
-        downloadIndicator.stopAnimating()
-        downloadIndicator.isHidden = true
-        if let delegate {
-            delegate.reloadData()
         }
     }
     

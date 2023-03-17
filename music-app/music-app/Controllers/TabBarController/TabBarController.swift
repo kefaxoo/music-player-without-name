@@ -73,15 +73,5 @@ class TabBarController: UITabBarController {
         self.viewControllers = [configureNavigationController(vc: libraryVC, title: Localization.TabBar.library.rawValue.localized), configureNavigationController(vc: searchVC, title: Localization.TabBar.search.rawValue.localized), configureNavigationController(vc: settingsVC, title: Localization.TabBar.settings.rawValue.localized)]
         self.tabBar.tintColor = SettingsManager.getColor.color
     }
-    
-    static var activeNavVC: UINavigationController? = {
-        guard let tabBarVC = UIApplication.shared.windows.filter({$0.isKeyWindow}).first?.rootViewController as? UITabBarController else { return nil }
-            
-        if let currentNavVC = tabBarVC.selectedViewController as? UINavigationController {
-            return currentNavVC
-        }
-        
-        return nil
-    }()
 }
 

@@ -109,4 +109,15 @@ extension LibraryAlbumsController: UITableViewDelegate {
         albumVC.set(albums[indexPath.row])
         navigationController?.pushViewController(albumVC, animated: true)
     }
+    
+    func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { suggestedActions in
+            let actionsManager = ActionsManager()
+            actionsManager.delegate = self
+            
+            guard let shareAlbumAction = actionsManager.shareLinkAction(id: self.albums[indexPath.row].id, type: .album) else { return nil }
+            
+            return UIMenu(options: .displayInline, children: [shareAlbumAction])
+        }
+    }
 }

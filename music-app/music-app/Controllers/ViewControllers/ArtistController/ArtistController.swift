@@ -155,18 +155,7 @@ extension ArtistController: ViewControllerDelegate {
 
 extension ArtistController: AudioPlayerDelegate {
     func setupView() {
-        guard let currentTrack = AudioPlayer.currentTrack else { return }
-        
-        nowPlayingView.isHidden = false
-        nowPlayingView.coverImageView.image = AudioPlayer.currentCover
-        nowPlayingView.titleLabel.text = currentTrack.title
-        nowPlayingView.artistLabel.text = currentTrack.artistName
-        nowPlayingView.durationProgressView.progress = AudioPlayer.getDurationInFloat()
-        if AudioPlayer.player.rate == 0 {
-            nowPlayingView.playPauseButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
-        } else {
-            nowPlayingView.playPauseButton.setImage(UIImage(systemName: "pause.fill"), for: .normal)
-        }
+        setupNowPlayingView()
     }
 }
 
