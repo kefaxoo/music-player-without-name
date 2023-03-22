@@ -24,6 +24,7 @@ class TracksController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        tracksTableView.reloadData()
         navigationController?.navigationBar.tintColor = SettingsManager.getColor.color
         setupNowPlayingView()
     }

@@ -28,6 +28,7 @@ class LibrarySongsController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.tintColor = SettingsManager.getColor.color
+        tracksTableView.reloadData()
         if tracks.count != RealmManager<LibraryTrack>().read().count {
             if LibraryDataManager.Songs.alphabetSort {
                 tracks = RealmManager<LibraryTrack>().read().sorted(by: { trackI, trackJ in
@@ -133,6 +134,7 @@ extension LibrarySongsController: MenuActionsDelegate {
     }
     
     func reloadData() {
+        setTracks()
         tracksTableView.reloadData()
     }
     

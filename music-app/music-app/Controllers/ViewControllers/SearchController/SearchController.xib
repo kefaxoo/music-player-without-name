@@ -10,6 +10,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SearchController" customModule="music_app" customModuleProvider="target">
             <connections>
+                <outlet property="nowPlayingView" destination="3kd-t1-arv" id="nYO-3s-Ybz"/>
                 <outlet property="resultTableView" destination="NZP-rr-bPq" id="PS1-LT-SDh"/>
                 <outlet property="typeSegmentedControl" destination="buf-Oq-Nd2" id="t8v-oW-tPD"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -21,10 +22,10 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="TeV-bB-9NS">
-                    <rect key="frame" x="16" y="59" width="361" height="759"/>
+                    <rect key="frame" x="0.0" y="59" width="393" height="759"/>
                     <subviews>
                         <segmentedControl hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="buf-Oq-Nd2">
-                            <rect key="frame" x="0.0" y="0.0" width="361" height="1"/>
+                            <rect key="frame" x="0.0" y="0.0" width="393" height="1"/>
                             <segments>
                                 <segment title="Songs"/>
                                 <segment title="Artists"/>
@@ -35,19 +36,29 @@
                             </connections>
                         </segmentedControl>
                         <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="NZP-rr-bPq">
-                            <rect key="frame" x="0.0" y="0.0" width="361" height="759"/>
+                            <rect key="frame" x="0.0" y="0.0" width="393" height="759"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         </tableView>
                     </subviews>
                 </stackView>
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3kd-t1-arv" customClass="NowPlayingView" customModule="music_app" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="763" width="393" height="55"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="55" id="J6m-Kp-qfZ"/>
+                    </constraints>
+                </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="TeV-bB-9NS" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="LA2-4I-f7R"/>
-                <constraint firstItem="TeV-bB-9NS" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" constant="-16" id="TJS-cu-aKj"/>
-                <constraint firstItem="TeV-bB-9NS" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="dFF-8N-uBP"/>
+                <constraint firstItem="TeV-bB-9NS" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="TJS-cu-aKj"/>
+                <constraint firstItem="TeV-bB-9NS" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="dFF-8N-uBP"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="TeV-bB-9NS" secondAttribute="bottom" id="du6-yi-J7I"/>
+                <constraint firstItem="3kd-t1-arv" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="e6M-u6-YUh"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="3kd-t1-arv" secondAttribute="trailing" id="fEk-JO-Bjw"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="3kd-t1-arv" secondAttribute="bottom" id="pdz-Ry-Kso"/>
             </constraints>
             <point key="canvasLocation" x="19" y="20"/>
         </view>

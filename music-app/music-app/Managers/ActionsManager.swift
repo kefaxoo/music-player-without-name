@@ -91,18 +91,23 @@ final class ActionsManager {
     
     weak var delegate: MenuActionsDelegate?
     
-    func showArtistAction(_ artist: DeezerArtist) -> UIAction? {
+    func showArtistAction(id: Int, name: String) -> UIAction? {
         guard let delegate else { return nil }
         
         let type = ActionsEnum.showArtist
-        let action = UIAction(title: type.title, subtitle: artist.name, image: type.image) { _ in
-            DeezerProvider.getArtist(artist.id) { artist in
+        let action = UIAction(title: type.title, subtitle: name, image: type.image) { _ in
+            let alert = SPAlertView(title: "", preset: .spinner)
+            alert.dismissByTap = false
+            delegate.present(alert: alert, haptic: .none)
+            DeezerProvider.getArtist(id) { artist in
                 let artistVC = ArtistController()
                 artistVC.set(artist)
+                delegate.dismiss(alert)
                 delegate.dismiss()
                 delegate.pushViewController(artistVC)
             } failure: { error in
-                let alert = SPAlertView(title: Localization.Alert.Title.error.rawValue, message: error, preset: .error)
+                delegate.dismiss(alert)
+                let alert = SPAlertView(title: "", preset: .error)
                 delegate.present(alert: alert, haptic: .error)
             }
         }

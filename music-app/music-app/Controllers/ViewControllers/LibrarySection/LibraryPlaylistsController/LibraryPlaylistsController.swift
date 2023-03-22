@@ -109,6 +109,7 @@ extension LibraryPlaylistsController: UITableViewDelegate {
         let playlistVC = PlaylistController()
         playlistVC.set(playlists[indexPath.row])
         navigationController?.pushViewController(playlistVC, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
 

@@ -11,8 +11,8 @@ import SPAlert
 class SearchController: UIViewController {
 
     @IBOutlet weak var typeSegmentedControl: UISegmentedControl!
-    
     @IBOutlet weak var resultTableView: UITableView!
+    @IBOutlet weak var nowPlayingView: NowPlayingView!
     
     private let searchController = UISearchController(searchResultsController: nil)
     
@@ -32,9 +32,18 @@ class SearchController: UIViewController {
         showTop()
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         navigationController?.navigationBar.tintColor = SettingsManager.getColor.color
+        resultTableView.reloadData()
+        setupNowPlayingView()
+    }
+    
+    private func setupNowPlayingView() {
+        AudioPlayer.nowPlayingViewDelegate = self
+        nowPlayingView.isHidden = !(AudioPlayer.currentTrack != nil)
+        nowPlayingView.setInterface()
+        nowPlayingView.delegate = self
     }
     
     private func setLocale() {
@@ -42,11 +51,6 @@ class SearchController: UIViewController {
         typeSegmentedControl.setTitle(Localization.Controller.Search.segmentedControl.artists.rawValue.localized, forSegmentAt: 1)
         typeSegmentedControl.setTitle(Localization.Controller.Search.segmentedControl.albums.rawValue.localized, forSegmentAt: 2)
         searchController.searchBar.placeholder = Localization.SearchBarPlaceholder.main.rawValue.localized
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        resultTableView.reloadData()
     }
     
     private func getResult() {
@@ -193,12 +197,24 @@ extension SearchController: MenuActionsDelegate {
         resultTableView.reloadData()
     }
     
-    func presentActivityController(_ vc: UIActivityViewController) {
+    func present(_ vc: UIActivityViewController) {
         self.present(vc, animated: true)
     }
     
     func pushViewController(_ vc: UIViewController) {
-        navigationController?.pushViewController(vc, animated: true)
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func present(alert: SPAlertView, haptic: SPAlertHaptic) {
+        alert.present(haptic: haptic)
+    }
+    
+    func dismiss(_ alert: SPAlertView) {
+        alert.dismiss()
+    }
+    
+    func present(_ vc: UIViewController) {
+        present(vc, animated: true)
     }
 }
 
@@ -208,12 +224,14 @@ extension SearchController: UITableViewDelegate {
             case 0:
                 guard let tracks = result as? [DeezerTrack] else { return }
                 
-                let nowPlayingVC = NowPlayingController()
-                nowPlayingVC.modalPresentationStyle = .fullScreen
-                nowPlayingVC.set(track: tracks[indexPath.row], playlist: tracks, indexInPlaylist: indexPath.row)
-                nowPlayingVC.delegate = self
+                var playlist = [LibraryTrack]()
+                tracks.forEach { track in
+                    guard let libraryTrack = LibraryTrack.getLibraryTrack(track) else { return }
+                    
+                    playlist.append(libraryTrack)
+                }
                 
-                self.present(nowPlayingVC, animated: true)
+                AudioPlayer.set(track: playlist[indexPath.row], playlist: playlist, indexInPlaylist: indexPath.row)
             case 1:
                 guard let artist = result[indexPath.row] as? DeezerArtist else { return }
                 
@@ -229,11 +247,83 @@ extension SearchController: UITableViewDelegate {
             default:
                 break
         }
+        
+        tableView.deselectRow(at: indexPath, animated: false)
+    }
+    
+    func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        if self.typeSegmentedControl.selectedSegmentIndex == 1 {
+            return nil
+        }
+        
+        let actionsManager = ActionsManager()
+        actionsManager.delegate = self
+        
+        return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { suggestedActions in
+            switch self.typeSegmentedControl.selectedSegmentIndex {
+                case 0:
+                    guard let trackResult = self.result[indexPath.row] as? DeezerTrack,
+                          let track = LibraryTrack.getLibraryTrack(trackResult) else { return nil }
+                    
+                    var librarySection = [UIAction]()
+                    if LibraryManager.isTrackInLibrary(track.id) {
+                        guard let removeFromLibraryAction = actionsManager.removeFromLibrary(track.id) else { return nil }
+                        
+                        librarySection.append(removeFromLibraryAction)
+                        if LibraryManager.isTrackDownloaded(artist: track.artistName, title: track.title, album: track.albumTitle) {
+                            guard let removeTrackFromCacheAction = actionsManager.deleteTrackFromCacheAction(track: track) else { return nil }
+                            
+                            librarySection.append(removeTrackFromCacheAction)
+                        } else {
+                            guard let downloadTrackAction = actionsManager.downloadTrackAction(track: track) else { return nil }
+                            
+                            librarySection.append(downloadTrackAction)
+                        }
+                    } else {
+                        guard let addToLibraryAction = actionsManager.likeTrackAction(track.id) else { return nil }
+                        
+                        librarySection.append(addToLibraryAction)
+                    }
+                    
+                    guard let addToPlaylistAction = actionsManager.addToPlaylistAction(track) else { return nil }
+                    
+                    librarySection.append(addToPlaylistAction)
+                    let libraryMenu = UIMenu(options: .displayInline, children: librarySection)
+                    guard let shareLinkAction = actionsManager.shareLinkAction(id: track.id, type: .track),
+                          let shareSongAction = actionsManager.shareSongAction(track.id)
+                    else { return nil }
+                    
+                    let shareMenu = UIMenu(options: .displayInline, children: [shareLinkAction, shareSongAction])
+                    
+                    guard let showAlbumAction = actionsManager.showAlbumAction(track.albumID),
+                        let showArtistAction = actionsManager.showArtistAction(track.artistID)
+                    else { return nil }
+                    
+                    let showMenu = UIMenu(options: .displayInline, children: [showAlbumAction, showArtistAction])
+                    
+                    let menuTrack = UIMenu(options: .displayInline, children: [libraryMenu, shareMenu, showMenu])
+                    return menuTrack
+                case 2:
+                    guard let albumResult = self.result[indexPath.row] as? DeezerAlbum else { return nil }
+                    
+                    guard let shareAlbumAction = actionsManager.shareLinkAction(id: albumResult.id, type: .album) else { return nil }
+                    
+                    return UIMenu(options: .displayInline, children: [shareAlbumAction])
+                default:
+                    return nil
+            }
+        }
     }
 }
 
 extension SearchController: ViewControllerDelegate {
     func pushVC(_ vc: UIViewController) {
         navigationController?.pushViewController(vc, animated: true)
+    }
+}
+
+extension SearchController: AudioPlayerDelegate {
+    func setupView() {
+        setupNowPlayingView()
     }
 }

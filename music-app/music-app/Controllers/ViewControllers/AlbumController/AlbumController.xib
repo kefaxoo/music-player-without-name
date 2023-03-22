@@ -11,6 +11,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AlbumController" customModule="music_app" customModuleProvider="target">
             <connections>
                 <outlet property="albumTableView" destination="VCU-KD-kOU" id="kgE-KO-bYh"/>
+                <outlet property="nowPlayingView" destination="wZW-cc-rrO" id="bws-mt-hVk"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -23,14 +24,24 @@
                     <rect key="frame" x="10" y="59" width="373" height="759"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </tableView>
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wZW-cc-rrO" customClass="NowPlayingView" customModule="music_app" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="763" width="393" height="55"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="55" id="83a-VA-p4N"/>
+                    </constraints>
+                </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="VCU-KD-kOU" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="10" id="9vt-l2-gXG"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="VCU-KD-kOU" secondAttribute="trailing" constant="10" id="J4L-rh-STt"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="wZW-cc-rrO" secondAttribute="bottom" id="NfH-ZT-JsO"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="wZW-cc-rrO" secondAttribute="trailing" id="XoU-pa-VhP"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="VCU-KD-kOU" secondAttribute="bottom" id="hbQ-7k-Yng"/>
                 <constraint firstItem="VCU-KD-kOU" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="mqE-Ba-ml9"/>
+                <constraint firstItem="wZW-cc-rrO" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="vdQ-G0-XCq"/>
             </constraints>
             <point key="canvasLocation" x="118" y="21"/>
         </view>

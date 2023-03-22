@@ -40,7 +40,10 @@ extension AudioPlayer {
         currentPlaylist = playlist
         currentIndex = indexInPlaylist
         getImage()
+        isVideoLoaded = false
         player.replaceCurrentItem(with: nil)
+        VideoPlayer.player.pause()
+        VideoPlayer.cleanVideoPlayer()
         if LibraryManager.isTrackDownloaded(artist: track.artistName, title: track.title, album: track.albumTitle) {
             setPlayer()
         } else {
@@ -69,6 +72,11 @@ extension AudioPlayer {
         
         player.replaceCurrentItem(with: AVPlayerItem(url: url))
         player.play()
+        if let observer {
+            player.removeTimeObserver(observer)
+        }
+        
+        observer = nil
         observeCurrentItem()
     }
     
@@ -77,6 +85,10 @@ extension AudioPlayer {
         currentCover = nil
         currentTrack = currentPlaylist[currentIndex]
         getImage()
+        isVideoLoaded = false
+        VideoPlayer.player.pause()
+        VideoPlayer.cleanVideoPlayer()
+        
         if LibraryManager.isTrackDownloaded(artist: currentPlaylist[currentIndex].artistName, title: currentPlaylist[currentIndex].title, album: currentPlaylist[currentIndex].albumTitle) {
             setPlayer()
         } else {
@@ -140,12 +152,14 @@ extension AudioPlayer {
                 
                 Task { @MainActor in
                     currentCover = try await loadAsync(url: url)
+                    nowPlayingControllerDelegate?.setCover()
                 }
             } failure: { error in
                 print(error)
             }
         } else {
             currentCover = ImageManager.loadLocalImage(currentTrack.coverLink)
+            nowPlayingControllerDelegate?.setCover()
         }
     }
 }
@@ -155,6 +169,22 @@ extension AudioPlayer {
 extension AudioPlayer {
     private static var info = [String : Any]()
     private static let commandCenter = MPRemoteCommandCenter.shared()
+    static var editTimeOnController = true
+    static var editVolumeOnController = true
+    
+    static func isShowNowPlayingOnLabel() -> Bool {
+        let port = AVAudioSession.sharedInstance().currentRoute.outputs.first?.portType
+        
+        return !(port == .headphones || port == .builtInSpeaker)
+    }
+    
+    static func getNameOfOutputDevice() -> String? {
+        return AVAudioSession.sharedInstance().currentRoute.outputs.first?.portName
+    }
+    
+    static func playFromBegin() {
+        player.seek(to: CMTime(seconds: 0, preferredTimescale: 600))
+    }
     
     private static func setupNowPlaying() {
         guard let currentTrack,
@@ -281,6 +311,7 @@ extension AudioPlayer {
 extension AudioPlayer {
     private static var observer: Any?
     
+    static weak var nowPlayingControllerDelegate: AudioPlayerDelegate?
     static weak var nowPlayingViewDelegate: AudioPlayerDelegate?
     
     private static var isNotificationPresenterPresented = false
@@ -293,17 +324,27 @@ extension AudioPlayer {
                 delegate = self.nowPlayingViewDelegate
             }
             
+            if self.nowPlayingControllerDelegate != nil {
+                delegate = self.nowPlayingControllerDelegate
+            }
+            
             guard let delegate,
                   let currentItem = player.currentItem
             else { return }
             
             if currentItem.status == .readyToPlay {
+                if !isVideoLoaded {
+                    loadVideoShot()
+                    isVideoLoaded = true
+                }
+                
                 if isNotificationPresenterPresented {
                     NotificationPresenter.shared().dismiss(animated: true)
                     isNotificationPresenterPresented = false
                 }
                 
                 delegate.setupView()
+                delegate.setupController()
                 setupNowPlaying()
                 if player.rate == 0 {
                     delegate.playDidTap()
@@ -322,5 +363,36 @@ extension AudioPlayer {
         NotificationPresenter.shared().present(text: "Loading track")
         NotificationPresenter.shared().displayActivityIndicator(true)
         isNotificationPresenterPresented = true
+    }
+}
+
+// MARK: -
+// MARK: Video Show Settings
+extension AudioPlayer {
+    private static var isVideoLoaded = false
+    static var isVideoOnScreen = false
+    
+    static func loadVideoShot() {
+        guard let currentTrack else { return }
+        
+        SongLinkProvider().getLinks(currentTrack.onlineLink) { links in
+            if let spotifyID = links.spotifyID {
+                SpotifyProvider().getCanvasLink(spotifyID) { canvasLink in
+                    if !canvasLink.isEmpty {
+                        VideoPlayer.setVideo(canvasLink)
+                    } else {
+                        if let yandexMusicID = links.yandexMusicID {
+                            YandexMusicProvider().getCanvasLink(yandexMusicID) { canvasLink in
+                                VideoPlayer.setVideo(canvasLink)
+                            }
+                        }
+                    }
+                }
+            } else if let yandexMusicID = links.yandexMusicID {
+                YandexMusicProvider().getCanvasLink(yandexMusicID) { canvasLink in
+                    VideoPlayer.setVideo(canvasLink)
+                }
+            }
+        }
     }
 }

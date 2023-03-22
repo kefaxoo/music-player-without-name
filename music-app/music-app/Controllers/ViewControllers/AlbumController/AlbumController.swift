@@ -11,6 +11,7 @@ import SPAlert
 class AlbumController: UIViewController {
 
     @IBOutlet weak var albumTableView: UITableView!
+    @IBOutlet weak var nowPlayingView: NowPlayingView!
     
     private var album: DeezerAlbum?
     private var tracks = [DeezerTrack]()
@@ -29,7 +30,16 @@ class AlbumController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        albumTableView.reloadData()
         setupNavBar()
+        setupNowPlayingView()
+    }
+    
+    private func setupNowPlayingView() {
+        AudioPlayer.nowPlayingViewDelegate = self
+        nowPlayingView.isHidden = !(AudioPlayer.currentTrack != nil)
+        nowPlayingView.setInterface()
+        nowPlayingView.delegate = self
     }
     
     private func getInfo() {
@@ -146,20 +156,98 @@ extension AlbumController: MenuActionsDelegate {
         albumTableView.reloadData()
     }
     
-    func presentActivityController(_ vc: UIActivityViewController) {
-        self.present(vc, animated: true)
+    func present(alert: SPAlertView, haptic: SPAlertHaptic) {
+        alert.present(haptic: haptic)
+    }
+    
+    func dismiss(_ alert: SPAlertView) {
+        alert.dismiss()
+    }
+    
+    func present(_ vc: UIViewController) {
+        present(vc, animated: true)
+    }
+    
+    func pushViewController(_ vc: UIViewController) {
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
 
 extension AlbumController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let index = indexPath.row
-        if index > 0, index <= 1 + tracks.count {
-            let nowPlayingVC = NowPlayingController()
-            nowPlayingVC.modalPresentationStyle = .fullScreen
-            nowPlayingVC.set(track: tracks[index - 1], playlist: tracks, indexInPlaylist: index - 1)
-            nowPlayingVC.delegate = self
-            present(nowPlayingVC, animated: true)
+        var playlist = [LibraryTrack]()
+        tracks.forEach { track in
+            guard let libraryTrack = LibraryTrack.getLibraryTrack(track) else { return }
+            
+            playlist.append(libraryTrack)
         }
+        
+        if index > 0, index <= tracks.count {
+            AudioPlayer.set(track: playlist[index - 1], playlist: playlist, indexInPlaylist: index - 1)
+        }
+        
+        tableView.deselectRow(at: indexPath, animated: false)
+    }
+    
+    func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        if indexPath.row == 0 || indexPath.row > tracks.count {
+            return nil
+        }
+        
+        return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { suggestedActions in
+            let track = self.tracks[indexPath.row - 1]
+            
+            guard let artist = track.artist?.name,
+                  let album = track.album?.title
+            else { return nil }
+            
+            let actionsManager = ActionsManager()
+            actionsManager.delegate = self
+            
+            var libraryActions = [UIAction]()
+            
+            if LibraryManager.isTrackInLibrary(track.id) {
+                guard let removeFromLibraryAction = actionsManager.removeFromLibrary(track.id) else { return nil }
+                
+                libraryActions.append(removeFromLibraryAction)
+                if LibraryManager.isTrackDownloaded(artist: artist, title: track.title, album: album) {
+                    guard let libraryTrack = LibraryTrack.getLibraryTrack(track),
+                          let removeTrackFromCacheAction = actionsManager.deleteTrackFromCacheAction(track: libraryTrack) else { return nil }
+                    
+                    libraryActions.append(removeTrackFromCacheAction)
+                } else {
+                    guard let libraryTrack = LibraryTrack.getLibraryTrack(track),
+                          let downloadTrackAction = actionsManager.downloadTrackAction(track: libraryTrack) else { return nil }
+                    
+                    libraryActions.append(downloadTrackAction)
+                }
+            } else {
+                guard let addToLibraryAction = actionsManager.likeTrackAction(track.id) else { return nil }
+                
+                libraryActions.append(addToLibraryAction)
+            }
+            
+            guard let libraryTrack = LibraryTrack.getLibraryTrack(track),
+                  let addToPlaylistAction = actionsManager.addToPlaylistAction(libraryTrack) else { return nil }
+            
+            libraryActions.append(addToPlaylistAction)
+            
+            let libraryActionsMenu = UIMenu(options: .displayInline, children: libraryActions)
+            
+            guard let shareSongAction = actionsManager.shareSongAction(track.id),
+                  let shareLinkAction = actionsManager.shareLinkAction(id: track.id, type: .track)
+            else { return nil }
+            
+            let shareActionsMenu = UIMenu(options: .displayInline, children: [shareSongAction, shareLinkAction])
+            
+            return UIMenu(children: [libraryActionsMenu, shareActionsMenu])
+        }
+    }
+}
+
+extension AlbumController: AudioPlayerDelegate {
+    func setupView() {
+        setupNowPlayingView()
     }
 }

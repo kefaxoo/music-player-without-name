@@ -144,6 +144,7 @@ extension LibraryArtistsController: UITableViewDelegate {
         let artistVC = ArtistController()
         artistVC.set(artists[indexPath.row])
         navigationController?.pushViewController(artistVC, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
 

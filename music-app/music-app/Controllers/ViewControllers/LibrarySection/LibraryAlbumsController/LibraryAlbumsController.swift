@@ -11,6 +11,7 @@ import SPAlert
 class LibraryAlbumsController: UIViewController {
     
     @IBOutlet weak var albumsTableView: UITableView!
+    @IBOutlet weak var nowPlayingView: NowPlayingView!
     
     private let searchController = UISearchController()
     private var albums = [DeezerAlbum]()
@@ -28,6 +29,15 @@ class LibraryAlbumsController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.tintColor = SettingsManager.getColor.color
+        albumsTableView.reloadData()
+        setupNowPlayingView()
+    }
+    
+    private func setupNowPlayingView() {
+        AudioPlayer.nowPlayingViewDelegate = self
+        nowPlayingView.isHidden = !(AudioPlayer.currentTrack != nil)
+        nowPlayingView.setInterface()
+        nowPlayingView.delegate = self
     }
     
     private func setupNavBar() {
@@ -82,8 +92,24 @@ extension LibraryAlbumsController: UITableViewDataSource {
 }
 
 extension LibraryAlbumsController: MenuActionsDelegate {
-    func presentActivityController(_ vc: UIActivityViewController) {
+    func reloadData() {
+        albumsTableView.reloadData()
+    }
+    
+    func present(alert: SPAlertView, haptic: SPAlertHaptic) {
+        alert.present(haptic: haptic)
+    }
+    
+    func dismiss(_ alert: SPAlertView) {
+        alert.dismiss()
+    }
+    
+    func present(_ vc: UIViewController) {
         present(vc, animated: true)
+    }
+    
+    func pushViewController(_ vc: UIViewController) {
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
 
@@ -108,6 +134,7 @@ extension LibraryAlbumsController: UITableViewDelegate {
         let albumVC = AlbumController()
         albumVC.set(albums[indexPath.row])
         navigationController?.pushViewController(albumVC, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
@@ -119,5 +146,11 @@ extension LibraryAlbumsController: UITableViewDelegate {
             
             return UIMenu(options: .displayInline, children: [shareAlbumAction])
         }
+    }
+}
+
+extension LibraryAlbumsController: AudioPlayerDelegate {
+    func setupView() {
+        setupNowPlayingView()
     }
 }

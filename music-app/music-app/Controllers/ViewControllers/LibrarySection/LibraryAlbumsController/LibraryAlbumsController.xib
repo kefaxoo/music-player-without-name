@@ -11,6 +11,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LibraryAlbumsController" customModule="music_app" customModuleProvider="target">
             <connections>
                 <outlet property="albumsTableView" destination="Ksl-0z-bHx" id="S9y-Fj-OhW"/>
+                <outlet property="nowPlayingView" destination="MDX-iq-xaA" id="oJ8-8A-AgM"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -23,14 +24,24 @@
                     <rect key="frame" x="0.0" y="59" width="393" height="759"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </tableView>
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MDX-iq-xaA" customClass="NowPlayingView" customModule="music_app" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="763" width="393" height="55"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="55" id="mzd-hf-cOO"/>
+                    </constraints>
+                </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="Ksl-0z-bHx" secondAttribute="bottom" id="1c3-um-0By"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="MDX-iq-xaA" secondAttribute="bottom" id="801-4Z-3Dj"/>
                 <constraint firstItem="Ksl-0z-bHx" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="AcY-Ek-VBO"/>
                 <constraint firstItem="Ksl-0z-bHx" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="BVE-Fj-e2R"/>
+                <constraint firstItem="MDX-iq-xaA" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="HM2-8A-oCO"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Ksl-0z-bHx" secondAttribute="trailing" id="KKk-JQ-Z0M"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="MDX-iq-xaA" secondAttribute="trailing" id="Qos-yl-QkX"/>
             </constraints>
             <point key="canvasLocation" x="6" y="21"/>
         </view>

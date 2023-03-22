@@ -25,6 +25,7 @@ class MoreAlbumsController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupNowPlayingView()
+        albumsTableView.reloadData()
         navigationController?.navigationBar.tintColor = SettingsManager.getColor.color
     }
     
@@ -62,6 +63,7 @@ extension MoreAlbumsController: UITableViewDelegate {
         let albumVC = AlbumController()
         albumVC.set(albums[indexPath.row])
         navigationController?.pushViewController(albumVC, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {

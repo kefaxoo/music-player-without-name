@@ -9,7 +9,7 @@ import UIKit
 import SPAlert
 
 class LibraryController: UIViewController {
-
+    
     @IBOutlet weak var navigationTableView: UITableView!
     @IBOutlet weak var recentlyAddedCollectionView: UICollectionView!
     @IBOutlet weak var recentlyAddedLabel: UILabel!
@@ -57,8 +57,9 @@ class LibraryController: UIViewController {
         recentlyAddedCollectionView.reloadData()
         setupNowPlayingView()
         LibraryManager.downloadArtworks()
+        navigationTableView.reloadData()
     }
-
+    
 }
 
 extension LibraryController: UICollectionViewDataSource {
