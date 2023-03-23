@@ -36,6 +36,7 @@ class MoreAlbumsByArtistCell: UITableViewCell {
         self.albums = albums
         self.artist = artist
         albumsCollectionView.reloadData()
+        self.selectionStyle = .none
     }
     
     @IBAction func moreAlbumsDidTap(_ sender: Any) {

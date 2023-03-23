@@ -60,6 +60,11 @@ class LibraryPlaylistsController: UIViewController {
         searchController.searchBar.placeholder = Localization.SearchBarPlaceholder.playlists.rawValue.localized
         navigationItem.searchController = searchController
         searchController.searchBar.delegate = self
+        searchController.searchBar.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(hideKeyboard)))
+    }
+    
+    @objc private func hideKeyboard() {
+        searchController.searchBar.endEditing(true)
     }
 
     @objc private func addPlaylistAction() {

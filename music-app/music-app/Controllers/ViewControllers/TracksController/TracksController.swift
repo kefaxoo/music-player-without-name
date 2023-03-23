@@ -100,7 +100,7 @@ extension TracksController: UITableViewDelegate {
         }
         
         AudioPlayer.set(track: tracksForPlayer[indexPath.row], playlist: tracksForPlayer, indexInPlaylist: indexPath.row)
-        tableView.deselectRow(at: indexPath, animated: false)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {

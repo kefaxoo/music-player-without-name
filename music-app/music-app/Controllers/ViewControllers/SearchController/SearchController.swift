@@ -71,6 +71,11 @@ class SearchController: UIViewController {
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
         searchController.searchBar.delegate = self
+        searchController.searchBar.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(hideKeyboard)))
+    }
+    
+    @objc private func hideKeyboard() {
+        searchController.searchBar.endEditing(true)
     }
     
     @IBAction func typeDidChange(_ sender: Any) {
@@ -182,7 +187,7 @@ extension SearchController: UISearchBarDelegate {
         UIView.animate(withDuration: 0.5) {
             self.typeSegmentedControl.isHidden = searchText.isEmpty
         }
-
+        
         query = searchText
         if searchText.isEmpty {
             showTop()
@@ -248,7 +253,7 @@ extension SearchController: UITableViewDelegate {
                 break
         }
         
-        tableView.deselectRow(at: indexPath, animated: false)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {

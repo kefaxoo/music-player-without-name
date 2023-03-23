@@ -65,7 +65,7 @@ class NowPlayingController: UIViewController {
     }
     
     override func viewDidLayoutSubviews() {
-        if VideoPlayer.url != nil, AudioPlayer.player.rate != 0, !AudioPlayer.isVideoOnScreen {
+        if VideoPlayer.player.currentItem != nil, AudioPlayer.player.rate != 0, !AudioPlayer.isVideoOnScreen {
             AudioPlayer.isVideoOnScreen = true
             VideoPlayer.setVideo()
         }
@@ -235,7 +235,7 @@ class NowPlayingController: UIViewController {
     }
     
     @IBAction func previousTrackDidTap(_ sender: Any) {
-        AudioPlayer.playFromBegin()
+        AudioPlayer.playPreviousTrack()
     }
 }
 
@@ -300,6 +300,15 @@ extension NowPlayingController: AudioPlayerDelegate {
     
     func setCover() {
         coverView.image = AudioPlayer.currentCover
+    }
+    
+    func clearVideo() {
+        AudioPlayer.isVideoOnScreen = false
+        videoShotView.subviews.forEach { view in
+            view.removeFromSuperview()
+        }
+        
+        uiPause()
     }
 }
 

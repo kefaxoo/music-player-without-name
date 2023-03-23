@@ -12,6 +12,7 @@ typealias SetColorClosure = ((SettingsManager.ColorType) -> ())?
 class SettingsController: UIViewController {
     
     @IBOutlet weak var settingsTableView: UITableView!
+    @IBOutlet weak var nowPlayingView: NowPlayingView!
     
     static let id = String(describing: SettingsController.self)
     

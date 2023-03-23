@@ -73,8 +73,13 @@ class LibrarySongsController: UIViewController {
         searchController.searchBar.placeholder = Localization.SearchBarPlaceholder.tracks.rawValue.localized
         navigationItem.searchController = searchController
         searchController.searchBar.delegate = self
+        searchController.searchBar.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(hideKeyboard)))
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: Localization.Controller.Library.Songs.SortButton.title.rawValue.localized, menu: createSortMenu())
+    }
+    
+    @objc private func hideKeyboard() {
+        searchController.searchBar.endEditing(true)
     }
     
     private func createSortMenu() -> UIMenu {
@@ -135,6 +140,10 @@ extension LibrarySongsController: MenuActionsDelegate {
     
     func reloadData() {
         setTracks()
+        if tracks.isEmpty {
+            navigationController?.popViewController(animated: true)
+        }
+        
         tracksTableView.reloadData()
     }
     

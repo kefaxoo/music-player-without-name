@@ -19,6 +19,7 @@ class TextPlaylistInfoCell: UITableViewCell {
     
     func set(_ playlist: LibraryPlaylist) {
         infoLabel.text = "\(playlist.countOfTracks) song\(playlist.countOfTracks > 1 ? "s" : ""), \(playlist.duration.durationInMinutes)"
+        self.selectionStyle = .none
     }
     
 }

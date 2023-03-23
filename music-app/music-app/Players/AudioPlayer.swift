@@ -11,6 +11,7 @@ import MediaPlayer
 import UIKit
 import SDWebImage
 import JDStatusBarNotification
+import SPAlert
 
 final class AudioPlayer { }
 
@@ -44,6 +45,8 @@ extension AudioPlayer {
         player.replaceCurrentItem(with: nil)
         VideoPlayer.player.pause()
         VideoPlayer.cleanVideoPlayer()
+        nowPlayingControllerDelegate?.clearVideo()
+        counterTappingOnPreviousTrack = 0
         if LibraryManager.isTrackDownloaded(artist: track.artistName, title: track.title, album: track.albumTitle) {
             setPlayer()
         } else {
@@ -53,13 +56,10 @@ extension AudioPlayer {
                 } else {
                     if isNotificationPresenterPresented {
                         NotificationPresenter.shared().dismiss(animated: true)
-                        isNotificationPresenterPresented = false
                     }
                     
-                    NotificationPresenter.shared().present(text: "Error (\(responseCode))")
-                    NotificationPresenter.shared().displayActivityIndicator(false)
-                    NotificationPresenter.shared().dismiss(afterDelay: 5)
-                    
+                    let alert = SPAlertView(title: Localization.Alert.Title.error.rawValue, preset: .error)
+                    alert.present(haptic: .error)
                     playNextTrack()
                 }
             }
@@ -72,15 +72,12 @@ extension AudioPlayer {
         
         player.replaceCurrentItem(with: AVPlayerItem(url: url))
         player.play()
-        if let observer {
-            player.removeTimeObserver(observer)
-        }
-        
-        observer = nil
         observeCurrentItem()
     }
     
     private static func set() {
+        player.pause()
+        player.replaceCurrentItem(with: nil)
         showLoadingInfo()
         currentCover = nil
         currentTrack = currentPlaylist[currentIndex]
@@ -88,7 +85,8 @@ extension AudioPlayer {
         isVideoLoaded = false
         VideoPlayer.player.pause()
         VideoPlayer.cleanVideoPlayer()
-        
+        nowPlayingControllerDelegate?.clearVideo()
+        counterTappingOnPreviousTrack = 0
         if LibraryManager.isTrackDownloaded(artist: currentPlaylist[currentIndex].artistName, title: currentPlaylist[currentIndex].title, album: currentPlaylist[currentIndex].albumTitle) {
             setPlayer()
         } else {
@@ -98,15 +96,10 @@ extension AudioPlayer {
                 } else {
                     if isNotificationPresenterPresented {
                         NotificationPresenter.shared().dismiss(animated: true)
-                        isNotificationPresenterPresented = false
                     }
                     
-                    NotificationPresenter.shared().present(text: "Error (\(responseCode))")
-                    NotificationPresenter.shared().displayActivityIndicator(false)
-                    NotificationPresenter.shared().dismiss(afterDelay: 5) { notificationPresenter in
-                        notificationPresenter.displayActivityIndicator(true)
-                    }
-                    
+                    let alert = SPAlertView(title: Localization.Alert.Title.error.rawValue, preset: .error)
+                    alert.present(haptic: .error)
                     playNextTrack()
                 }
             }
@@ -117,10 +110,10 @@ extension AudioPlayer {
         guard let currentTrack else { return "" }
         
         var link = ""
-        if currentTrack.cacheLink.isEmpty {
+        if !LibraryManager.isTrackDownloaded(artist: currentTrack.artistName, title: currentTrack.title, album: currentTrack.albumTitle) {
             link = currentTrack.onlineLink
         } else {
-            guard let localLink = LibraryManager.getAbsolutePath(filename: currentTrack.cacheLink, path: .documentDirectory) else { return "" }
+            guard let localLink = LibraryManager.getAbsolutePath(filename: LibraryManager.getCacheLink(currentTrack), path: .documentDirectory) else { return "" }
             
             link = localLink.absoluteString
         }
@@ -171,6 +164,7 @@ extension AudioPlayer {
     private static let commandCenter = MPRemoteCommandCenter.shared()
     static var editTimeOnController = true
     static var editVolumeOnController = true
+    private static var counterTappingOnPreviousTrack = 0
     
     static func isShowNowPlayingOnLabel() -> Bool {
         let port = AVAudioSession.sharedInstance().currentRoute.outputs.first?.portType
@@ -243,17 +237,17 @@ extension AudioPlayer {
         }
         
         commandCenter.previousTrackCommand.addTarget { _ in
-            //            if player.currentTime().seconds <= 5 {
-            //                if counterTappingOnPreviousTrack == 0 {
-            //                    playFromBegin()
-            //                } else {
-            //                    playPreviousTrack()
-            //                    counterTappingOnPreviousTrack = 0
-            //                }
-            //            } else {
-            //                playPreviousTrack()
-            //                counterTappingOnPreviousTrack = 0
-            //            }
+                        if player.currentTime().seconds <= 5 {
+                            if counterTappingOnPreviousTrack == 0 {
+                                playFromBegin()
+                            } else {
+                                playPreviousTrack()
+                                counterTappingOnPreviousTrack = 0
+                            }
+                        } else {
+                            playPreviousTrack()
+                            counterTappingOnPreviousTrack = 0
+                        }
             
             return .success
         }
@@ -295,6 +289,22 @@ extension AudioPlayer {
 // MARK: -
 // MARK: Queue
 extension AudioPlayer {
+    static func playPreviousTrack() {
+        if player.currentTime().seconds <= 5, counterTappingOnPreviousTrack == 0 {
+            playFromBegin()
+            counterTappingOnPreviousTrack += 1
+            return
+        }
+        
+        if currentIndex - 1 == 0 {
+            currentIndex = currentPlaylist.count - 1
+        } else {
+            currentIndex -= 1
+        }
+        
+        set()
+    }
+    
     static func playNextTrack() {
         if currentIndex + 1 == currentPlaylist.count {
             currentIndex = 0

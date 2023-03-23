@@ -92,10 +92,12 @@ extension LibraryController: UITableViewDataSource {
 
 extension LibraryController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let vc = LibraryEnum.allCases[indexPath.row].vc
-        vc.navigationItem.title = LibraryEnum.allCases[indexPath.row].name
-        navigationController?.pushViewController(vc, animated: true)
-        tableView.deselectRow(at: indexPath, animated: false)
+        if (!RealmManager<LibraryTrack>().read().isEmpty && indexPath.row > 0) || indexPath.row == 0 {
+            let vc = LibraryEnum.allCases[indexPath.row].vc
+            vc.navigationItem.title = LibraryEnum.allCases[indexPath.row].name
+            navigationController?.pushViewController(vc, animated: true)
+            tableView.deselectRow(at: indexPath, animated: true)
+        }
     }
 }
 

@@ -80,6 +80,34 @@ class AlbumInfoCell: UITableViewCell {
         explicitImageView.tintColor = SettingsManager.getColor.color
         playButton.tintColor = SettingsManager.getColor.color
         shuffleButton.tintColor = SettingsManager.getColor.color
+        self.selectionStyle = .none
+    }
+    
+    @IBAction func playButtonDidTap(_ sender: Any) {
+        guard let tracks = album?.tracks?.data else { return }
+        
+        var libraryTracks = [LibraryTrack]()
+        tracks.forEach { track in
+            guard let trackInLibrary = LibraryTrack.getLibraryTrack(track) else { return }
+            
+            libraryTracks.append(trackInLibrary)
+        }
+        
+        AudioPlayer.set(track: libraryTracks[0], playlist: libraryTracks, indexInPlaylist: 0)
+    }
+    
+    @IBAction func shuffleButtonDidTap(_ sender: Any) {
+        guard let tracks = album?.tracks?.data else { return }
+        
+        var libraryTracks = [LibraryTrack]()
+        tracks.forEach { track in
+            guard let trackInLibrary = LibraryTrack.getLibraryTrack(track) else { return }
+            
+            libraryTracks.append(trackInLibrary)
+        }
+        
+        libraryTracks = libraryTracks.shuffled()
+        AudioPlayer.set(track: libraryTracks[0], playlist: libraryTracks, indexInPlaylist: 0)
     }
     
 }

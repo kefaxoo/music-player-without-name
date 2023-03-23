@@ -34,6 +34,7 @@ class PlaylistInfoCell: UITableViewCell {
         explicitImageView.tintColor = SettingsManager.getColor.color
         playButton.tintColor = SettingsManager.getColor.color
         shuffleButton.tintColor = SettingsManager.getColor.color
+        self.selectionStyle = .none
         setLocale()
     }
     

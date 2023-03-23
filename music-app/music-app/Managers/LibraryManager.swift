@@ -32,6 +32,10 @@ final class LibraryManager {
         return RealmManager<LibraryTrack>().read().first(where: {$0.id == trackID })
     }
     
+    static func getCacheLink(_ track: LibraryTrack) -> String {
+        return "Music/\("\(track.artistName) - \(track.title) - \(track.albumTitle)".toUnixFilename).mp3"
+    }
+    
     static func getAbsolutePath(filename: String, path: FileManager.SearchPathDirectory) -> URL? {
         let path = FileManager.default.urls(for: path, in: .userDomainMask).first
         

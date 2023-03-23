@@ -34,6 +34,7 @@ class TextAlbumInfoCell: UITableViewCell {
         countOfSongsAndDurationLabel.text = "\(tracks.count) song\(tracks.count > 1 ? "s" : ""), \(duration.durationInMinutes)"
         
         recordingLabelLabel.text = label
+        self.selectionStyle = .none
     }
     
 }

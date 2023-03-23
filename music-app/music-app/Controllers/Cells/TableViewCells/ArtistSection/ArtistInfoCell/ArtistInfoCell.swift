@@ -26,6 +26,7 @@ class ArtistInfoCell: UITableViewCell {
         }
         
         artistLabel.text = artist.name
+        self.selectionStyle = .none
     }
     
 }

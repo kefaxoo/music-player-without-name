@@ -18,15 +18,11 @@ final class VideoPlayer {
     
     private static var timeObserver: Any?
     
-    private(set) static var url: URL?
-    
     static func setVideo(_ link: String) {
         guard let url = URL(string: link) else { return }
         
-        self.url = url
         player = AVPlayer(url: url)
         delegate?.setVideo(AVPlayerLayer(player: player))
-        player.removeTimeObserver(timeObserver)
         observeCurrentTime()
         delegate?.setCoverView()
     }
@@ -35,7 +31,7 @@ final class VideoPlayer {
         guard let delegate else { return }
         
         delegate.setVideo(AVPlayerLayer(player: player))
-        player.removeTimeObserver(timeObserver)
+        observeCurrentTime()
         delegate.setCoverView()
     }
     

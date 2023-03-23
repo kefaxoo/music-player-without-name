@@ -37,9 +37,14 @@ class AddToPlaylistController: UIViewController {
         searchController.searchBar.placeholder = Localization.SearchBarPlaceholder.playlists.rawValue.localized
         navigationItem.searchController = searchController
         searchController.searchBar.delegate = self
+        searchController.searchBar.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(hideKeyboard)))
         
         navigationItem.title = Localization.MenuActions.addToPlaylist.rawValue.localized
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: Localization.Controller.Library.AddToPlaylist.cancelButton.rawValue.localized, style: .plain, target: self, action: #selector(cancelButtonDidTap))
+    }
+    
+    @objc private func hideKeyboard() {
+        searchController.searchBar.endEditing(true)
     }
     
     @objc private func cancelButtonDidTap() {

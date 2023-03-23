@@ -28,6 +28,7 @@ class ColorSettingsCell: UITableViewCell {
         colorSetButton.setTitle(color.title, for: .normal)
         colorSetButton.tintColor = color.color
         self.closure = closure
+        self.selectionStyle = .none
     }
     
     @IBAction func colorSetButtonDidTap(_ sender: Any) {

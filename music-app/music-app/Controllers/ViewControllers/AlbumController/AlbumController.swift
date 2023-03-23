@@ -187,7 +187,7 @@ extension AlbumController: UITableViewDelegate {
             AudioPlayer.set(track: playlist[index - 1], playlist: playlist, indexInPlaylist: index - 1)
         }
         
-        tableView.deselectRow(at: indexPath, animated: false)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {

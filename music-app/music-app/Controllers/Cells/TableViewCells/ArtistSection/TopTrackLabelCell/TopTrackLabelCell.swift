@@ -29,6 +29,7 @@ class TopTrackLabelCell: UITableViewCell {
     
     func set(_ artist: DeezerArtist) {
         self.artist = artist
+        self.selectionStyle = .none
     }
     
     @IBAction func tracksButtonDidTap(_ sender: Any) {

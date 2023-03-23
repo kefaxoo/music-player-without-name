@@ -16,6 +16,7 @@ protocol AudioPlayerDelegate: AnyObject {
     func setupView()
     func trackDidLoad()
     func setCover()
+    func clearVideo()
 }
 
 extension AudioPlayerDelegate {
@@ -27,4 +28,5 @@ extension AudioPlayerDelegate {
     func trackDidLoad() {}
     func nextTrackDidTap() {}
     func setCover() {}
+    func clearVideo() {}
 }
