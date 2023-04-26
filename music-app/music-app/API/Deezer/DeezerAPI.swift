@@ -9,14 +9,14 @@ import Foundation
 import Moya
 
 enum DeezerAPI {
-    case getAlbum(_ id: Int)
-    case getArtist(_ id: Int)
+    case getAlbum(_ id: Int) // rewrite
+    case getArtist(_ id: Int) // rewrite
     case getTopTracks
     case getTopAlbums
     case getTopArtist
     case getGenre(_ id: Int)
     case find(queryParameter: String, type: DeezerType)
-    case getTrack(_ id: Int)
+    case getTrack(_ id: Int) // rewrite
     case getArtistAlbums(_ id: Int)
     case getArtistTracks(_ id: Int, _ limitTracks: Int)
     case getTrackResponseCode(_ id: Int)

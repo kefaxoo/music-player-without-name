@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import ObjectMapper
 
 enum DeezerType: String {
     case album

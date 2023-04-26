@@ -13,5 +13,6 @@ target 'music-app' do
   pod 'RealmSwift'
   pod 'TactileSlider'
   pod 'JDStatusBarNotification'
+  pod 'SnapKit'
 
 end

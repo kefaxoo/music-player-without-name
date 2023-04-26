@@ -17,7 +17,7 @@ protocol MenuActionsDelegate: AnyObject {
     func dismiss()
     func dismiss(_ alert: SPAlertView)
     func present(alert: SPAlertView, haptic: SPAlertHaptic)
-    func startDonwloadSpinner()
+    func startDownloadSpinner()
     func stopDownloadSpinner()
     func popVC()
 }
@@ -31,7 +31,7 @@ extension MenuActionsDelegate {
     func dismiss() {}
     func dismiss(_ alert: SPAlertView) {}
     func present(alert: SPAlertView, haptic: SPAlertHaptic) {}
-    func startDonwloadSpinner() {}
+    func startDownloadSpinner() {}
     func stopDownloadSpinner() {}
     func popVC() {}
 }

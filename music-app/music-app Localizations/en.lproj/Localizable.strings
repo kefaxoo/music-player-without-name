@@ -67,7 +67,7 @@
 
 // Controller Library Playlists Section
 "controller.library.playlists.addPlaylist" = "Add playlist";
-"controller.library.playlists.description" = "There is no playlists. Tap here to create new playlist"
+"controller.library.playlists.description" = "There is no playlists. Tap here to create new playlist";
 
 // Controller Library Songs Section
 "controller.library.songs.sortButton.title" = "Sort";
